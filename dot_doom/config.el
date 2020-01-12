@@ -84,6 +84,11 @@
     (setq org-journal-date-format "%Y-%m-%d %A"
           org-journal-time-format ""
           org-journal-time-prefix "")
+    (setq org-babel-load-languages '((elisp . t)
+                                      (python . t)
+                                      (rust . t)
+                                      (cpp . t)
+                                      (c . t)))
 )
 
 ;; (with-timeout  (start-process-shell-command "git-pull" nil "cd ~/org-mode&& git pull"))
