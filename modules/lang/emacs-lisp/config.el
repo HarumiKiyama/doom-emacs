@@ -26,16 +26,6 @@ This marks a foldable marker for `outline-minor-mode' in elisp buffers.")
     :documentation #'+emacs-lisp-lookup-documentation)
   (set-docsets! '(emacs-lisp-mode lisp-interaction-mode) "Emacs Lisp")
   (set-pretty-symbols! 'emacs-lisp-mode :lambda "lambda")
-  (set-rotate-patterns! 'emacs-lisp-mode
-    :symbols '(("t" "nil")
-               ("let" "let*")
-               ("when" "unless")
-               ("advice-add" "advice-remove")
-               ("defadvice!" "undefadvice!")
-               ("add-hook" "remove-hook")
-               ("add-hook!" "remove-hook!")
-               ("it" "xit")
-               ("describe" "xdescribe")))
 
   (setq-hook! 'emacs-lisp-mode-hook
     tab-width (or lisp-indent-offset 2)

@@ -86,53 +86,6 @@ called.")
 
   (setq-hook! 'python-mode-hook tab-width python-indent-offset))
 
-
-(use-package! anaconda-mode
-  :defer t
-  :init
-  (setq anaconda-mode-installation-directory (concat doom-etc-dir "anaconda/")
-        anaconda-mode-eldoc-as-single-line t)
-
-  (add-hook! 'python-mode-local-vars-hook
-    (defun +python-init-anaconda-mode-maybe-h ()
-      "Enable `anaconda-mode' if `lsp-mode' is absent and
-`python-shell-interpreter' is present."
-      (unless (or (bound-and-true-p lsp-mode)
-                  (bound-and-true-p lsp--buffer-deferred)
-                  (not (executable-find python-shell-interpreter)))
-        (anaconda-mode +1))))
-  :config
-  (set-company-backend! 'anaconda-mode '(company-anaconda))
-  (set-lookup-handlers! 'anaconda-mode
-    :definition #'anaconda-mode-find-definitions
-    :references #'anaconda-mode-find-references
-    :documentation #'anaconda-mode-show-doc)
-  (set-popup-rule! "^\\*anaconda-mode" :select nil)
-
-  (add-hook 'anaconda-mode-hook #'anaconda-eldoc-mode)
-
-  (defun +python-auto-kill-anaconda-processes-h ()
-    "Kill anaconda processes if this buffer is the last python buffer."
-    (when (and (eq major-mode 'python-mode)
-               (not (delq (current-buffer)
-                          (doom-buffers-in-mode 'python-mode (buffer-list)))))
-      (anaconda-mode-stop)))
-  (add-hook! 'python-mode-hook
-    (add-hook 'kill-buffer-hook #'+python-auto-kill-anaconda-processes-h
-              nil 'local))
-
-  (when (featurep 'evil)
-    (add-hook 'anaconda-mode-hook #'evil-normalize-keymaps))
-  (map! :localleader
-        :map anaconda-mode-map
-        :prefix "g"
-        "d" #'anaconda-mode-find-definitions
-        "h" #'anaconda-mode-show-doc
-        "a" #'anaconda-mode-find-assignments
-        "f" #'anaconda-mode-find-file
-        "u" #'anaconda-mode-find-references))
-
-
 (use-package! pyimport
   :defer t
   :init
@@ -154,28 +107,6 @@ called.")
         (:prefix ("i" . "imports")
           :desc "Sort imports"      "s" #'py-isort-buffer
           :desc "Sort region"       "r" #'py-isort-region)))
-
-(use-package! nose
-  :commands nose-mode
-  :preface (defvar nose-mode-map (make-sparse-keymap))
-  :minor ("/test_.+\\.py$" . nose-mode)
-  :config
-  (set-popup-rule! "^\\*nosetests" :size 0.4 :select nil)
-  (set-yas-minor-mode! 'nose-mode)
-  (when (featurep 'evil)
-    (add-hook 'nose-mode-hook #'evil-normalize-keymaps))
-
-  (map! :localleader
-        :map nose-mode-map
-        :prefix "t"
-        "r" #'nosetests-again
-        "a" #'nosetests-all
-        "s" #'nosetests-one
-        "v" #'nosetests-module
-        "A" #'nosetests-pdb-all
-        "O" #'nosetests-pdb-one
-        "V" #'nosetests-pdb-module))
-
 
 (use-package! python-pytest
   :defer t

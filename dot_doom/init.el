@@ -32,7 +32,6 @@
        ;; neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup            ; tame sudden yet inevitable temporary windows
-        +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
        ;;pretty-code       ; replace bits of code with pretty symbols
        treemacs          ; a project drawer, like neotree but cooler
@@ -52,9 +51,8 @@
        multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
-       rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
-       ;;word-wrap         ; soft wrapping with language-aware indent
+       word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
        (dired
@@ -67,17 +65,19 @@
        :term
        eshell            ; a consistent, cross-platform shell (WIP)
 
+       :checkers
+       syntax
+       spell
+
        :tools
        (eval +overlay)     ; run code, run (also, repls)
-       flycheck          ; tasing you for every semicolon you forget
-       flyspell          ; tasing you for misspelling mispelling
        lookup           ; helps you navigate your code and documentation
-       ;; private config
        leetcode
        dict
        lsp
        magit             ; a git porcelain for Emacs
        pdf               ; pdf enhancements
+
        :lang
        ;;cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
@@ -107,13 +107,14 @@
         +journal
         ;;+jupyter        ; ipython/jupyter support for babel
         ;;+pandoc          ; export-with-pandoc support
-        ;;+pomodoro        ; be fruitful with the tomato technique
+        +pomodoro        ; be fruitful with the tomato technique
         +present)        ; using org-mode for presentations
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       python            ; beautiful is better than ugly
+       (python +lsp
+               +pyenv)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
@@ -131,16 +132,12 @@
 
        :email
        ;;(mu4e +gmail)
-       ;;notmuch
-       ;;(wanderlust +gmail)
 
        :app
        ;;calendar
        irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
-       ;;write             ; emacs for writers (fiction, notes, papers, etc.)
 
        :config
-       ;;literate
        private)
