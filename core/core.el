@@ -459,14 +459,9 @@ exist and are loaded, and that `core-packages' is auto-loaded when `package' or
 `straight' are.
 
 The overall load order of Doom is as follows:
-
-  ~/.emacs.d/init.el
-  ~/.emacs.d/core/core.el
-  ~/.doom.d/init.el
   Module init.el files
   `doom-before-init-modules-hook'
   Module config.el files
-  ~/.doom.d/config.el
   `doom-init-modules-hook'
   `after-init-hook'
   `emacs-startup-hook'

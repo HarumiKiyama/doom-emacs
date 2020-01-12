@@ -394,7 +394,7 @@ All arguments are passed on to Emacs.
 
 WARNING: this command exists for convenience and testing. Doom will suffer
 additional overhead by being started this way. For the best performance, it is
-best to run Doom out of ~/.emacs.d and ~/.doom.d.")
+best to run Doom out of ~/.emacs.d")
 
   ;; (load! "cli/batch")
   ;; (load! "cli/org")
