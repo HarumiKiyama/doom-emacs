@@ -90,19 +90,8 @@ Use this for files that change often, like cache files. Must end with a slash.")
 (defconst doom-docs-dir (concat doom-emacs-dir "docs/")
   "Where Doom's documentation files are stored. Must end with a slash.")
 
-(defconst doom-private-dir
-  (if-let (doomdir (getenv "DOOMDIR"))
-      (expand-file-name (file-name-as-directory doomdir))
-    (or (let ((xdgdir
-               (expand-file-name "doom/"
-                                 (or (getenv "XDG_CONFIG_HOME")
-                                     "~/.config"))))
-          (if (file-directory-p xdgdir) xdgdir))
-        "~/.doom.d/"))
-  "Where your private configuration is placed.
-
-Defaults to ~/.config/doom, ~/.doom.d or the value of the DOOMDIR envvar;
-whichever is found first. Must end in a slash.")
+(defconst doom-private-dir (concat doom-local-dir "dot_doom")
+  "Where your private configuration is placed.")
 
 (defconst doom-autoload-file (concat doom-local-dir "autoloads.el")
   "Where `doom-reload-core-autoloads' stores its core autoloads.
