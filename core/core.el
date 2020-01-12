@@ -90,7 +90,7 @@ Use this for files that change often, like cache files. Must end with a slash.")
 (defconst doom-docs-dir (concat doom-emacs-dir "docs/")
   "Where Doom's documentation files are stored. Must end with a slash.")
 
-(defconst doom-private-dir (concat doom-local-dir "dot_doom")
+(defconst doom-private-dir (concat doom-emacs-dir "dot_doom/")
   "Where your private configuration is placed.")
 
 (defconst doom-autoload-file (concat doom-local-dir "autoloads.el")
