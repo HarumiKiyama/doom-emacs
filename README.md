@@ -1,20 +1,5 @@
 <h1>This is just a personal emacs config which was forked from doom emacs</h1>
-<a href="http://doomemacs.org">
-  <img src="https://img.shields.io/github/tag/hlissner/doom-emacs.svg?label=release&color=orange"  alt="Made with Doom Emacs">
-</a>
-<a href="https://emacs.org">
-  <img src="https://img.shields.io/badge/Made_for-Emacs_26.1+-blueviolet.svg" alt="Made for Emacs 26.1+">
-</a>
-<a href="https://github.com/hlissner/doom-emacs/actions">
-  <img src="https://github.com/hlissner/doom-emacs/workflows/CI/badge.svg" alt="Build status: develop">
-</a>
-<a href="https://discord.gg/bcZ6P3y">
-  <img src="https://img.shields.io/badge/Discord-blue.svg?logo=discord&label=join" alt="Join our discord server" align="right">
-</a>
 <br><br>
-
-![Doom Emacs Screenshot](https://raw.githubusercontent.com/hlissner/doom-emacs/screenshots/main.png)
-
 <p align="center">
   <b><a href="/../../tree/screenshots">Screenshots</a></b>
   |
