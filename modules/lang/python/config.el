@@ -21,8 +21,8 @@ called.")
   (setq python-environment-directory doom-cache-dir
         python-indent-guess-indent-offset-verbose nil)
 
-  (when (featurep! +lsp)
-    (add-hook 'python-mode-local-vars-hook #'lsp!))
+
+  (add-hook 'python-mode-local-vars-hook #'lsp!)
   :config
   (set-repl-handler! 'python-mode #'+python/open-repl :persist t)
   (set-docsets! 'python-mode "Python 3" "NumPy" "SciPy")
@@ -165,9 +165,7 @@ called.")
                'append))
 
 
-
 (use-package! pyenv-mode
-  :when (featurep! +pyenv)
   :after python
   :config
   (pyenv-mode +1)
@@ -177,42 +175,7 @@ called.")
   (add-hook 'doom-switch-buffer-hook #'+python-pyenv-mode-set-auto-h))
 
 
-(use-package! conda
-  :when (featurep! +conda)
-  :after python
-  :config
-  ;; The location of your anaconda home will be guessed from a list of common
-  ;; possibilities, starting with `conda-anaconda-home''s default value (which
-  ;; will consult a ANACONDA_HOME envvar, if it exists).
-  ;;
-  ;; If none of these work for you, `conda-anaconda-home' must be set
-  ;; explicitly. Afterwards, run M-x `conda-env-activate' to switch between
-  ;; environments
-  (or (cl-loop for dir in (list conda-anaconda-home
-                                "~/.anaconda"
-                                "~/.miniconda"
-                                "~/.miniconda3"
-                                "~/miniconda3"
-                                "/usr/bin/anaconda3"
-                                "/usr/local/anaconda3"
-                                "/usr/local/miniconda3"
-                                "/usr/local/Caskroom/miniconda/base")
-               if (file-directory-p dir)
-               return (setq conda-anaconda-home dir
-                            conda-env-home-directory dir))
-      (message "Cannot find Anaconda installation"))
-
-  ;; integration with term/eshell
-  (conda-env-initialize-interactive-shells)
-  (after! eshell (conda-env-initialize-eshell))
-
-  (add-to-list 'global-mode-string
-               '(conda-env-current-name (" conda:" conda-env-current-name " "))
-               'append))
-
-
 (use-package! lsp-python-ms
-  :when (featurep! +lsp)
   :after lsp-clients
   :preface
   (after! python
