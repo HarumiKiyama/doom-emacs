@@ -23,27 +23,20 @@
        doom-dashboard    ; a nifty splash screen for Emacs
        modeline          ; snazzy, Atom-inspired modeline, plus API
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       ;;hydra
-       ;;indent-guides     ; highlighted indent columns
-       ;; nav-flash         ; blink the current line after jumping
-       ophints           ; highlight the region an operation acts on
        (popup            ; tame sudden yet inevitable temporary windows
         +defaults)       ; default popup rules
-       ;;pretty-code       ; replace bits of code with pretty symbols
+       pretty-code       ; replace bits of code with pretty symbols
        treemacs          ; a project drawer, like neotree but cooler
-       ;;unicode           ; extended unicode support for various languages
+       unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
-       (window-select +numbers)     ; visually switch windows
+       window-select      ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
-       ;;zen               ; distraction-free coding or writing
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
-       ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
        snippets          ; my elves. They type so I don't have to
        word-wrap         ; soft wrapping with language-aware indent
