@@ -3,10 +3,7 @@
 ;; packages
 (load! "leetcode.el")
 
-(add-to-list 'evil-overriding-maps '(leetcode--problems-mode-map))
-(add-to-list 'evil-intercept-maps '(leetcode--problems-mode-map))
-
-(define-key! leetcode--problems-mode-map
+(define-key! :states 'normal :keymaps 'leetcode--problems-mode-map
    "RET" #'+leetcode/problem-detail
    "s" #'leetcode-set-filter-regex
    "t" #'leetcode-set-filter-tag

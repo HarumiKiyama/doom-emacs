@@ -33,9 +33,7 @@
 ;; Since most HTTP requests works asynchronously, it won't block Emacs.
 ;;
 ;; TODO just fetch unsloved not paid-only algorithms problems
-;; TODO handle wiht doom emacs popup system
-;; TODO fix keymap problems
-;; TODO save buffer in leetcode directory
+;; TODO save buffer in algorithms/leetcode directory
 
 
 ;;; Code:
