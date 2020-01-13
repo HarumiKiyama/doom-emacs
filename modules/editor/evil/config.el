@@ -47,11 +47,11 @@ directives. By default, this only recognizes C directives.")
         ;; cursor appearance
         evil-default-cursor '+evil-default-cursor-fn
         evil-normal-state-cursor 'box
-        evil-emacs-state-cursor  '(box +evil-emacs-cursor-fn)
+        evil-emacs-state-cursor  '(bar +evil-emacs-cursor-fn)
         evil-insert-state-cursor 'bar
         evil-visual-state-cursor 'hollow
         ;; must be set before evil/evil-collection is loaded
-        evil-want-keybinding (not (featurep! +everywhere))
+        evil-want-keybinding t
         ;; Only do highlighting in selected window so that Emacs has less work
         ;; to do highlighting them all.
         ;; TODO Revert this to `selected-windows' once emacs-evil/evil#1233 is
@@ -463,28 +463,22 @@ To change these keys see `+evil-repeat-keys'."
       :nv "gc"    #'evilnc-comment-operator
       :nv "gx"    #'evil-exchange
       :nv "gy"    #'+evil:yank-unindented
-      (:when (featurep! :tools lookup)
-        :nv "K"   #'+lookup/documentation
-        :nv "gd"  #'+lookup/definition
-        :nv "gD"  #'+lookup/references
-        :nv "gf"  #'+lookup/file)
-      (:when (featurep! :tools eval)
-        :nv "gr"  #'+eval:region
-        :n  "gR"  #'+eval/buffer
-        :v  "gR"  #'+eval:replace-region
-        ;; Restore these keybinds, since the blacklisted/overwritten gr/gR will
-        ;; undo them:
-        (:after dired
-          :map dired-mode-map
-          :n "gr" #'revert-buffer)
-        (:after notmuch
-          :map notmuch-common-keymap
-          :n "gr" #'notmuch-refresh-this-buffer
-          :n "gR" #'notmuch-poll-and-refresh-this-buffer)
-        (:after elfeed
-          :map elfeed-search-update--force
-          :n "gr" #'elfeed-search-update--force
-          :n "gR" #'elfeed-search-fetch))
+      :nv "K"   #'+lookup/documentation
+      :nv "gd"  #'+lookup/definition
+      :nv "gD"  #'+lookup/references
+      :nv "gf"  #'+lookup/file
+      :nv "gr"  #'+eval:region
+      :n  "gR"  #'+eval/buffer
+      :v  "gR"  #'+eval:replace-region
+      ;; Restore these keybinds, since the blacklisted/overwritten gr/gR will
+      ;; undo them:
+      (:after dired
+        :map dired-mode-map
+        :n "gr" #'revert-buffer)
+      (:after elfeed
+        :map elfeed-search-update--force
+        :n "gr" #'elfeed-search-update--force
+        :n "gR" #'elfeed-search-fetch)
 
       :nv "z="    #'flyspell-correct-at-point
       ;; custom evil keybinds
@@ -540,14 +534,13 @@ To change these keys see `+evil-repeat-keys'."
       :o "S" #'evil-Surround-edit
 
       ;; Omni-completion
-      (:when (featurep! :completion company)
-        (:prefix "C-x"
-          :i "C-l"    #'+company/whole-lines
-          :i "C-k"    #'+company/dict-or-keywords
-          :i "C-f"    #'company-files
-          :i "C-]"    #'company-etags
-          :i "s"      #'company-ispell
-          :i "C-s"    #'company-yasnippet
-          :i "C-o"    #'company-capf
-          :i "C-n"    #'+company/dabbrev
-          :i "C-p"    #'+company/dabbrev-code-previous)))
+      (:prefix "C-x"
+        :i "C-l"    #'+company/whole-lines
+        :i "C-k"    #'+company/dict-or-keywords
+        :i "C-f"    #'company-files
+        :i "C-]"    #'company-etags
+        :i "s"      #'company-ispell
+        :i "C-s"    #'company-yasnippet
+        :i "C-o"    #'company-capf
+        :i "C-n"    #'+company/dabbrev
+        :i "C-p"    #'+company/dabbrev-code-previous))
