@@ -87,11 +87,8 @@ Otherwise it builds `prettify-code-symbols-alist' according to
 (cond ((and IS-MAC (fboundp 'mac-auto-operator-composition-mode))
        (mac-auto-operator-composition-mode))
       ;; Font-specific ligature support
-      ((featurep! +fira)
-       (load! "+fira"))
-      ((featurep! +iosevka)
-       (load! "+iosevka"))
-      ((featurep! +hasklig)
-       (load! "+hasklig"))
-      ((featurep! +pragmata-pro)
-       (load! "+pragmata-pro")))
+      (t (progn 
+          (load! "+fira")
+          (load! "+hasklig")
+          (load! "+iosevka")
+          (load! "+pragmata-pro"))))
