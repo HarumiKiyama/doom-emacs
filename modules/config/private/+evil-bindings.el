@@ -75,8 +75,7 @@
 ;; window keybindings
 (define-key! evil-window-map
   "/" #'evil-window-vsplit
-  "-" #'evil-window-split
-  "m" #'doom/window-maximize-buffer)
+  "-" #'evil-window-split)
 
 ;; emacs like insert map
 (define-key! evil-insert-state-map
@@ -120,8 +119,7 @@
   "C-k" #'previous-line-or-history-element)
 
 ;;; :completion
-(map! (:when (featurep! :completion company)
-        :i "M-/"    #'+company/complete
+(map!   :i "M-/"    #'+company/complete
         (:after company
           (:map company-active-map
             "C-w"     nil  ; don't interfere with `evil-delete-backward-word'
@@ -149,10 +147,8 @@
             [escape]  #'company-search-abort))
         ;; TAB auto-completion in term buffers
         (:after comint :map comint-mode-map
-          "TAB" #'company-complete
-          [tab] #'company-complete))
+          "TAB" #'company-complete)
 
-      (:when (featurep! :completion ivy)
         (:after ivy
           :map ivy-minibuffer-map
           "C-SPC" #'ivy-call-and-recenter  ; preview file
@@ -162,87 +158,41 @@
           :map counsel-ag-map
           "C-SPC"    #'ivy-call-and-recenter ; preview
           "C-l"      #'ivy-done
-          [C-return] #'+ivy/git-grep-other-window-action))
-
-      (:when (featurep! :completion helm)
-        (:after helm :map helm-map
-          [left]     #'left-char
-          [right]    #'right-char
-          "C-M-f"    #'helm-previous-page
-          "C-M-n"    #'helm-next-source
-          "C-M-p"    #'helm-previous-source
-          "C-M-j"    #'helm-next-source
-          "C-M-k"    #'helm-previous-source
-          "C-j"      #'helm-next-line
-          "C-k"      #'helm-previous-line
-          "C-u"      #'helm-delete-minibuffer-contents
-          "C-s"      #'helm-minibuffer-history
-          ;; Swap TAB and C-z
-          "TAB"      #'helm-execute-persistent-action
-          [tab]      #'helm-execute-persistent-action
-          "C-z"      #'helm-select-action)
-        (:after helm-ag :map helm-ag-map
-          "C--"      #'+helm-do-ag-decrease-context
-          "C-="      #'+helm-do-ag-increase-context
-          [left]     nil
-          [right]    nil)
-        (:after helm-files :map (helm-find-files-map helm-read-file-map)
-          [C-return] #'helm-ff-run-switch-other-window
-          "C-w"      #'helm-find-files-up-one-level)
-        (:after helm-locate :map helm-generic-files-map
-          [C-return] #'helm-ff-run-switch-other-window)
-        (:after helm-buffers :map helm-buffer-map
-          [C-return] #'helm-buffer-switch-other-window)
-        (:after helm-occur :map helm-occur-map
-          [C-return] #'helm-occur-run-goto-line-ow)
-        (:after helm-grep :map helm-grep-map
-          [C-return] #'helm-grep-run-other-window-action)))
+          [C-return] #'+ivy/git-grep-other-window-action)
+)
 
 ;;; :ui
 (map! (:map +popup-buffer-mode-map
         :n [C-tab]   #'+popup/raise
         :n "q" #'+popup/close)
-        :n "C-`"   #'+popup/toggle
-        :n "C-x p" #'+popup/other
+      :n "C-`"   #'+popup/toggle
+      :n "C-x p" #'+popup/other
 
-      (:when (featurep! :ui workspaces)
-        :n "C-t"   #'+workspace/new
-        :n "C-M-t" #'+workspace/display
-        :g "M-1"   #'+workspace/switch-to-0
-        :g "M-2"   #'+workspace/switch-to-1
-        :g "M-3"   #'+workspace/switch-to-2
-        :g "M-4"   #'+workspace/switch-to-3
-        :g "M-5"   #'+workspace/switch-to-4
-        :g "M-6"   #'+workspace/switch-to-5
-        :g "M-7"   #'+workspace/switch-to-6
-        :g "M-8"   #'+workspace/switch-to-7
-        :g "M-9"   #'+workspace/switch-to-8
-        :g "M-0"   #'+workspace/switch-to-final
-        (:when IS-MAC
-          :g "s-t"   #'+workspace/new
-          :g "s-T"   #'+workspace/display
-          :n "s-1"   #'+workspace/switch-to-0
-          :n "s-2"   #'+workspace/switch-to-1
-          :n "s-3"   #'+workspace/switch-to-2
-          :n "s-4"   #'+workspace/switch-to-3
-          :n "s-5"   #'+workspace/switch-to-4
-          :n "s-6"   #'+workspace/switch-to-5
-          :n "s-7"   #'+workspace/switch-to-6
-          :n "s-8"   #'+workspace/switch-to-7
-          :n "s-9"   #'+workspace/switch-to-8
-          :n "s-0"   #'+workspace/switch-to-final)))
-
-;;; :editor
-(map! (:when (featurep! :editor format)
-        :n "gQ" #'+format:region)
-
-      (:when (featurep! :editor rotate-text)
-        :n "!"  #'rotate-text)
-
-      (:when (featurep! :editor snippets)
-        ;; auto-yasnippet
-        :i  [C-tab] #'aya-expand
-        :nv [C-tab] #'aya-create))
+      :n "C-t"   #'+workspace/new
+      :n "C-M-t" #'+workspace/display
+      :g "M-1"   #'+workspace/switch-to-0
+      :g "M-2"   #'+workspace/switch-to-1
+      :g "M-3"   #'+workspace/switch-to-2
+      :g "M-4"   #'+workspace/switch-to-3
+      :g "M-5"   #'+workspace/switch-to-4
+      :g "M-6"   #'+workspace/switch-to-5
+      :g "M-7"   #'+workspace/switch-to-6
+      :g "M-8"   #'+workspace/switch-to-7
+      :g "M-9"   #'+workspace/switch-to-8
+      :g "M-0"   #'+workspace/switch-to-final
+      (:when IS-MAC
+        :g "s-t"   #'+workspace/new
+        :g "s-T"   #'+workspace/display
+        :n "s-1"   #'+workspace/switch-to-0
+        :n "s-2"   #'+workspace/switch-to-1
+        :n "s-3"   #'+workspace/switch-to-2
+        :n "s-4"   #'+workspace/switch-to-3
+        :n "s-5"   #'+workspace/switch-to-4
+        :n "s-6"   #'+workspace/switch-to-5
+        :n "s-7"   #'+workspace/switch-to-6
+        :n "s-8"   #'+workspace/switch-to-7
+        :n "s-9"   #'+workspace/switch-to-8
+        :n "s-0"   #'+workspace/switch-to-final))
 
 ;;; :tools
 (when (featurep! :tools eval)
@@ -263,19 +213,14 @@
       :desc "window"                "w"    evil-window-map
       :desc "help"                  "h"    help-map
 
-      (:when (featurep! :ui popup)
-        :desc "Toggle last popup"     "~"    #'+popup/toggle)
+      :desc "Toggle last popup"     "~"    #'+popup/toggle
       :desc "Find file"             "."    #'find-file
 
-      :desc "Switch buffer"         ","    #'switch-to-buffer
-      (:when (featurep! :ui workspaces)
-        :desc "Switch workspace buffer" "," #'persp-switch-to-buffer
-        :desc "Switch buffer"           "<" #'switch-to-buffer)
+      :desc "Switch workspace buffer" "," #'persp-switch-to-buffer
+      :desc "Switch buffer"           "<" #'switch-to-buffer
 
       :desc "Switch to last buffer" "ESC"    #'evil-switch-to-windows-last-buffer
-      :desc "Resume last search"    "'"
-      (cond ((featurep! :completion ivy)   #'ivy-resume)
-            ((featurep! :completion helm)  #'helm-resume))
+      :desc "Resume last search"    "'"      #'ivy-resume
 
       :desc "Search for symbol in project" "*" #'+default/search-project-for-symbol-at-point
 
@@ -285,7 +230,6 @@
       ;;; <leader> TAB --- workspace
       (:when (featurep! :ui workspaces)
         (:prefix-map ("TAB" . "workspace")
-          :desc "Display tab bar"           "TAB" #'+workspace/display
           :desc "Switch workspace"          "."   #'+workspace/switch-to
           :desc "Switch to last workspace"  "`"   #'+workspace/other
           :desc "New workspace"             "n"   #'+workspace/new

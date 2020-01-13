@@ -439,28 +439,19 @@ To change these keys see `+evil-repeat-keys'."
       ;; window management (prefix "C-w")
       (:map evil-window-map
         ;; Navigation
-        "C-h"     #'evil-window-left
-        "C-j"     #'evil-window-down
-        "C-k"     #'evil-window-up
-        "C-l"     #'evil-window-right
-        "C-w"     #'other-window
+        "C-w"     #'ace-window
         ;; Swapping windows
         "H"       #'+evil/window-move-left
         "J"       #'+evil/window-move-down
         "K"       #'+evil/window-move-up
         "L"       #'+evil/window-move-right
-        "C-s-w"   #'ace-swap-window
+        "m"       #'doom/window-maximize-buffer
         ;; Window undo/redo
-        (:prefix "m"
-          "m"       #'doom/window-maximize-buffer
-          "v"       #'doom/window-maximize-vertically
-          "s"       #'doom/window-maximize-horizontally)
         "u"       #'winner-undo
         "C-r"     #'winner-redo
         "o"       #'doom/window-enlargen
         ;; Delete window
-        "d"       #'evil-window-delete
-        "C-C"     #'ace-delete-window)
+        "d"       #'ace-delete-window)
 
       ;; text objects
       :textobj "a" #'evil-inner-arg                    #'evil-outer-arg
@@ -474,9 +465,8 @@ To change these keys see `+evil-repeat-keys'."
       :textobj "x" #'evil-inner-xml-attr               #'evil-outer-xml-attr
 
       ;; evil-surround
-      :v "S" #'evil-surround-region
+      :v "s" #'evil-surround-region
       :o "s" #'evil-surround-edit
-      :o "S" #'evil-Surround-edit
 
       ;; Omni-completion
       (:prefix "C-x"
