@@ -17,34 +17,12 @@
 (evil-ex-define-cmd "l[ine]diff"   #'evil-quick-diff)
 
 ;;; External resources
-;; TODO (evil-ex-define-cmd "db"          #'doom:db)
-;; TODO (evil-ex-define-cmd "dbu[se]"     #'doom:db-select)
-;; TODO (evil-ex-define-cmd "go[ogle]"    #'doom:google-search)
-(evil-ex-define-cmd "lo[okup]"    #'+lookup:online)
-(evil-ex-define-cmd "dash"        #'+lookup:dash)
-(evil-ex-define-cmd "http"        #'httpd-start)            ; start http server
 (evil-ex-define-cmd "repl"        #'+eval:repl)             ; invoke or send to repl
-(evil-ex-define-cmd "h[elp]"      #'+evil:help)
 
-;; TODO (evil-ex-define-cmd "rx"          'doom:regex)             ; open re-builder
 (evil-ex-define-cmd "sh[ell]"     #'+eshell:run)
-(evil-ex-define-cmd "t[mux]"      #'+tmux:run)              ; send to tmux
-(evil-ex-define-cmd "tcd"         #'+tmux:cd-here)          ; cd to default-directory in tmux
 (evil-ex-define-cmd "pad"         #'+evil:open-scratch-buffer)
 
-;;; GIT
-(evil-ex-define-cmd "gist"        #'+gist:send)  ; send current buffer/region to gist
-(evil-ex-define-cmd "gistl"       #'+gist:list)  ; list gists by user
-(evil-ex-define-cmd "gbrowse"     #'+vc/browse-at-remote-file-or-region) ; show file/region in github/gitlab
-(evil-ex-define-cmd "gissues"     #'forge-browse-issues)  ; show github issues
-(evil-ex-define-cmd "git"         #'magit-status)         ; open magit status window
-(evil-ex-define-cmd "gstage"      #'magit-stage)
-(evil-ex-define-cmd "gunstage"    #'magit-unstage)
-(evil-ex-define-cmd "gblame"      #'magit-blame)
-(evil-ex-define-cmd "grevert"     #'git-gutter:revert-hunk)
-
 ;;; Dealing with buffers
-(evil-ex-define-cmd "k[ill]"      #'doom/kill-current-buffer)
 (evil-ex-define-cmd "k[ill]all"   #'+evil:kill-all-buffers)
 (evil-ex-define-cmd "k[ill]m"     #'+evil:kill-matching-buffers)
 (evil-ex-define-cmd "k[ill]o"     #'doom/kill-other-buffers)
@@ -55,8 +33,6 @@
 
 ;;; Project navigation
 (evil-ex-define-cmd "a"           #'projectile-find-other-file)
-(evil-ex-define-cmd "cd"          #'+evil:cd)
-(evil-ex-define-cmd "pwd"         #'+evil:pwd)
 
 (evil-define-command +evil:swiper (&optional search)
   "Invoke `swiper' with SEARCH, otherwise with the symbol at point."
@@ -72,17 +48,6 @@
        (evil-ex-define-cmd "pg[rep]"   #'+helm:project-search)
        (evil-ex-define-cmd "pg[grep]d" #'+helm:project-search-from-cwd)))
 
-;;; Project tools
-(evil-ex-define-cmd "compile"     #'+evil:compile)
-(evil-ex-define-cmd "mak[e]"      #'+evil:make)
-(evil-ex-define-cmd "debug"       #'+debugger/start)
-(evil-ex-define-cmd "er[rors]"    #'flycheck-list-errors)
-
-;;; File operations
-(evil-ex-define-cmd "cp"          #'+evil:copy-this-file)
-(evil-ex-define-cmd "mv"          #'+evil:move-this-file)
-(evil-ex-define-cmd "rm"          #'+evil:delete-this-file)
-
 ;;; Sessions/tabs
 (evil-ex-define-cmd "sclear"      #'+workspace/kill-session)
 (evil-ex-define-cmd "sl[oad]"     #'doom/quickload-session)
@@ -97,6 +62,3 @@
 (evil-ex-define-cmd "tabr[ename]" #'+workspace:rename)
 (evil-ex-define-cmd "tabs"        #'+workspace/display)
 (evil-ex-define-cmd "tabsave"     #'+workspace:save)
-
-;;; Org-mode
-(evil-ex-define-cmd "cap"         #'org-capture)

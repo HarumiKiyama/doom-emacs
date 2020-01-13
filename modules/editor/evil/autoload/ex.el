@@ -93,28 +93,6 @@ g   Repeat alignment on all matches in each line"
   (interactive "<!>")
   (doom/open-scratch-buffer bang))
 
-;;;###autoload (autoload '+evil:pwd "editor/evil/autoload/ex" nil t)
-(evil-define-command +evil:pwd (bang)
-  "Display the current working directory. If BANG, copy it to your clipboard."
-  (interactive "<!>")
-  (if (not bang)
-      (pwd)
-    (kill-new default-directory)
-    (message "Copied to clipboard")))
-
-;;;###autoload (autoload '+evil:make "editor/evil/autoload/ex" nil t)
-(evil-define-command +evil:make (arguments &optional bang)
-  "Run make with ARGUMENTS.
-If BANG is non-nil, open compilation output in a comint buffer.
-
-If BANG, then run ARGUMENTS as a full command. This command understands vim file
-modifiers (like %:p:h). See `+evil-resolve-vim-path-a' for details."
-  (interactive "<sh><!>")
-  (+evil:compile (format "make %s"
-                        (evil-ex-replace-special-filenames
-                         arguments))
-                bang))
-
 ;;;###autoload (autoload '+evil:compile "editor/evil/autoload/ex" nil t)
 (evil-define-command +evil:compile (arguments &optional bang)
   "Run `compile-command' with ARGUMENTS.
