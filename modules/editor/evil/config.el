@@ -463,11 +463,6 @@ To change these keys see `+evil-repeat-keys'."
       :nv "gc"    #'evilnc-comment-operator
       :nv "gx"    #'evil-exchange
       :nv "gy"    #'+evil:yank-unindented
-      :n  "g="    #'evil-numbers/inc-at-pt
-      :n  "g-"    #'evil-numbers/dec-at-pt
-      :v  "g="    #'evil-numbers/inc-at-pt-incremental
-      :v  "g-"    #'evil-numbers/dec-at-pt-incremental
-      :v  "g+"    #'evil-numbers/inc-at-pt
       (:when (featurep! :tools lookup)
         :nv "K"   #'+lookup/documentation
         :nv "gd"  #'+lookup/definition
