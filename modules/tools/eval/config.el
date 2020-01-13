@@ -71,16 +71,15 @@ buffer rather than an overlay on the line at point or the minibuffer.")
   ;; Display evaluation results in an overlay at the end of the current line. If
   ;; the output is more than `+eval-popup-min-lines' (4) lines long, it is
   ;; displayed in a popup.
-  (when (featurep! +overlay)
-    (defadvice! +eval--show-output-in-overlay-a (fn)
-      :filter-return #'quickrun--make-sentinel
-      (lambda (process event)
-        (funcall fn process event)
-        (with-current-buffer quickrun--buffer-name
-          (when (> (buffer-size) 0)
-            (+eval-display-results
-             (string-trim (buffer-string))
-             quickrun--original-buffer)))))
+  (defadvice! +eval--show-output-in-overlay-a (fn)
+    :filter-return #'quickrun--make-sentinel
+    (lambda (process event)
+      (funcall fn process event)
+      (with-current-buffer quickrun--buffer-name
+        (when (> (buffer-size) 0)
+          (+eval-display-results
+            (string-trim (buffer-string))
+            quickrun--original-buffer)))))
 
     ;; Suppress quickrun's popup window because we're using an overlay instead.
     (defadvice! +eval--inhibit-quickrun-popup-a (buf cb)
@@ -93,9 +92,8 @@ buffer rather than an overlay on the line at point or the minibuffer.")
 
     ;; HACK Without this, `+eval--inhibit-quickrun-popup-a' throws a
     ;;      window-live-p error because no window exists to be recentered!
-    (advice-add #'quickrun--recenter :override #'ignore)))
+    (advice-add #'quickrun--recenter :override #'ignore))
 
 
 (use-package! eros
-  :when (featurep! +overlay)
   :hook (emacs-lisp-mode . eros-mode))
