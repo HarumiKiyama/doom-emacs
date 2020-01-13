@@ -170,3 +170,4 @@ Widens narrowed buffers first. If BANG, use indirect buffer clones instead."
         (goto-char beg)
         (call-interactively #'wgrep-mark-deletion))
       beg (1- end) nil))))
+

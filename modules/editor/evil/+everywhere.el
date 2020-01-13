@@ -26,6 +26,7 @@
     eldoc
     elisp-mode
     ert
+    leetcode
     free-keys
     help
     helm

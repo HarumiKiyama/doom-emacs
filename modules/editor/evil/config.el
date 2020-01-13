@@ -380,6 +380,8 @@ To change these keys see `+evil-repeat-keys'."
 (set-repeater! evil-visualstar/begin-search-backward
                evil-ex-search-previous evil-ex-search-next)
 
+;; ban motion state mode
+(setq evil-motion-state-modes nil)
 
 ;; `evil-collection'
 (when (featurep! +everywhere)
