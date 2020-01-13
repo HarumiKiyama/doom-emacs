@@ -38,7 +38,7 @@ and Emacs states, and for non-evil users.")
 ;; do-what-I-mean. It serves four purposes (in order):
 ;;
 ;; 1. Quit active states; e.g. highlights, searches, snippets, iedit,
-;;    multiple-cursors, recording macros, etc.
+;;    recording macros, etc.
 ;; 2. Close popup windows remotely (if it is allowed to)
 ;; 3. Refresh buffer indicators, like git-gutter and flycheck
 ;; 4. Or fall back to `keyboard-quit'

@@ -9,7 +9,6 @@
 (evil-ex-define-cmd "ral[ign]"     #'+evil:align-right)
 (evil-ex-define-cmd "enhtml"       #'+web:encode-html-entities)
 (evil-ex-define-cmd "dehtml"       #'+web:decode-html-entities)
-(evil-ex-define-cmd "mc"           #'+multiple-cursors:evil-mc)
 (evil-ex-define-cmd "iedit"        #'evil-multiedit-ex-match)
 (evil-ex-define-cmd "na[rrow]"     #'+evil:narrow-buffer)
 (evil-ex-define-cmd "retab"        #'+evil:retab)
@@ -28,8 +27,6 @@
 (evil-ex-define-cmd "k[ill]o"     #'doom/kill-other-buffers)
 (evil-ex-define-cmd "k[ill]b"     #'doom/kill-buried-buffers)
 (evil-ex-define-cmd "l[ast]"      #'doom/popup-restore)
-(evil-ex-define-cmd "messages"    #'view-echo-area-messages)
-(evil-ex-define-cmd "pop[up]"     #'doom/popup-this-buffer)
 
 ;;; Project navigation
 (evil-ex-define-cmd "a"           #'projectile-find-other-file)

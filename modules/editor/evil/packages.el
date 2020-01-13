@@ -9,7 +9,7 @@
 (package! evil-indent-plus)
 (package! evil-nerd-commenter)
 (package! evil-numbers :recipe (:host github :repo "janpath/evil-numbers"))
-(package! evil-snipe)
+
 (package! evil-surround)
 (package! evil-textobj-anyblock)
 (package! evil-traces)
