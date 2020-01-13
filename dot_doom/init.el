@@ -64,7 +64,7 @@
        spell
 
        :tools
-       (eval +overlay)     ; run code, run (also, repls)
+       eval             ; run code, run (also, repls)
        lookup           ; helps you navigate your code and documentation
        leetcode         ; an unoffial leetcode client
        lsp
