@@ -51,7 +51,7 @@ directives. By default, this only recognizes C directives.")
         evil-insert-state-cursor 'bar
         evil-visual-state-cursor 'hollow
         ;; must be set before evil/evil-collection is loaded
-        evil-want-keybinding t
+        evil-want-keybinding nil
         ;; Only do highlighting in selected window so that Emacs has less work
         ;; to do highlighting them all.
         ;; TODO Revert this to `selected-windows' once emacs-evil/evil#1233 is
