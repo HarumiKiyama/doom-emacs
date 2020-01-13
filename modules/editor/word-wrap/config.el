@@ -24,3 +24,5 @@ Otherwise no extra indentation will be used.")
   '(text-mode markdown-mode markdown-view-mode gfm-mode gfm-view-mode rst-mode
     latex-mode LaTeX-mode)
   "Major-modes where `+word-wrap-mode' should not provide extra indentation.")
+
+(+global-word-wrap-mode +1)
