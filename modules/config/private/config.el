@@ -216,8 +216,8 @@
 ;;  f) do none of this when inside a string
 (advice-add #'delete-backward-char :override #'+default--delete-backward-char-a))
 
-  ;; Makes `newline-and-indent' continue comments (and more reliably)
-  (advice-add #'newline-and-indent :override #'+default--newline-indent-and-continue-comments-a)
+;; Makes `newline-and-indent' continue comments (and more reliably)
+(advice-add #'newline-and-indent :override #'+default--newline-indent-and-continue-comments-a)
 
 
 ;;
@@ -366,7 +366,6 @@
                   nil . "bindings")
                 which-key-replacement-alist)))
 
-
 ;; Make M-x harder to miss
 (define-key! 'override
   "M-x" #'execute-extended-command
@@ -375,9 +374,8 @@
 ;; A Doom convention where C-s on popups and interactive searches will invoke
 ;; ivy/helm for their superior filtering.
 (define-key! :keymaps +default-minibuffer-maps
-  "C-s" (if (featurep! :completion ivy)
-            #'counsel-minibuffer-history
-          #'helm-minibuffer-history))
+  "C-s" #'counsel-minibuffer-history)
+
 
 ;; Smarter C-a/C-e for both Emacs and Evil. C-a will jump to indentation.
 ;; Pressing it again will send you to the true bol. Same goes for C-e, except
@@ -395,10 +393,10 @@
         :gn [s-return]    #'+default/newline-below
         :gn [S-s-return]  #'+default/newline-above))
 
+;; evil collection setting
+(setq evil-collection-mode-list nil)
 
 ;;
 ;;; Bootstrap configs
 
-(if (featurep 'evil)
-    (load! "+evil")
-  (load! "+emacs"))
+(load! "+evil")
