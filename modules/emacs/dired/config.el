@@ -102,7 +102,6 @@ we have to clean it up ourselves."
 
 
 (use-package! all-the-icons-dired
-  :when (featurep! +icons)
   :hook (dired-mode . all-the-icons-dired-mode)
   :config
   ;; HACK Fixes #1929: icons break file renaming in Emacs 27+, because the icon
@@ -121,42 +120,6 @@ we have to clean it up ourselves."
       :after #'+wdired-after-finish-advice
       (all-the-icons-dired-mode +wdired-icons-enabled))))
 
-
-(use-package! dired-x
-  :unless (featurep! +ranger)
-  :hook (dired-mode . dired-omit-mode)
-  :config
-  (setq dired-omit-verbose nil
-        dired-omit-files
-        (concat dired-omit-files
-                "\\|^.DS_Store\\'"
-                "\\|^.project\\(?:ile\\)?\\'"
-                "\\|^.\\(svn\\|git\\)\\'"
-                "\\|^.ccls-cache\\'"
-                "\\|\\(?:\\.js\\)?\\.meta\\'"
-                "\\|\\.\\(?:elc\\|o\\|pyo\\|swp\\|class\\)\\'"))
-  ;; Disable the prompt about whether I want to kill the Dired buffer for a
-  ;; deleted directory. Of course I do!
-  (setq dired-clean-confirm-killing-deleted-buffers nil)
-  ;; Let OS decide how to open certain files
-  (when-let (cmd (cond (IS-MAC "open")
-                       (IS-LINUX "xdg-open")
-                       (IS-WINDOWS "start")))
-    (setq dired-guess-shell-alist-user
-          `(("\\.\\(?:docx\\|pdf\\|djvu\\|eps\\)\\'" ,cmd)
-            ("\\.\\(?:jpe?g\\|png\\|gif\\|xpm\\)\\'" ,cmd)
-            ("\\.\\(?:xcf\\)\\'" ,cmd)
-            ("\\.csv\\'" ,cmd)
-            ("\\.tex\\'" ,cmd)
-            ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|rm\\|rmvb\\|ogv\\)\\(?:\\.part\\)?\\'" ,cmd)
-            ("\\.\\(?:mp3\\|flac\\)\\'" ,cmd)
-            ("\\.html?\\'" ,cmd)
-            ("\\.md\\'" ,cmd))))
-  (map! :map dired-mode-map
-        :localleader
-        "h" #'dired-omit-mode))
-
-
 (use-package! fd-dired
   :when (executable-find doom-projectile-fd-binary)
   :defer t
@@ -169,6 +132,7 @@ we have to clean it up ourselves."
 (map! :after dired
       :map (dired-mode-map ranger-mode-map)
       :ng ")" #'dired-git-info-mode)
+
 (after! wdired
   ;; Temporarily disable `dired-git-info-mode' when entering wdired, due to
   ;; reported incompatibilities.
