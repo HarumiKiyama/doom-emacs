@@ -344,14 +344,13 @@ Otherwise, falls back on `find-file-at-point'."
   (powerthesaurus-lookup-word-dwim))
 
 ;;;###autoload
-(defun +dict/offline-definition (word &optional arg)
+(defun +lookup/offline-definition (word &optional arg)
   (interactive
    (list (or (doom-thing-at-point-or-region 'word)
              (read-string "Look up in dictionary: "))
          current-prefix-arg))
 
-  (let* ((debug-on-error t)
-         (buf (get-buffer-create "*dict*"))
+  (let* ((buf (get-buffer-create "*dict*"))
          (command (concat "dict " word))
          (buf-content (shell-command-to-string command)))
 
