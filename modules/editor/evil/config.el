@@ -380,8 +380,6 @@ To change these keys see `+evil-repeat-keys'."
 (set-repeater! evil-visualstar/begin-search-backward
                evil-ex-search-previous evil-ex-search-next)
 
-;; ban motion state mode
-(setq evil-motion-state-modes nil)
 
 ;; `evil-collection'
 (when (featurep! +everywhere)
@@ -415,68 +413,14 @@ To change these keys see `+evil-repeat-keys'."
 (map! :v  "@"     #'+evil:apply-macro
 
       ;; ported from vim-unimpaired
-      :n  "] SPC" #'+evil/insert-newline-below
-      :n  "[ SPC" #'+evil/insert-newline-above
       :n  "]b"    #'next-buffer
       :n  "[b"    #'previous-buffer
       :n  "]f"    #'+evil/next-file
       :n  "[f"    #'+evil/previous-file
-      :m  "]u"    #'+evil:url-encode
-      :m  "[u"    #'+evil:url-decode
-      :m  "]y"    #'+evil:c-string-encode
-      :m  "[y"    #'+evil:c-string-decode
-      (:when (featurep! :lang web)
-        :m "]x"   #'+web:encode-html-entities
-        :m "[x"   #'+web:decode-html-entities)
       (:when (featurep! :ui vc-gutter)
-        :m "]d"   #'git-gutter:next-hunk
-        :m "[d"   #'git-gutter:previous-hunk)
-      (:when (featurep! :ui hl-todo)
-        :m "]t"   #'hl-todo-next
-        :m "[t"   #'hl-todo-previous)
-      (:when (featurep! :ui workspaces)
-        :n "gt"   #'+workspace:switch-next
-        :n "gT"   #'+workspace:switch-previous
-        :n "]w"   #'+workspace/switch-right
-        :n "[w"   #'+workspace/switch-left)
+        :n "]d"   #'git-gutter:next-hunk
+        :n "[d"   #'git-gutter:previous-hunk)
 
-      ;; custom vim-unmpaired-esque keys
-      :m  "]#"    #'+evil/next-preproc-directive
-      :m  "[#"    #'+evil/previous-preproc-directive
-      :m  "]a"    #'evil-forward-arg
-      :m  "[a"    #'evil-backward-arg
-      :m  "]c"    #'+evil/next-comment
-      :m  "[c"    #'+evil/previous-comment
-      :m  "]e"    #'next-error
-      :m  "[e"    #'previous-error
-      :n  "]F"    #'+evil/next-frame
-      :n  "[F"    #'+evil/previous-frame
-      :m  "]h"    #'outline-next-visible-heading
-      :m  "[h"    #'outline-previous-visible-heading
-      :m  "]m"    #'+evil/next-beginning-of-method
-      :m  "[m"    #'+evil/previous-beginning-of-method
-      :m  "]M"    #'+evil/next-end-of-method
-      :m  "[M"    #'+evil/previous-end-of-method
-      :n  "[o"    #'+evil/insert-newline-above
-      :n  "]o"    #'+evil/insert-newline-below
-      :n  "gp"    #'+evil/reselect-paste
-      :v  "gp"    #'+evil/alt-paste
-      :nv "g@"    #'+evil:apply-macro
-      :nv "gc"    #'evilnc-comment-operator
-      :nv "gx"    #'evil-exchange
-      :nv "gy"    #'+evil:yank-unindented
-      :nv "K"   #'+lookup/documentation
-      :nv "gd"  #'+lookup/definition
-      :nv "gD"  #'+lookup/references
-      :nv "gf"  #'+lookup/file
-      :nv "gr"  #'+eval:region
-      :n  "gR"  #'+eval/buffer
-      :v  "gR"  #'+eval:replace-region
-      ;; Restore these keybinds, since the blacklisted/overwritten gr/gR will
-      ;; undo them:
-      (:after dired
-        :map dired-mode-map
-        :n "gr" #'revert-buffer)
       (:after elfeed
         :map elfeed-search-update--force
         :n "gr" #'elfeed-search-update--force
@@ -487,7 +431,7 @@ To change these keys see `+evil-repeat-keys'."
       :nv "zn"    #'+evil:narrow-buffer
       :n  "zN"    #'doom/widen-indirectly-narrowed-buffer
       :n  "zx"    #'kill-current-buffer
-      :n  "ZX"    #'bury-buffer
+
       ;; don't leave visual mode after shifting
       :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
       :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
@@ -505,14 +449,13 @@ To change these keys see `+evil-repeat-keys'."
         "J"       #'+evil/window-move-down
         "K"       #'+evil/window-move-up
         "L"       #'+evil/window-move-right
-        "C-S-w"   #'ace-swap-window
+        "C-s-w"   #'ace-swap-window
         ;; Window undo/redo
         (:prefix "m"
           "m"       #'doom/window-maximize-buffer
           "v"       #'doom/window-maximize-vertically
           "s"       #'doom/window-maximize-horizontally)
         "u"       #'winner-undo
-        "C-u"     #'winner-undo
         "C-r"     #'winner-redo
         "o"       #'doom/window-enlargen
         ;; Delete window
@@ -546,3 +489,6 @@ To change these keys see `+evil-repeat-keys'."
         :i "C-o"    #'company-capf
         :i "C-n"    #'+company/dabbrev
         :i "C-p"    #'+company/dabbrev-code-previous))
+
+;; ban motion state mode globally
+(setq evil-motion-state-modes nil)

@@ -31,8 +31,7 @@
                  #'yas-insert-snippet
                  (fboundp 'evil-jump-item)
                  #'evil-jump-item)
-
-      :ni "C-s" #'swiper
+      :ni "C-s" #'swiper-isearch-thing-at-point
 
       ;; Smarter newlines
       :i [remap newline] #'newline-and-indent  ; auto-indent on newline
@@ -79,12 +78,13 @@
   "-" #'evil-window-split
   "m" #'doom/window-maximize-buffer)
 
-;; insert map
+;; emacs like insert map
 (define-key! evil-insert-state-map
   "C-n" #'next-line
   "C-p" #'previous-line
   "C-d" #'delete-char
   "M-d" #'kill-word
+  "C-k" #'kill-line
   "C-y" #'yank
   "C-x C-s" #'save-buffer)
 
@@ -199,12 +199,11 @@
           [C-return] #'helm-grep-run-other-window-action)))
 
 ;;; :ui
-(map! (:when (featurep! :ui popup)
-        (:map +popup-buffer-mode-map
-          :n [C-tab]   #'+popup/raise
-          :g "q" #'+popup/close)
+(map! (:map +popup-buffer-mode-map
+        :n [C-tab]   #'+popup/raise
+        :n "q" #'+popup/close)
         :n "C-`"   #'+popup/toggle
-        :g "C-x p" #'+popup/other)
+        :n "C-x p" #'+popup/other
 
       (:when (featurep! :ui workspaces)
         :n "C-t"   #'+workspace/new
@@ -584,30 +583,24 @@
         :desc "Search project"               "p" #'+default/search-project
         :desc "Search other project"         "P" #'+default/search-other-project
         :desc "Jump to mark"                 "r" #'evil-show-marks
-        :desc "Search buffer"                "s" #'swiper-isearch
-        :desc "Search buffer for thing at point" "S" #'swiper-isearch-thing-at-point
-        :desc "Dictionary"                   "t" #'+dict/offline-definition
+        :desc "Dictionary"                   "t" #'+lookup/offline-definition
         )
 
       ;;; <leader> t --- toggle
       (:prefix-map ("t" . "toggle")
         :desc "Big mode"                     "b" #'doom-big-font-mode
         :desc "Flymake"                      "f" #'flymake-mode
-        (:when (featurep! :tools flycheck)
-          :desc "Flycheck"                   "f" #'flycheck-mode)
+        :desc "Flycheck"                   "f" #'flycheck-mode
         :desc "Frame fullscreen"             "F" #'toggle-frame-fullscreen
         :desc "Evil goggles"                 "g" #'evil-goggles-mode
         (:when (featurep! :ui indent-guides)
           :desc "Indent guides"              "i" #'highlight-indent-guides-mode)
         :desc "Indent style"                 "I" #'doom/toggle-indent-style
         :desc "Line numbers"                 "l" #'doom/toggle-line-numbers
-        (:when (featurep! :lang org +present)
-          :desc "org-tree-slide mode"        "p" #'+org-present/start)
+        :desc "org-tree-slide mode"        "p" #'+org-present/start
         :desc "Read-only mode"               "r" #'read-only-mode
-        (:when (featurep! :tools flyspell)
-          :desc "Flyspell"                   "s" #'flyspell-mode)
-        (:when (featurep! :lang org +pomodoro)
-          :desc "Pomodoro timer"             "t" #'org-pomodoro)
+        :desc "Flyspell"                   "s" #'flyspell-mode
+        :desc "Pomodoro timer"             "t" #'org-pomodoro
         :desc "Word-wrap mode"               "w" #'+word-wrap-mode)
       )
 
