@@ -27,7 +27,6 @@ This holy module brings the vim experience to Emacs.
 ** Plugins
 + [[https://github.com/emacs-evil/evil][evil]]
 + [[https://github.com/wcsmith/evil-args][evil-args]]
-+ [[https://github.com/PythonNut/evil-easymotion][evil-easymotion]]
 + [[https://github.com/cute-jumper/evil-embrace.el][evil-embrace]]
 + [[https://github.com/syl20bnr/evil-escape][evil-escape]]
 + [[https://github.com/Dewdrops/evil-exchange][evil-exchange]]
@@ -65,8 +64,6 @@ The following vim plugins have been ported to evil:
 | Vim Plugin            | Emacs Plugin                   | Keybind(s)                                 |
 |-----------------------+--------------------------------+--------------------------------------------|
 | vim-commentary        | evil-nerd-commenter            | omap =gc=                                  |
-| vim-easymotion        | evil-easymotion                | omap =gs=                                  |
-| vim-seek or vim-sneak | evil-snipe                     | mmap =s= / =S=, omap =z= / =Z= & =x= / =X= |
 | vim-surround          | evil-embrace and evil-surround | vmap =S=, omap =ys=                        |
 
 This module has also ported vim-unimpaired keybinds to Emacs.
