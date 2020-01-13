@@ -1,4 +1,5 @@
 ;;; lang/python/config.el -*- lexical-binding: t; -*-
+;; +python-pyenv-mode-set-auto-h
 
 (defvar +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info")
   "CLI arguments to initialize ipython with when `+python/open-ipython-repl' is
@@ -18,15 +19,12 @@ called.")
 (use-package! python
   :defer t
   :init
-  (setq python-environment-directory doom-cache-dir
+  (setq python-environment-directory (getenv "WORKON_HOME")
         python-indent-guess-indent-offset-verbose nil)
-
-
   (add-hook 'python-mode-local-vars-hook #'lsp!)
   :config
   (set-repl-handler! 'python-mode #'+python/open-repl :persist t)
   (set-docsets! 'python-mode "Python 3" "NumPy" "SciPy")
-
   (set-pretty-symbols! 'python-mode
     ;; Functional
     :def "def"
@@ -126,32 +124,6 @@ called.")
 ;;
 ;; Environment management
 
-(use-package! pipenv
-  :commands pipenv-project-p
-  :hook (python-mode . pipenv-mode)
-  :init (setq pipenv-with-projectile nil)
-  :config
-  (set-eval-handler! 'python-mode
-    '((:command . (lambda () python-shell-interpreter))
-      (:exec (lambda ()
-               (if-let* ((bin (executable-find "pipenv"))
-                         (_ (pipenv-project-p)))
-                   (format "PIPENV_MAX_DEPTH=9999 %s run %%c %%o %%s %%a" bin)
-                 "%c %o %s %a")))
-      (:description . "Run Python script")))
-  (map! :map python-mode-map
-        :localleader
-        :prefix "e"
-        :desc "activate"    "a" #'pipenv-activate
-        :desc "deactivate"  "d" #'pipenv-deactivate
-        :desc "install"     "i" #'pipenv-install
-        :desc "lock"        "l" #'pipenv-lock
-        :desc "open module" "o" #'pipenv-open
-        :desc "run"         "r" #'pipenv-run
-        :desc "shell"       "s" #'pipenv-shell
-        :desc "uninstall"   "u" #'pipenv-uninstall))
-
-
 (use-package! pyvenv
   :after python
   :init
@@ -164,45 +136,12 @@ called.")
                '(pyvenv-virtual-env-name (" venv:" pyvenv-virtual-env-name " "))
                'append))
 
-
-(use-package! pyenv-mode
-  :after python
-  :config
-  (pyenv-mode +1)
-  (when (executable-find "pyenv")
-    (add-to-list 'exec-path (expand-file-name "shims" (or (getenv "PYENV_ROOT") "~/.pyenv"))))
-  (add-hook 'python-mode-hook #'+python-pyenv-mode-set-auto-h)
-  (add-hook 'doom-switch-buffer-hook #'+python-pyenv-mode-set-auto-h))
-
-
 (use-package! lsp-python-ms
   :after lsp-clients
   :preface
   (after! python
     (setq lsp-python-ms-python-executable-cmd python-shell-interpreter))
   :init
-  ;; HACK If you don't have python installed, then opening python buffers with
-  ;;      this on causes a "wrong number of arguments: nil 0" error, because of
-  ;;      careless usage of `cl-destructuring-bind'. This silences that error,
-  ;;      since we may still want to write some python on a system without
-  ;;      python installed!
   (defadvice! +python--silence-errors-a (orig-fn &rest args)
     :around #'lsp-python-ms--extra-init-params
     (ignore-errors (apply orig-fn args))))
-
-
-(use-package! cython-mode
-  :when (featurep! +cython)
-  :mode "\\.p\\(yx\\|x[di]\\)\\'"
-  :config
-  (setq cython-default-compile-format "cython -a %s")
-  (map! :map cython-mode-map
-        :localleader
-        :prefix "c"
-        :desc "Cython compile buffer"    "c" #'cython-compile))
-
-
-(use-package! flycheck-cython
-  :when (featurep! +cython)
-  :when (featurep! :tools flycheck)
-  :after cython-mode)
