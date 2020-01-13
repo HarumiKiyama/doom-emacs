@@ -65,16 +65,3 @@
       (apply orig-fn args))))
 
 
-(use-package! racer
-  :unless (featurep! +lsp)
-  :hook (rustic-mode . racer-mode)
-  :init
-  ;; HACK Fix #2132: `racer' depends on `rust-mode', which tries to modify
-  ;;      `auto-mode-alist'. We make extra sure that doesn't stick, especially
-  ;;      when a buffer is reverted, as it is after rustfmt is done wiht it.
-  (after! rust-mode
-    (setq auto-mode-alist (delete '("\\.rs\\'" . rust-mode) auto-mode-alist)))
-  :config
-  (set-lookup-handlers! 'rustic-mode
-    :definition '(racer-find-definition :async t)
-    :documentation '+rust-racer-lookup-documentation))
