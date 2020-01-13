@@ -69,8 +69,7 @@
        :tools
        (eval +overlay)     ; run code, run (also, repls)
        lookup           ; helps you navigate your code and documentation
-       leetcode
-       dict
+       leetcode         ; an unoffial leetcode client
        lsp
        magit             ; a git porcelain for Emacs
        pdf               ; pdf enhancements
