@@ -196,3 +196,6 @@ See https://github.com/magit/ghub/issues/81"
   (define-key! text-mode-map
     [remap +lookup/definition] #'+lookup/dictionary-definition
     [remap +lookup/references] #'+lookup/synonyms))
+
+;; dict setting
+(set-popup-rule! "^\\*dict" :select t :quit t :size 0.45)
