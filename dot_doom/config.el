@@ -56,37 +56,36 @@
 
 ;; org configs
 (with-eval-after-load 'org
-    (setq org-babel-eval-verbose t)
-    (setq org-agenda-span 'day)
-    (setq org-agenda-start-day nil)
-    (setq org-todo-keywords '((sequence "TODO(t)" "TESTING(t)" "SUSPEND(p)" "|"
-                                        "DONE(d!)" "ABORT(a)")))
-    (setq org-tag-alist '(("routine" . ?r)
-                          ("Algorithms" . ?a)
-                          ("Reading" . ?R)))
-    (setq org-capture-templates '(("w" "Words" entry (file+headline "~/org-mode/Esperanto.org" "Words")
-                                   "** word :drill:\n%^{Esperanto}[%^{English}]")
-                                  ))
-    (setq org-agenda-files '("~/org-mode/task.org"
-                             "~/org-mode/notation.org"
-                             "~/org-mode/routine.org"
-                             "~/org-mode/blog.org"
-                             ))
-    (setq org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
-                               ("~/org-mode/notes.org" :maxlevel . 1)
-                               ("~/org-mode/someday.org" :maxlevel . 1)
-                               ("~/org-mode/blog.org" :maxlevel . 1)
-                               (nil . (:maxlevel . 2))
-                               ))
-    (setq org-archive-location "~/org-mode/archive.org::")
-    (setq org-startup-truncated nil)
-    ;; org-journal setting
-    (setq org-journal-date-format "%Y-%m-%d %A"
-          org-journal-time-format ""
-          org-journal-time-prefix "")
-    (setq org-startup-folded 'showall)
-    (add-to-list 'org-src-lang-modes '("rust" . rustic))
-)
+  (setq org-babel-eval-verbose t
+        org-directory "~/org-mode"
+        org-agenda-span 'day
+        org-agenda-start-day nil
+        org-todo-keywords '((sequence "TODO(t)" "TESTING(t)" "SUSPEND(p)" "|"
+                                      "DONE(d!)" "ABORT(a)"))
+        org-tag-alist '(("routine" . ?r)
+                        ("Algorithms" . ?a)
+                        ("Reading" . ?R))
+        org-capture-templates '(("w" "Words" entry (file+headline "~/org-mode/Esperanto.org" "Words")
+                                 "** word :drill:\n%^{Esperanto}[%^{English}]")
+                                )
+        org-agenda-files '("~/org-mode/task.org"
+                           "~/org-mode/notation.org"
+                           "~/org-mode/routine.org"
+                           "~/org-mode/blog.org")
+        org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
+                             ("~/org-mode/notes.org" :maxlevel . 1)
+                             ("~/org-mode/someday.org" :maxlevel . 1)
+                             ("~/org-mode/blog.org" :maxlevel . 1)
+                             (nil . (:maxlevel . 2)))
+        org-archive-location "~/org-mode/archive.org::"
+        org-startup-truncated nil)
+  ;; org-journal setting
+  (setq org-journal-date-format "%Y-%m-%d %A"
+        org-journal-time-format ""
+        org-journal-time-prefix "")
+  (setq org-startup-folded 'showall)
+  (add-to-list 'org-src-lang-modes '("rust" . rustic))
+  )
 
 ;; (with-timeout  (start-process-shell-command "git-pull" nil "cd ~/org-mode&& git pull"))
 ;; (add-hook 'kill-emacs-hook (lambda ()
