@@ -264,6 +264,7 @@ for the current mode/buffer (if any), then falls back to the backends in
         ((user-error "Couldn't find documentation for %S" identifier))))
 
 (defvar ffap-file-finder)
+
 ;;;###autoload
 (defun +lookup/file (path)
   "Figure out PATH from whatever is at point and open it.
@@ -313,36 +314,6 @@ Otherwise, falls back on `find-file-at-point'."
 
 ;;
 ;;; Dictionary
-
-;;;###autoload
-(defun +lookup/dictionary-definition (identifier &optional arg)
-  "Look up the definition of the word at point (or selection)."
-  (interactive
-   (list (or (doom-thing-at-point-or-region 'word)
-             (read-string "Look up in dictionary: "))
-         current-prefix-arg))
-  (cond ((and IS-MAC (require 'osx-dictionary nil t))
-         (osx-dictionary--view-result identifier))
-        ((and +lookup-dictionary-enable-online (require 'define-word nil t))
-         (message "Looking up definition of %S" identifier)
-         (define-word identifier nil arg))
-        ;; TODO Implement offline dictionary backend
-        ((user-error "No dictionary backend is available"))))
-
-;;;###autoload
-(defun +lookup/synonyms (identifier &optional arg)
-  "Look up and insert a synonym for the word at point (or selection)."
-  (interactive
-   (list (doom-thing-at-point-or-region 'word) ; TODO actually use this
-         current-prefix-arg))
-  (unless (require 'powerthesaurus nil t)
-    (user-error "No dictionary backend is available"))
-  (unless +lookup-dictionary-enable-online
-    ;; TODO Implement offline synonyms backend
-    (user-error "No offline dictionary implemented yet"))
-  (message "Looking up synonyms for %S" identifier)
-  (powerthesaurus-lookup-word-dwim))
-
 ;;;###autoload
 (defun +lookup/offline-definition (word &optional arg)
   (interactive

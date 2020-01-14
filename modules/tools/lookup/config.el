@@ -24,9 +24,8 @@
             ("Github"            "https://github.com/search?ref=simplesearch&q=%s")
             ("Youtube"           "https://youtube.com/results?aq=f&oq=&search_query=%s")
             ("Wolfram alpha"     "https://wolframalpha.com/input/?i=%s")
-            ("Wikipedia"         "https://wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"))
-          (when (featurep! :lang rust)
-            '(("Rust Docs" "https://doc.rust-lang.org/edition-guide/?search=%s"))))
+            ("Wikipedia"         "https://wikipedia.org/search-redirect.php?language=en&go=Go&search=%s")
+            ("Rust Docs" "https://doc.rust-lang.org/edition-guide/?sea)rch=%s"))
   "An alist that maps online resources to either:
 
   1. A search url (needs on '%s' to substitute with an url encoded query),
@@ -177,25 +176,6 @@ See https://github.com/magit/ghub/issues/81"
 
   (use-package! counsel-dash
     :when (featurep! :completion ivy)))
-
-
-;;
-;;; Dictionary integration
-
-(use-package! define-word
-  :when (featurep! +dictionary)
-  :unless IS-MAC
-  :defer t
-  :config
-  (setq define-word-displayfn-alist
-        (cl-loop for (service . _) in define-word-services
-                 collect (cons service #'+eval-display-results-in-popup))))
-
-
-(when (featurep! +dictionary)
-  (define-key! text-mode-map
-    [remap +lookup/definition] #'+lookup/dictionary-definition
-    [remap +lookup/references] #'+lookup/synonyms))
 
 ;; dict setting
 (set-popup-rule! "^\\*dict" :select t :quit t :size 0.45)
