@@ -27,10 +27,7 @@
         rustic-lsp-client nil)
 
   (add-hook 'rustic-mode-hook #'rainbow-delimiters-mode)
-
-  (when (featurep! +lsp)
-    (add-hook 'rustic-mode-local-vars-hook #'lsp!))
-
+  (add-hook 'rustic-mode-local-vars-hook #'lsp!)
   (map! :map rustic-mode-map
         :localleader
         (:prefix ("b" . "build")
