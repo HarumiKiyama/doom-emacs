@@ -338,17 +338,13 @@
 
   ;; replaces `apropos-command'
   "a"    #'apropos
-  "A"    #'apropos-documentation
+  "A"    #'apropos-command
   ;; replaces `describe-copying' b/c not useful
   "C-c"  #'describe-coding-system
   ;; replaces `Info-got-emacs-command-node' b/c redundant w/ `Info-goto-node'
   "F"    #'describe-face
   ;; replaces `view-hello-file' b/c annoying
-  "h"    nil
-  ;; replaces `view-emacs-news' b/c it's on C-n too
-  "n"    #'doom/help-news
-  ;; replaces `help-with-tutorial', b/c it's less useful than `load-theme'
-  "t"    #'load-theme
+  "h"    #'+lookup/offline-definition
   ;; replaces `finder-by-keyword' b/c not useful
   "p"    #'doom/help-packages
   ;; replaces `describe-package' b/c redundant w/ `doom/help-packages'

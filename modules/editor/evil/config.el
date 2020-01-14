@@ -49,7 +49,7 @@ directives. By default, this only recognizes C directives.")
         evil-normal-state-cursor 'box
         evil-emacs-state-cursor  '(bar +evil-emacs-cursor-fn)
         evil-insert-state-cursor 'bar
-        evil-visual-state-cursor 'hollow
+        evil-visual-state-cursor '(box "grey")
         ;; must be set before evil/evil-collection is loaded
         evil-want-keybinding nil
         ;; Only do highlighting in selected window so that Emacs has less work
@@ -450,8 +450,14 @@ To change these keys see `+evil-repeat-keys'."
         "u"       #'winner-undo
         "C-r"     #'winner-redo
         "o"       #'doom/window-enlargen
+
+        ;; remove some useless keybinding
+        "h" nil "j" nil "k" nil "l" nil
+        "S" nil "s" nil "n" nil "q" nil
+
         ;; Delete window
-        "d"       #'ace-delete-window)
+        "d"       #'evil-window-delete
+        "c"       #'ace-delete-window)
 
       ;; text objects
       :textobj "a" #'evil-inner-arg                    #'evil-outer-arg
