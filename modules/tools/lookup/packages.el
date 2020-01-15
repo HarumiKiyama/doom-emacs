@@ -4,5 +4,5 @@
 ;;
 (package! dumb-jump)
 (package! ivy-xref)
-(package! dash-docs)
-(package! counsel-dash)
+;; (package! dash-docs)
+;; (package! counsel-dash)
