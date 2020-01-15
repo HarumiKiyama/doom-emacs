@@ -110,7 +110,7 @@
   "C-k" #'previous-line-or-history-element)
 
 ;;; :completion
-(map!   :i "M-/"    #'+company/complete
+(map!   :i "M-/"    #'+company/dabbrev
         (:after company
           (:map company-active-map
             "C-w"     nil     ; don't interfere with `evil-delete-backward-word'
@@ -398,10 +398,9 @@
         :desc "Org export to clipboard"        "y" #'+org/export-to-clipboard
         :desc "Org export to clipboard as RTF" "Y" #'+org/export-to-clipboard-as-rich-text
 
-        (:when (featurep! :lang org +journal)
-          (:prefix ("j" . "journal")
-            :desc "New Entry"      "j" #'org-journal-new-entry
-            :desc "Search Forever" "s" #'org-journal-search-forever)))
+        (:prefix ("j" . "journal")
+          :desc "New Entry"      "j" #'org-journal-new-entry
+          :desc "Search Forever" "s" #'org-journal-search-forever))
 
       ;;; <leader> o --- open
       (:prefix-map ("o" . "open")
@@ -526,9 +525,7 @@
         :desc "org-tree-slide mode"        "p" #'+org-present/start
         :desc "Read-only mode"               "r" #'read-only-mode
         :desc "Flyspell"                   "s" #'flyspell-mode
-        :desc "Pomodoro timer"             "t" #'org-pomodoro
-        :desc "Word-wrap mode"               "w" #'+word-wrap-mode)
-      )
+        :desc "Pomodoro timer"             "t" #'org-pomodoro))
 
 (after! which-key
   (let ((prefix-re (regexp-opt (list doom-leader-key doom-leader-alt-key))))

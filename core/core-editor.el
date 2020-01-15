@@ -107,19 +107,15 @@ possible."
 
 ;; Word wrapping
 (setq-default word-wrap t
-              truncate-lines t
-              truncate-partial-width-windows nil)
+              ;; truncate-lines nil
+              ;; truncate-partial-width-windows nil
+              )
 
 (setq sentence-end-double-space nil
       delete-trailing-lines nil
       require-final-newline t
       tabify-regexp "^\t* [ \t]+")  ; for :retab
 
-;; Favor hard-wrapping in text modes
-(add-hook 'text-mode-hook #'auto-fill-mode)
-
-
-;;
 ;;; Clipboard / kill-ring
 
 ;; Eliminate duplicates in the kill ring. That is, if you kill the same thing
