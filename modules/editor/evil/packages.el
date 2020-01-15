@@ -6,7 +6,6 @@
 (package! evil-escape)
 (package! evil-exchange)
 (package! evil-indent-plus)
-(package! evil-nerd-commenter)
 (package! evil-surround)
 (package! evil-textobj-anyblock)
 (package! evil-traces)

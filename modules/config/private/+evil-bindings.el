@@ -1,13 +1,6 @@
 ;;; config/default/+bindings.el -*- lexical-binding: t; -*-
 ;;;
-;; add hybrid state
-;;
-;;
-
-
-;;
 ;;; Global keybindings
-
 
 ;; Smart tab, these will only work in GUI Emacs
 (map! :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
@@ -57,9 +50,7 @@
       (:after man :map Man-mode-map
         :n "q"    #'kill-current-buffer)
 
-
       ;; misc
-      :n "C-S-f"  #'toggle-frame-fullscreen
       :n "C-+"    #'doom/reset-font-size
       ;; Buffer-local font resizing
       :n "C-="    #'text-scale-increase
@@ -122,22 +113,16 @@
 (map!   :i "M-/"    #'+company/complete
         (:after company
           (:map company-active-map
-            "C-w"     nil  ; don't interfere with `evil-delete-backward-word'
+            "C-w"     nil     ; don't interfere with `evil-delete-backward-word'
             "C-n"     #'company-select-next
             "C-p"     #'company-select-previous
-            "C-j"     #'company-select-next
-            "C-k"     #'company-select-previous
             "C-h"     #'company-show-doc-buffer
             "C-u"     #'company-previous-page
             "C-d"     #'company-next-page
             "C-s"     #'company-filter-candidates
-            "C-S-s"   (cond ((featurep! :completion helm) #'helm-company)
-                            ((featurep! :completion ivy)  #'counsel-company))
+            "C-s-s"   #'counsel-company
             "C-SPC"   #'company-complete-common
-            "TAB"     #'company-complete-common-or-cycle
-            [tab]     #'company-complete-common-or-cycle
-            [backtab] #'company-select-previous
-            [f1]      nil)
+            "TAB"     #'company-complete-common-or-cycle)
           (:map company-search-map  ; applies to `company-filter-map' too
             "C-n"     #'company-select-next-or-abort
             "C-p"     #'company-select-previous-or-abort
@@ -532,11 +517,8 @@
 
       ;;; <leader> t --- toggle
       (:prefix-map ("t" . "toggle")
-        :desc "Big mode"                     "b" #'doom-big-font-mode
-        :desc "Flymake"                      "f" #'flymake-mode
-        :desc "Flycheck"                   "f" #'flycheck-mode
-        :desc "Frame fullscreen"             "F" #'toggle-frame-fullscreen
-        :desc "Evil goggles"                 "g" #'evil-goggles-mode
+        :desc "Flymake"                      "F" #'flymake-mode
+        :desc "Flycheck"                     "f" #'flycheck-mode
         (:when (featurep! :ui indent-guides)
           :desc "Indent guides"              "i" #'highlight-indent-guides-mode)
         :desc "Indent style"                 "I" #'doom/toggle-indent-style
@@ -553,4 +535,3 @@
     (cl-pushnew `((,(format "\\`\\(?:C-w\\|%s w\\) m\\'" prefix-re))
                   nil . "maximize")
                 which-key-replacement-alist)))
-
