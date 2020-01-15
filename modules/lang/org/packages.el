@@ -41,13 +41,17 @@
 (package! org-pdfview)
 (package! orgit)
 (package! org-brain)
+
 (when (featurep! +dragndrop)
   (package! org-download))
+
 (when (featurep! +gnuplot)
   (package! gnuplot)
   (package! gnuplot-mode))
+
 (when (featurep! +jupyter)
   (package! jupyter))
+
 (package! org-pomodoro)
 
 (package! centered-window
@@ -61,6 +65,7 @@
 (package! ob-go)
 (when (featurep! :lang rest)
   (package! ob-restclient))
+
 (package! ob-rust)
 
 (when (featurep! :lang scala)
