@@ -12,10 +12,10 @@
   "An alternative leader prefix key, used for Insert and Emacs states, and for
 non-evil users.")
 
-(defvar doom-localleader-key "SPC m"
+(defvar doom-localleader-key ","
   "The localleader prefix key, for major-mode specific commands.")
 
-(defvar doom-localleader-alt-key "M-SPC m"
+(defvar doom-localleader-alt-key "M-c"
   "The localleader prefix key, for major-mode specific commands. Used for Insert
 and Emacs states, and for non-evil users.")
 
