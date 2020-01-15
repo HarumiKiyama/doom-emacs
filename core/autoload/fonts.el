@@ -113,24 +113,3 @@ Assuming it has been adjusted via `doom/increase-font-size' and
       (setq success t))
     (unless success
       (user-error "The font hasn't been resized"))))
-
-;;;###autoload
-(define-minor-mode doom-big-font-mode
-  "A global mode that resizes the font, for streams, screen-sharing and
-presentations.
-
-This uses `doom/increase-font-size' under the hood, and enlargens the font by
-`doom-big-font-increment'."
-  :init-value nil
-  :lighter " BIG"
-  :global t
-  (unless doom-font
-    (user-error "`doom-font' must be set to a valid font"))
-  (if doom-big-font
-      (set-frame-font (if doom-big-font-mode doom-big-font doom-font)
-                      'keep-size (doom--frame-list))
-    (doom-adjust-font-size
-     (and doom-big-font-mode
-          (integerp doom-big-font-increment)
-          (/= doom-big-font-increment 0)
-          doom-big-font-increment))))
