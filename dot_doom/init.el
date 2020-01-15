@@ -27,9 +27,7 @@
        (evil +everywhere)          ; come to the dark side, we have cookies
        file-templates              ; auto-snippets for empty files
        fold                        ; (nigh) universal code folding
-       ;; lispy                       ; vim for lisp, for people who don't like vim
        snippets
-       word-wrap                   ; soft wrapping with language-aware indent
 
        :emacs
        (dired
@@ -37,6 +35,7 @@
        electric                   ; smarter, keyword-based electric-indent
        ibuffer                    ; interactive buffer management
        vc                         ; version-control and Emacs, sitting in a tree
+
        :term
        eshell                         ; a consistent, cross-platform shell (WIP)
        :checkers
