@@ -3,11 +3,6 @@
 ;; I'm a vimmer at heart. Its modal philosophy suits me better, and this module
 ;; strives to make Emacs a much better vim than vim was.
 
-(defvar +evil-repeat-keys (cons ";" ",")
-  "The keys to use for universal repeating motions.
-
-This is a cons cell whose CAR is the key for repeating a motion forward, and
-whose CDR is for repeating backward. They should both be kbd-able strings.")
 
 (defvar +evil-want-o/O-to-continue-comments t
   "If non-nil, the o/O keys will continue comment lines if the point is on a
@@ -354,32 +349,6 @@ directives. By default, this only recognizes C directives.")
 
 ;;
 ;;; Keybinds
-
-(defmacro set-repeater! (command next-func prev-func)
-  "Makes ; and , the universal repeat-keys in evil-mode.
-To change these keys see `+evil-repeat-keys'."
-  (let ((fn-sym (intern (format "+evil/repeat-%s" (doom-unquote command)))))
-    `(progn
-       (defun ,fn-sym (&rest _)
-         (when +evil-repeat-keys
-           (evil-define-key* 'motion 'local
-             (kbd (car +evil-repeat-keys)) #',next-func
-             (kbd (cdr +evil-repeat-keys)) #',prev-func)))
-       (advice-add #',command :after-while #',fn-sym))))
-
-;; n/N
-(set-repeater! evil-ex-search-next evil-ex-search-next evil-ex-search-previous)
-(set-repeater! evil-ex-search-previous evil-ex-search-next evil-ex-search-previous)
-(set-repeater! evil-ex-search-forward evil-ex-search-next evil-ex-search-previous)
-(set-repeater! evil-ex-search-backward evil-ex-search-next evil-ex-search-previous)
-
-
-;; */#
-(set-repeater! evil-visualstar/begin-search-forward
-               evil-ex-search-next evil-ex-search-previous)
-(set-repeater! evil-visualstar/begin-search-backward
-               evil-ex-search-previous evil-ex-search-next)
-
 
 ;; `evil-collection'
 (when (featurep! +everywhere)

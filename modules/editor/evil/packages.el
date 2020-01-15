@@ -2,7 +2,6 @@
 ;;; editor/evil/packages.el
 
 (package! evil)
-(package! evil-args)
 (package! evil-embrace)
 (package! evil-escape)
 (package! evil-exchange)
@@ -15,3 +14,4 @@
 (package! exato)
 (package! evil-quick-diff :recipe (:host github :repo "rgrinberg/evil-quick-diff"))
 (package! evil-collection)
+
