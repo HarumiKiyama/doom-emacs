@@ -32,7 +32,7 @@
   2. A non-interactive function that returns the search url in #1,
   3. An interactive command that does its own search for that provider.
 
-Used by `+lookup/online'.")
+Used by `+lookup/online'."))
 
 (defvar +lookup-open-url-fn #'browse-url
   "Function to use to open search urls.")
@@ -131,51 +131,40 @@ Dictionary.app behind the scenes to get definitions.")
 
   ;; Use `better-jumper' instead of xref's marker stack
   (advice-add #'xref-push-marker-stack :around #'doom-set-jump-a)
-
   (use-package! ivy-xref
-    :when (featurep! :completion ivy)
     :config
     (setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
     (set-popup-rule! "^\\*xref\\*$" :ignore t))
-
-  (use-package! helm-xref
-    :when (featurep! :completion helm)
-    :config (setq xref-show-xrefs-function #'helm-xref-show-xrefs)))
+  )
 
 
 ;;
 ;;; Dash docset integration
 
-(use-package! dash-docs
-  :when (featurep! +docsets)
-  :defer t
-  :init
-  (add-hook '+lookup-documentation-functions #'+lookup-dash-docsets-backend-fn)
-  :config
-  (setq dash-docs-enable-debugging doom-debug-mode
-        dash-docs-docsets-path (concat doom-etc-dir "docsets/")
-        dash-docs-min-length 2
-        dash-docs-browser-func #'eww)
-
-  ;; Before `gnutls' is loaded, `gnutls-algorithm-priority' is treated as a
-  ;; lexical variable, which breaks `+lookup*fix-gnutls-error'
-  (defvar gnutls-algorithm-priority)
-  (defadvice! +lookup--fix-gnutls-error-a (orig-fn url)
-    "Fixes integer-or-marker-p errors emitted from Emacs' url library,
+(defadvice! +lookup--fix-gnutls-error-a (orig-fn url)
+  "Fixes integer-or-marker-p errors emitted from Emacs' url library,
 particularly, the `url-retrieve-synchronously' call in
 `dash-docs-read-json-from-url'. This is part of a systemic issue with Emacs 26's
 networking library (fixed in Emacs 27+, apparently).
 
 See https://github.com/magit/ghub/issues/81"
-    :around #'dash-docs-read-json-from-url
+  :around #'dash-docs-read-json-from-url
+  (use-package! dash-docs
+    :defer t
+    :init
+    (add-hook '+lookup-documentation-functions #'+lookup-dash-docsets-backend-fn)
+    :config
+    (setq dash-docs-enable-debugging doom-debug-mode
+          dash-docs-docsets-path (concat doom-etc-dir "docsets/")
+          dash-docs-min-length 2
+          dash-docs-browser-func #'eww)
+
+    ;; Before `gnutls' is loaded, `gnutls-algorithm-priority' is treated as a
+    ;; lexical variable, which breaks `+lookup*fix-gnutls-error'
+    (defvar gnutls-algorithm-priority)
     (let ((gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
-      (funcall orig-fn url)))
-
-  (use-package! helm-dash
-    :when (featurep! :completion helm))
-
-  (use-package! counsel-dash
-    :when (featurep! :completion ivy)))
+      (funcall orig-fn url))
+    (use-package! counsel-dash)))
 
 ;; dict setting
 (set-popup-rule! "^\\*dict" :select t :quit t :size 0.45)

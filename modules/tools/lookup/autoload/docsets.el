@@ -92,14 +92,10 @@ installed with `dash-docs-install-docset'."
            (cl-remove-if-not #'dash-docs-docset-path (or docsets dash-docs-docsets))))
         (query (doom-thing-at-point-or-region query)))
     (doom-log "Searching docsets %s" dash-docs-docsets)
-    (cond ((featurep! :completion helm)
-           (helm-dash query))
-          ((featurep! :completion ivy)
-           (counsel-dash query))
-          ((user-error "No dash backend is installed, enable ivy or helm.")))))
+    (counsel-dash query)))
 
 ;;;###autoload
 (defun +lookup/in-all-docsets (&optional query)
-  "TODO"
+  "TODO complete this function"
   (interactive)
   (+lookup/in-docsets t query))
