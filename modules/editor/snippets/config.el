@@ -1,6 +1,6 @@
 ;;; editor/snippets/config.el -*- lexical-binding: t; -*-
 
-(defvar +snippets-dir (expand-file-name "snippets/" doom-private-dir)
+(defvar +snippets-dir (expand-file-name "snippets/" doom-emacs-dir)
   "Directory where `yasnippet' will search for your private snippets.")
 
 
@@ -86,6 +86,8 @@
         [backspace]   #'+snippets/delete-backward-char
         [delete]      #'+snippets/delete-forward-char-or-field))
 
+(use-package! yasnippet-snippets
+  :defer t)
 
 (use-package! auto-yasnippet
   :defer t
@@ -99,3 +101,4 @@ swaps `yas-global-mode' with `yas-minor-mode'."
     (cl-letf (((symbol-function #'yas-global-mode) #'yas-minor-mode)
               (yas-global-mode yas-minor-mode))
       (apply orig-fn args))))
+
