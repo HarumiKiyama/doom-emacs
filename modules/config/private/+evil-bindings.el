@@ -318,14 +318,12 @@
           :desc "Git time machine"          "t"   #'git-timemachine-toggle
           :desc "Jump to next hunk"         "]"   #'git-gutter:next-hunk
           :desc "Jump to previous hunk"     "["   #'git-gutter:previous-hunk
-          :desc "Magit dispatch"            "/"   #'magit-dispatch
           :desc "Forge dispatch"            "'"   #'forge-dispatch
           :desc "Magit switch branch"       "b"   #'magit-branch-checkout
           :desc "Magit status"              "g"   #'magit-status
           :desc "Magit file delete"         "D"   #'magit-file-delete
           :desc "Magit blame"               "B"   #'magit-blame-addition
-          :desc "Magit clone"               "C"   #'magit-clone
-          :desc "Magit fetch"               "F"   #'magit-fetch
+          :desc "Magit checkout"            "C"   #'magit-checkout
           (:prefix ("f" . "find")
             :desc "Find file"                 "f"   #'magit-find-file
             :desc "Find gitconfig file"       "g"   #'magit-find-git-config-file
@@ -351,7 +349,7 @@
             :desc "List notifications"        "n"   #'forge-list-notifications)
           (:prefix ("c" . "create")
             :desc "Initialize repo"           "r"   #'magit-init
-            :desc "Clone repo"                "R"   #'magit-clone
+            :desc "Clone repo"                "C"   #'magit-clone
             :desc "Commit"                    "c"   #'magit-commit-create
             :desc "Fixup"                     "f"   #'magit-commit-fixup
             :desc "Branch"                    "b"   #'magit-branch-and-checkout
