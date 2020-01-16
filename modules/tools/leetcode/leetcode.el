@@ -58,7 +58,7 @@ The object with following attributes:
 :medium   Number
 :hard     Number")
 
-(defvar leetcode--all-problems nil
+(defvar leetcode--algorithms nil
   "Problems info with a list of problem object.
 The object with following attributes:
 :num      Number
@@ -85,7 +85,7 @@ The elements of :problems has attributes:
 (defvar leetcode--filter-regex nil "Filter rows by regex.")
 (defvar leetcode--filter-tag nil "Filter rows by leetcode tag.")
 
-(defconst leetcode--checkmark "✓" "Checkmark for accepted problem.")
+(defconst leetcode--checkmark "Y" "Checkmark for accepted problem.")
 (defconst leetcode--buffer-name             "*leetcode*")
 (defconst leetcode--description-buffer-name "*leetcode-description*")
 (defconst leetcode--testcase-buffer-name    "*leetcode-testcase*")
@@ -126,7 +126,7 @@ The elements of :problems has attributes:
 ;; API
 (defconst leetcode--api-root                (concat leetcode--base-url "/api"))
 (defconst leetcode--api-graphql             (concat leetcode--base-url "/graphql"))
-(defconst leetcode--api-all-problems        (concat leetcode--api-root "/problems/all/"))
+(defconst leetcode--api-algorithms        (concat leetcode--api-root "/problems/algorithms/"))
 (defconst leetcode--api-all-tags            (concat leetcode--base-url "/problems/api/tags"))
 ;; submit
 (defconst leetcode--api-submit              (concat leetcode--base-url "/problems/%s/submit/"))
@@ -222,10 +222,10 @@ VALUE should be the referer."
           (url-cookie-retrieve leetcode--domain "/" t)))))
 
 (defun leetcode--set-user-and-problems (user-and-problems)
-  "Set `leetcode--user' and `leetcode--all-problems'.
-If user isn't login, only `leetcode--all-problems' will be set.
+  "Set `leetcode--user' and `leetcode--algorithms'.
+If user isn't login, only `leetcode--algorithms' will be set.
 USER-AND-PROBLEMS is an alist comes from
-`leetcode--api-all-problems'."
+`leetcode--api-algorithms'."
   ;; user
   (let-alist user-and-problems
     (setq leetcode--user
@@ -235,7 +235,7 @@ USER-AND-PROBLEMS is an alist comes from
                 :medium   .ac_medium
                 :hard     .ac_hard))
     ;; problem list
-    (setq leetcode--all-problems
+    (setq leetcode--algorithms
           (list
            :num .num_total
            :tag "all"
@@ -261,10 +261,10 @@ USER-AND-PROBLEMS is an alist comes from
              problems)))))
 
 (defun leetcode--set-tags (all-tags)
-  "Set `leetcode--all-tags' and `leetcode--all-problems' with ALL-TAGS."
+  "Set `leetcode--all-tags' and `leetcode--algorithms' with ALL-TAGS."
   (let-alist all-tags
     ;; set problems tags
-    (dolist (problem (plist-get leetcode--all-problems :problems))
+    (dolist (problem (plist-get leetcode--algorithms :problems))
       (dolist (topic (to-list .topics))
         (let-alist topic
           (when (member (plist-get problem :id) (to-list .questions))
@@ -359,10 +359,10 @@ row."
       header-names widths))))
 
 (defun leetcode--problems-rows ()
-  "Generate tabulated list rows from `leetcode--all-problems'.
+  "Generate tabulated list rows from `leetcode--algorithms'.
 Return a list of rows, each row is a vector:
 \([<checkmark> <position> <title> <acceptance> <difficulty>] ...)"
-  (let ((problems (reverse (plist-get leetcode--all-problems :problems)))
+  (let ((problems (reverse (plist-get leetcode--algorithms :problems)))
         (easy-tag "easy")
         (medium-tag "medium")
         (hard-tag "hard")
@@ -459,7 +459,7 @@ Return a list of rows, each row is a vector:
            `(,leetcode--User-Agent
              ,leetcode--X-Requested-With
              ,(leetcode--referer leetcode--url-login)))
-          (result (aio-await (aio-url-retrieve leetcode--api-all-problems))))
+          (result (aio-await (aio-url-retrieve leetcode--api-algorithms))))
       (if-let ((error-info (plist-get (car result) :error)))
           (message "LeetCode fetch user and problems failed: %S" error-info)
         (with-current-buffer (cdr result)
@@ -521,7 +521,7 @@ Return a list of rows, each row is a vector:
                                   (equal slug-title
                                          (leetcode--slugify-title
                                           (plist-get p :title))))
-                                (plist-get leetcode--all-problems :problems)))
+                                (plist-get leetcode--algorithms :problems)))
          (id (plist-get cur-problem :id)))
     (let* ((url-request-method "POST")
            (url-request-extra-headers
@@ -714,7 +714,7 @@ following possible value:
                                     (equal slug-title
                                            (leetcode--slugify-title
                                             (plist-get p :title))))
-                                  (plist-get leetcode--all-problems :problems))
+                                  (plist-get leetcode--algorithms :problems))
                         :id)))
     (let* ((url-request-method "POST")
            (url-request-extra-headers
