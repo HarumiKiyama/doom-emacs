@@ -36,3 +36,6 @@ network-security.data
 
 transient/
 org-journal.cache
+
+# snippets
+snippets/
