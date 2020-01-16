@@ -363,14 +363,14 @@
           :desc "Current file path"             "F"   (λ!! #'+default/insert-file-path t)
           :desc "Snippet"                       "s"   #'yas-insert-snippet
           :desc "From clipboard"                "y"   #'+default/yank-pop)
-
-        ;;; <leader> n --- notes
+        ;;; <leader> n --- notes and yas-snippet
         ;; TODO search notes in notes directory
         (:prefix-map ("n" . "notes")
           :desc "Search notes for symbol"      "*" #'+default/search-notes-for-symbol-at-point
           :desc "Find file in notes"           "f" #'+default/find-in-notes
           :desc "Search notes"                 "s" #'+default/org-notes-search
-          )
+          :desc "create snippet"               "c" #'yas-new-snippet
+          :desc "view snippets"                "v" #'yas-visit-snippet-file)
 
         ;;; <leader> o --- orgmode
         ;; TODO add org file search
