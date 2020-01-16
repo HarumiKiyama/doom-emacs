@@ -78,3 +78,5 @@
 
 (when (featurep! :lang rst)
   (package! ox-rst))
+
+(package! org-noter)
