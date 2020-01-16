@@ -31,11 +31,6 @@
 ;; - Submit code
 ;;
 ;; Since most HTTP requests works asynchronously, it won't block Emacs.
-;;
-;; TODO just fetch unsloved not paid-only algorithms problems
-;; TODO save buffer in algorithms/leetcode directory
-
-
 ;;; Code:
 
 (require 'json)
