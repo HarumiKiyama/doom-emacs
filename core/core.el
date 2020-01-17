@@ -174,12 +174,6 @@ users).")
                     "gnutls-cli -p %p %h"
                     "openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof"))
 
-;; Emacs stores authinfo in HOME and in plaintext. Let's not do that, mkay? This
-;; file usually stores usernames, passwords, and other such treasures for the
-;; aspiring malicious third party.
-(setq auth-sources (list (expand-file-name "authinfo.gpg" doom-etc-dir)
-                         "~/.authinfo.gpg"))
-
 ;; Emacs on Windows frequently confuses HOME (C:\Users\<NAME>) and APPDATA,
 ;; causing `abbreviate-home-dir' to produce incorrect paths.
 (when IS-WINDOWS
