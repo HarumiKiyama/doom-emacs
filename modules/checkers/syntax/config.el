@@ -73,7 +73,3 @@
     (add-hook! 'flycheck-posframe-inhibit-functions
                #'evil-insert-state-p
                #'evil-replace-state-p)))
-
-
-;;
-;;; TODO Flymake

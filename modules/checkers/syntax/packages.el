@@ -3,5 +3,3 @@
 
 (package! flycheck)
 (package! flycheck-popup-tip)
-
-;; TODO flymake?
