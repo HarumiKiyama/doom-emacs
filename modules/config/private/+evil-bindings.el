@@ -34,6 +34,15 @@
       :ni "C-x b" #'+ivy/switch-workspace-buffer
       :ni "C-x B" #'switch-to-buffer
 
+      ;; some binding to magit
+      :n "gr" #'git-gutter:revert-hunk
+      :n "gs" #'git-gutter:stage-hunk
+      :n "gt" #'git-timemachine-toggle
+      :n "gb" #'magit-blame-addition
+      :n "gj"  #'git-gutter:next-hunk
+      :n "gk" #'git-gutter:previous-hunk
+
+
       (:after help :map help-mode-map
         :n "o"       #'link-hint-open-link)
       (:after helpful :map helpful-mode-map
@@ -313,16 +322,11 @@
           :desc "Git revert file"             "R"   #'vc-revert
           :desc "Copy link to remote"         "y"   #'+vc/browse-at-remote-kill-file-or-region
           :desc "Copy link to homepage"       "Y"   #'+vc/browse-at-remote-kill-homepage
-          :desc "Git revert hunk"           "r"   #'git-gutter:revert-hunk
-          :desc "Git stage hunk"            "s"   #'git-gutter:stage-hunk
           :desc "Git time machine"          "t"   #'git-timemachine-toggle
-          :desc "Jump to next hunk"         "]"   #'git-gutter:next-hunk
-          :desc "Jump to previous hunk"     "["   #'git-gutter:previous-hunk
           :desc "Forge dispatch"            "'"   #'forge-dispatch
           :desc "Magit switch branch"       "b"   #'magit-branch-checkout
           :desc "Magit status"              "g"   #'magit-status
           :desc "Magit file delete"         "D"   #'magit-file-delete
-          :desc "Magit blame"               "B"   #'magit-blame-addition
           :desc "Magit checkout"            "C"   #'magit-checkout
           (:prefix ("f" . "find")
             :desc "Find file"                 "f"   #'magit-find-file
@@ -363,14 +367,17 @@
           :desc "Current file path"             "F"   (λ!! #'+default/insert-file-path t)
           :desc "Snippet"                       "s"   #'yas-insert-snippet
           :desc "From clipboard"                "y"   #'+default/yank-pop)
+
         ;;; <leader> n --- notes and yas-snippet
         ;; TODO search notes in notes directory
         (:prefix-map ("n" . "notes")
           :desc "Search notes for symbol"      "*" #'+default/search-notes-for-symbol-at-point
           :desc "Find file in notes"           "f" #'+default/find-in-notes
           :desc "Search notes"                 "s" #'+default/org-notes-search
-          :desc "create snippet"               "c" #'yas-new-snippet
-          :desc "view snippets"                "v" #'yas-visit-snippet-file)
+          :desc "create snippet"               "c" #'+snippets/new
+          :desc "create snippet"               "e" #'+snippets/edit
+          :desc "view snippets"                "v" #'+snippets/find
+          )
 
         ;;; <leader> o --- orgmode
         ;; TODO add org file search
