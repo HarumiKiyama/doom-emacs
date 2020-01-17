@@ -211,19 +211,13 @@
       ;; C-u is used by evil
       :desc "Universal argument"    "u"    #'universal-argument
       :desc "window"                "w"    evil-window-map
-      :desc "help"                  "h"    help-map
-
       :desc "Toggle last popup"     "~"    #'+popup/toggle
-      :desc "Find file"             "."    #'find-file
-
-      :desc "Switch workspace buffer" "," #'persp-switch-to-buffer
 
       :desc "Switch to last buffer" "ESC"    #'evil-switch-to-windows-last-buffer
       :desc "Resume last search"    "'"      #'ivy-resume
 
       :desc "Search for symbol in project" "*" #'+default/search-project-for-symbol-at-point
 
-      :desc "Find file in project"  "SPC"  #'projectile-find-file
       :desc "Jump to bookmark"      "RET"  #'bookmark-jump
 
       ;;; <leader> TAB --- workspace
@@ -277,21 +271,13 @@
         (:prefix-map ("f" . "file")
           :desc "Open project editorconfig"   "c"   #'editorconfig-find-current-editorconfig
           :desc "Copy this file"              "C"   #'doom/copy-this-file
-          :desc "Find directory"              "d"   #'dired
           :desc "Delete this file"            "D"   #'doom/delete-this-file
           :desc "Find file in emacs.d"        "e"   #'+default/find-in-emacsd
-          :desc "Browse emacs.d"              "E"   #'+default/browse-emacsd
-          :desc "Find file"                   "f"   #'find-file
           :desc "Find file from here"         "F"   #'+default/find-file-under-here
-          :desc "Locate file"                 "l"   #'locate
-          :desc "Find file in private config" "p"   #'doom/find-file-in-private-config
-          :desc "Browse private config"       "P"   #'doom/open-private-config
           :desc "Recent files"                "r"   #'recentf-open-files
           :desc "Rename/move file"            "R"   #'doom/move-this-file
-          :desc "Save file"                   "s"   #'save-buffer
           :desc "Save file as..."             "S"   #'write-file
-          :desc "Sudo find file"              "u"   #'doom/sudo-find-file
-          :desc "Sudo this file"              "U"   #'doom/sudo-this-file
+          :desc "Sudo this file"              "u"   #'doom/sudo-this-file
           :desc "Yank filename"               "y"   #'+default/yank-buffer-filename)
 
         ;;; <leader> g --- git
@@ -302,6 +288,7 @@
           :desc "Magit switch branch"       "b"   #'magit-branch-checkout
           :desc "Magit file delete"         "D"   #'magit-file-delete
           :desc "Magit checkout"            "C"   #'magit-checkout
+          :desc "List project tasks"           "t" #'magit-todos-list
           (:prefix ("f" . "find")
             :desc "Find file"                 "f"   #'magit-find-file
             :desc "Find gitconfig file"       "g"   #'magit-find-git-config-file
@@ -367,7 +354,8 @@
           :desc "Pomodoro timer"             "t" #'org-pomodoro
           :desc "Org capture"                "c" #'org-capture
           :desc "Goto org-clock"             "o" #'org-clock-goto
-          :desc "Out org-clock"             "x" #'org-clock-out)
+          :desc "Out org-clock"             "x" #'org-clock-out
+          :desc "org-tree-slide mode"        "p" #'+org-present/start)
 
         ;;; <leader> a -- application
         (:prefix-map ("a" . "app")
@@ -406,7 +394,6 @@
         :desc "Save project files"           "s" #'projectile-save-project-buffers
         :desc "Pop up scratch buffer"        "x" #'doom/open-project-scratch-buffer
         :desc "Switch to scratch buffer"     "X" #'doom/switch-to-project-scratch-buffer
-        :desc "List project tasks"           "t" #'magit-todos-list
         :desc "Test project"                 "T" #'projectile-test-project)
 
       ;;; <leader> q --- quit/session
@@ -428,8 +415,9 @@
       (:prefix-map ("s" . "search")
         :desc "Search current directory"     "d" #'+default/search-cwd
         :desc "Search other directory"       "D" #'+default/search-other-cwd
-        :desc "Locate file"                  "f" #'locate
+        :desc "Locate file"                  "F" #'locate
         :desc "Jump to symbol"               "i" #'imenu
+        :desc "Find file in project"         "f" #'projectile-find-file
         :desc "Jump to visible link"         "l" #'link-hint-open-link
         :desc "Jump to link"                 "L" #'ffap-menu
         :desc "Jump list"                    "j" #'evil-show-jumps
@@ -447,15 +435,9 @@
       ;;; <leader> t --- toggle
       (:prefix-map ("t" . "toggle")
         :desc "Flycheck"                     "f" #'flycheck-mode
-        (:when (featurep! :ui indent-guides)
-          :desc "Indent guides"              "i" #'highlight-indent-guides-mode)
-        :desc "Indent style"                 "I" #'doom/toggle-indent-style
         :desc "Line numbers"                 "l" #'doom/toggle-line-numbers
-        :desc "org-tree-slide mode"        "p" #'+org-present/start
         :desc "Read-only mode"               "r" #'read-only-mode
-        :desc "Flyspell"                   "s" #'flyspell-mode
-
-        ))
+        :desc "Flyspell"                   "s" #'flyspell-mode))
 
 (after! which-key
   (let ((prefix-re (regexp-opt (list doom-leader-key doom-leader-alt-key))))
