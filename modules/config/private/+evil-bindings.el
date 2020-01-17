@@ -24,24 +24,29 @@
                  #'yas-insert-snippet
                  (fboundp 'evil-jump-item)
                  #'evil-jump-item)
+
       :ni "C-s" #'swiper-isearch-thing-at-point
 
       ;; Smarter newlines
       :i [remap newline] #'newline-and-indent  ; auto-indent on newline
       :i "C-j"           #'+default/newline    ; default behavior
-
+                                        
       ;; workspace based buffer list
       :ni "C-x b" #'+ivy/switch-workspace-buffer
       :ni "C-x B" #'switch-to-buffer
 
       ;; some binding to magit
+      :n "/"  #'magit-status
       :n "gr" #'git-gutter:revert-hunk
       :n "gs" #'git-gutter:stage-hunk
       :n "gt" #'git-timemachine-toggle
       :n "gb" #'magit-blame-addition
-      :n "gj"  #'git-gutter:next-hunk
+      :n "gj" #'git-gutter:next-hunk
       :n "gk" #'git-gutter:previous-hunk
-
+      :n "gR" #'vc-revert
+      :n "gc" #'magit-commit
+      ;; comment function
+      :nv "gn"  #'comment-line
 
       (:after help :map help-mode-map
         :n "o"       #'link-hint-open-link)
@@ -98,9 +103,8 @@
 (define-key! evil-ex-completion-map
   "C-a" #'evil-beginning-of-line
   "C-b" #'evil-backward-char
-  "C-s" (if (featurep! :completion ivy)
-            #'counsel-minibuffer-history
-          #'helm-minibuffer-history))
+  "C-s" #'counsel-minibuffer-history)
+
 
 (define-key! :keymaps +default-minibuffer-maps
   [escape] #'abort-recursive-edit
@@ -213,7 +217,6 @@
       :desc "Find file"             "."    #'find-file
 
       :desc "Switch workspace buffer" "," #'persp-switch-to-buffer
-      :desc "Switch buffer"           "<" #'switch-to-buffer
 
       :desc "Switch to last buffer" "ESC"    #'evil-switch-to-windows-last-buffer
       :desc "Resume last search"    "'"      #'ivy-resume
@@ -233,45 +236,20 @@
         :desc "Delete session"            "x"   #'+workspace/kill-session
         :desc "Delete this workspace"     "d"   #'+workspace/delete
         :desc "Rename workspace"          "r"   #'+workspace/rename
-        :desc "Restore last session"      "R"   #'+workspace/restore-last-session
-        :desc "Next workspace"            "]"   #'+workspace/switch-right
-        :desc "Previous workspace"        "["   #'+workspace/switch-left
-        :desc "Switch to 1st workspace"   "1"   #'+workspace/switch-to-0
-        :desc "Switch to 2nd workspace"   "2"   #'+workspace/switch-to-1
-        :desc "Switch to 3rd workspace"   "3"   #'+workspace/switch-to-2
-        :desc "Switch to 4th workspace"   "4"   #'+workspace/switch-to-3
-        :desc "Switch to 5th workspace"   "5"   #'+workspace/switch-to-4
-        :desc "Switch to 6th workspace"   "6"   #'+workspace/switch-to-5
-        :desc "Switch to 7th workspace"   "7"   #'+workspace/switch-to-6
-        :desc "Switch to 8th workspace"   "8"   #'+workspace/switch-to-7
-        :desc "Switch to 9th workspace"   "9"   #'+workspace/switch-to-8
-        :desc "Switch to final workspace" "0"   #'+workspace/switch-to-final)
+        :desc "Restore last session"      "R"   #'+workspace/restore-last-session)
 
         ;;; <leader> b --- buffer
         (:prefix-map ("b" . "buffer")
           :desc "Toggle narrowing"            "-"   #'doom/toggle-narrow-buffer
-          :desc "Previous buffer"             "["   #'previous-buffer
-          :desc "Next buffer"                 "]"   #'next-buffer
           :desc "Switch workspace buffer"     "b" #'persp-switch-to-buffer
           :desc "Switch buffer"               "B" #'switch-to-buffer
           :desc "Kill buffer"                 "d"   #'kill-current-buffer
           :desc "ibuffer"                     "i"   #'ibuffer
-          :desc "Kill buffer"                 "k"   #'kill-current-buffer
-          :desc "Kill all buffers"            "K"   #'doom/kill-all-buffers
+          :desc "Kill all buffers"            "k"   #'doom/kill-all-buffers
+          :desc "Kill other buffers"          "K"   #'doom/kill-other-buffers
           :desc "Set bookmark"                "m"   #'bookmark-set
           :desc "Delete bookmark"             "M"   #'bookmark-delete
-          :desc "Next buffer"                 "n"   #'next-buffer
-          :desc "New empty buffer"            "N"   #'evil-buffer-new
-          :desc "Kill other buffers"          "O"   #'doom/kill-other-buffers
-          :desc "Previous buffer"             "p"   #'previous-buffer
-          :desc "Revert buffer"               "r"   #'revert-buffer
-          :desc "Save buffer"                 "s"   #'basic-save-buffer
-          :desc "Save all buffers"            "S"   #'evil-write-all
-          :desc "Save buffer as root"         "u"   #'doom/sudo-save-buffer
-          :desc "Pop up scratch buffer"       "x"   #'doom/open-scratch-buffer
-          :desc "Switch to scratch buffer"    "X"   #'doom/switch-to-scratch-buffer
-          :desc "Bury buffer"                 "z"   #'bury-buffer
-          :desc "Kill buried buffers"         "Z"   #'doom/kill-buried-buffers)
+          :desc "Save buffer as root"         "u"   #'doom/sudo-save-buffer)
 
         ;;; <leader> c --- code
         (:prefix-map ("c" . "code")
@@ -293,7 +271,6 @@
           :desc "Delete trailing whitespace"            "w"   #'delete-trailing-whitespace
           :desc "Delete trailing newlines"              "W"   #'doom/delete-trailing-newlines
           :desc "List errors"                         "x"   #'flycheck-list-errors
-          :desc "List errors"                           "X"   #'flymake-show-diagnostics-buffer
           )
 
         ;;; <leader> f --- file
@@ -319,13 +296,10 @@
 
         ;;; <leader> g --- git
         (:prefix-map ("g" . "git")
-          :desc "Git revert file"             "R"   #'vc-revert
           :desc "Copy link to remote"         "y"   #'+vc/browse-at-remote-kill-file-or-region
           :desc "Copy link to homepage"       "Y"   #'+vc/browse-at-remote-kill-homepage
-          :desc "Git time machine"          "t"   #'git-timemachine-toggle
           :desc "Forge dispatch"            "'"   #'forge-dispatch
           :desc "Magit switch branch"       "b"   #'magit-branch-checkout
-          :desc "Magit status"              "g"   #'magit-status
           :desc "Magit file delete"         "D"   #'magit-file-delete
           :desc "Magit checkout"            "C"   #'magit-checkout
           (:prefix ("f" . "find")
@@ -354,7 +328,6 @@
           (:prefix ("c" . "create")
             :desc "Initialize repo"           "r"   #'magit-init
             :desc "Clone repo"                "C"   #'magit-clone
-            :desc "Commit"                    "c"   #'magit-commit-create
             :desc "Fixup"                     "f"   #'magit-commit-fixup
             :desc "Branch"                    "b"   #'magit-branch-and-checkout
             :desc "Issue"                     "i"   #'forge-create-issue
@@ -473,7 +446,6 @@
 
       ;;; <leader> t --- toggle
       (:prefix-map ("t" . "toggle")
-        :desc "Flymake"                      "F" #'flymake-mode
         :desc "Flycheck"                     "f" #'flycheck-mode
         (:when (featurep! :ui indent-guides)
           :desc "Indent guides"              "i" #'highlight-indent-guides-mode)
