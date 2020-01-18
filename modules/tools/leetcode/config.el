@@ -7,6 +7,7 @@
    "RET" #'+leetcode/problem-detail
    "s" #'leetcode-set-filter-regex
    "t" #'leetcode-set-filter-tag
-   "g" #'leetcode-refresh
+   "gr" #'leetcode-refresh
    "/" #'leetcode-reset-filter
-   "G" #'leetcode-refresh-fetch)
+   "G" #'leetcode-refresh-fetch
+   "q" #'quit-window)
