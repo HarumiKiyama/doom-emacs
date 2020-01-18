@@ -733,7 +733,7 @@ following possible value:
   "Generate problem link from TITLE."
   (concat leetcode--base-url "/problems/" (leetcode--slugify-title title)))
 
-(aio-defun leetcode-show-current-problem ()
+(aio-defun +leetcode/problem-detail ()
   "Show current entry problem description.
 Get current entry by using `tabulated-list-get-entry' and use
 `shr-render-buffer' to render problem description."
