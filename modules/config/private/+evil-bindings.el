@@ -38,13 +38,14 @@
       ;; some binding to magit
       :n "/"  #'magit-status
       :n "gr" #'git-gutter:revert-hunk
+      :n "gR" #'vc-revert
       :n "gs" #'git-gutter:stage-hunk
+      :n "gS" #'magit-stage
       :n "gt" #'git-timemachine
       :n "gb" #'magit-blame-addition
       :n "gj" #'git-gutter:next-hunk
       :n "gk" #'git-gutter:previous-hunk
-      :n "gR" #'vc-revert
-      :n "gc" #'magit-commit
+      :n "gc" #'magit-commit-create
       ;; comment function
       :nv "gn"  #'comment-line
 
