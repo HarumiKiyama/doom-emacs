@@ -81,7 +81,7 @@ The elements of :problems has attributes:
 (defvar leetcode--problem-titles nil
   "Problem titles that have been open in solving layout.")
 
-(defvar leetcode-retry-threshold 20 "`leetcode-try' or `leetcode-submit' retry times.")
+(defvar leetcode-retry-threshold 20 "`+leetcode/test' or `+leetcode/submit' retry times.")
 (defvar leetcode--filter-regex nil "Filter rows by regex.")
 (defvar leetcode--filter-tag nil "Filter rows by leetcode tag.")
 
@@ -499,7 +499,7 @@ Return a list of rows, each row is a vector:
     (buffer-substring-no-properties
      (point-min) (point-max))))
 
-(aio-defun leetcode-try ()
+(aio-defun +leetcode/test ()
   "Asynchronously test the code using customized testcase."
   (interactive)
   (let* ((code-buf (current-buffer))
@@ -852,6 +852,14 @@ for current problem."
                     '((display-buffer-reuse-window
                        leetcode--display-result)
                       (reusable-frames . visible)))))
+(defun +leetcode/quit ()
+  (interactive)
+  (leetcode--kill-buff-and-delete-window (get-buffer leetcode--buffer-name))
+  (leetcode--kill-buff-and-delete-window (get-buffer leetcode--description-buffer-name))
+  (leetcode--kill-buff-and-delete-window (get-buffer leetcode--result-buffer-name))
+  (leetcode--kill-buff-and-delete-window (get-buffer leetcode--testcase-buffer-name))
+  (mapc (lambda (x) (leetcode--kill-buff-and-delete-window (get-buffer (leetcode--get-code-buffer-name x))))
+        leetcode--problem-titles))
 
 (define-derived-mode leetcode--problems-mode
   tabulated-list-mode "LC Problems"
