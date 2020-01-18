@@ -130,18 +130,10 @@ The elements of :problems has attributes:
 (defconst leetcode--api-try                 (concat leetcode--base-url "/problems/%s/interpret_solution/"))
 
 ;; prefer setting
-(defvar leetcode-prefer-language "python3"
+(defvar leetcode--lang "python3"
   "LeetCode programming language.
 c, cpp, csharp, golang, java, javascript, kotlin, php, python,
 python3, ruby, rust, scala, swift.")
-
-(defvar leetcode-prefer-sql "mysql"
-  "LeetCode sql implementation.
-mysql, mssql, oraclesql.")
-
-(defvar leetcode--lang leetcode-prefer-language
-  "LeetCode programming language or sql for current problem internally.
-Default is programming language.")
 
 (defconst leetcode--lang-suffixes
   '(("c" . ".c") ("cpp" . ".cpp") ("csharp" . ".cs")
@@ -793,18 +785,8 @@ Get current entry by using `tabulated-list-get-entry' and use
   (delete-windows-on buf t)
   (kill-buffer buf))
 
-(defun leetcode--set-lang (snippets)
-  "Set `leetcode--lang' based on langSlug in SNIPPETS."
-  (setq leetcode--lang
-        (if (seq-find (lambda (s)
-                        (equal (alist-get 'langSlug s)
-                               leetcode-prefer-sql))
-                      snippets)
-            leetcode-prefer-sql
-          leetcode-prefer-language)))
-
 (defun leetcode--get-code-buffer-name (title)
-  "Get code buffer name by TITLE and `leetcode-prefer-language'."
+  "Get code buffer name by TITLE and `leetcode--lang'."
   (let ((suffix (assoc-default
                  leetcode--lang
                  leetcode--lang-suffixes)))
@@ -813,13 +795,12 @@ Get current entry by using `tabulated-list-get-entry' and use
 (defun leetcode--start-coding (title snippets testcase)
   "Create a buffer for coding.
 The buffer will be not associated with any file. It will choose
-major mode by `leetcode-prefer-language'and `auto-mode-alist'.
+major mode by `leetcode--lang'and `auto-mode-alist'.
 TITLE is a problem title. SNIPPETS is a list of alist used to
 store eachprogramming language's snippet. TESTCASE is provided
 for current problem."
   (add-to-list 'leetcode--problem-titles title)
   (leetcode--solving-layout)
-  (leetcode--set-lang snippets)
   (let ((code-buf (get-buffer (leetcode--get-code-buffer-name title)))
         (suffix (assoc-default
                  leetcode--lang
@@ -852,6 +833,7 @@ for current problem."
                     '((display-buffer-reuse-window
                        leetcode--display-result)
                       (reusable-frames . visible)))))
+
 (defun +leetcode/quit ()
   (interactive)
   (leetcode--kill-buff-and-delete-window (get-buffer leetcode--buffer-name))
