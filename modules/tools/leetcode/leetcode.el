@@ -244,20 +244,22 @@ USER-AND-PROBLEMS is an alist comes from
                  problems)
              (dolist (i (number-sequence 0 (1- len)))
                (let-alist (aref .stat_status_pairs i)
-                 (push
-                  (list
-                   :status .status
-                   :id .stat.question_id
-                   :pos (- len i)
-                   :title .stat.question__title
-                   :acceptance (format
-                                "%.1f%%"
-                                (* 100
-                                   (/ (float .stat.total_acs)
-                                      .stat.total_submitted)))
-                   :difficulty .difficulty.level
-                   :paid-only (eq .paid_only t))
-                  problems)))
+                 (if (not (or (eq .paid_only t)
+                         (equal .status "ac")))
+                    (push
+                      (list
+                      :status .status
+                      :id .stat.question_id
+                      :pos (- len i)
+                      :title .stat.question__title
+                      :acceptance (format
+                                    "%.1f%%"
+                                    (* 100
+                                      (/ (float .stat.total_acs)
+                                          .stat.total_submitted)))
+                      :difficulty .difficulty.level
+                      :paid-only (eq .paid_only t))
+                      problems))))
              problems)))))
 
 (defun leetcode--set-tags (all-tags)

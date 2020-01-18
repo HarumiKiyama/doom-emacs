@@ -88,6 +88,6 @@
   (add-to-list 'org-src-lang-modes '("rust" . rustic))
   )
 
-;; (with-timeout  (start-process-shell-command "git-pull" nil "cd ~/org-mode&& git pull"))
-;; (add-hook 'kill-emacs-hook (lambda ()
-                              ;; (call-process-shell-command "cd ~/org-mode && git add .&&git commit -m \"$(date +%Y/%m/%d)\"&&git push" nil 0 0)))
+(defun push-org-mode ()
+  (interactive)
+  (call-process-shell-command "cd ~/org-mode && git add .&&git commit -m \"$(date +%Y/%m/%d)\"&&git push" nil 0 0))
