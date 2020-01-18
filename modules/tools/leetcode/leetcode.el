@@ -85,16 +85,10 @@ The elements of :problems has attributes:
 (defvar leetcode--filter-regex nil "Filter rows by regex.")
 (defvar leetcode--filter-tag nil "Filter rows by leetcode tag.")
 
-(defconst leetcode--checkmark "Y" "Checkmark for accepted problem.")
 (defconst leetcode--buffer-name             "*leetcode*")
 (defconst leetcode--description-buffer-name "*leetcode-description*")
 (defconst leetcode--testcase-buffer-name    "*leetcode-testcase*")
 (defconst leetcode--result-buffer-name      "*leetcode-result*")
-
-(defface leetcode-checkmark-face
-  '((t (:foreground "#5CB85C")))
-  "Face for `leetcode--checkmark'"
-  :group 'leetcode)
 
 (defface leetcode-easy-face
   '((t (:foreground "#5CB85C")))
@@ -373,13 +367,6 @@ Return a list of rows, each row is a vector:
       (setq rows
             (cons
              (vector
-              ;; status
-              (if (equal (plist-get p :status) "ac")
-                  (prog1 leetcode--checkmark
-                    (put-text-property
-                     0 (length leetcode--checkmark)
-                     'font-lock-face 'leetcode-checkmark-face leetcode--checkmark))
-                " ")
               ;; position
               (number-to-string (plist-get p :pos))
               ;; title
