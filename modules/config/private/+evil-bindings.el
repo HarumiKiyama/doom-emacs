@@ -39,7 +39,7 @@
       :n "/"  #'magit-status
       :n "gr" #'git-gutter:revert-hunk
       :n "gs" #'git-gutter:stage-hunk
-      :n "gt" #'git-timemachine-toggle
+      :n "gt" #'git-timemachine
       :n "gb" #'magit-blame-addition
       :n "gj" #'git-gutter:next-hunk
       :n "gk" #'git-gutter:previous-hunk
@@ -257,15 +257,14 @@
           :desc "Format buffer/region"                  "f"   #'+format/region-or-buffer
           :desc "LSP Format buffer/region"              "F"   #'+default/lsp-format-region-or-buffer
           :desc "LSP Organize imports"                  "i"   #'lsp-organize-imports
-          :desc "Jump to symbol in current workspace" "j"   #'lsp-ivy-workspace-symbol
-          :desc "Jump to symbol in any workspace"     "J"   #'lsp-ivy-global-workspace-symbol
+          :desc "Jump to symbol in current workspace"   "j"   #'lsp-ivy-workspace-symbol
+          :desc "Jump to symbol in any workspace"       "J"   #'lsp-ivy-global-workspace-symbol
           :desc "Jump to documentation"                 "k"   #'+lookup/documentation
           :desc "LSP Rename"                            "r"   #'lsp-rename
           :desc "Send to repl"                          "s"   #'+eval/send-region-to-repl
           :desc "Delete trailing whitespace"            "w"   #'delete-trailing-whitespace
           :desc "Delete trailing newlines"              "W"   #'doom/delete-trailing-newlines
-          :desc "List errors"                         "x"   #'flycheck-list-errors
-          )
+          :desc "List errors"                           "x"   #'flycheck-list-errors)
 
         ;;; <leader> f --- file
         (:prefix-map ("f" . "file")
