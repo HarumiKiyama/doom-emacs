@@ -56,7 +56,7 @@
 ;; they are implemented.
 
 ;; org configs
-(with-eval-after-load 'org
+(after! org
   (setq org-babel-eval-verbose t
         org-directory "~/org-mode"
         org-agenda-span 'day
@@ -86,8 +86,9 @@
         org-journal-time-prefix "")
   (setq org-startup-folded 'showall)
   (add-to-list 'org-src-lang-modes '("rust" . rustic))
-  (setq org-version "9.3.0")
-  )
+  (setq org-version "9.3.0"))
+(after! magit
+  (setq magit-version "2.90.1.1"))
 
 (defun org-push-private ()
   (interactive)
