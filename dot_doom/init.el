@@ -8,7 +8,7 @@
 
 (doom! :completion
        company                          ; the ultimate code completion backend
-       ivy                              ; a search engine for love and life
+       ivy                               ; a search engine for love and life
 
        :ui
        doom-dashboard         ; a nifty splash screen for Emacs
@@ -57,7 +57,7 @@
        data             ; config/data formats
        emacs-lisp       ; drown in parentheses
        ;;go                ; the hipster dialect
-       ;;(haskell +dante)  ; a language that's lazier than I am
+       (haskell +lsp)  ; a language that's lazier than I am
        ;;idris             ;
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
@@ -83,7 +83,6 @@
        scheme ; a fully conniving family of lisps
        sh     ; she sells {ba,z,fi}sh shells on the C xor
        ;;solidity          ; do you need a blockchain? No.
-       ;;terra             ; Earth and Moon in alignment for performance.
        ;;web               ; the tubes
 
        :email
