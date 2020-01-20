@@ -8,6 +8,3 @@
   (package! attrap))
 (when (featurep! +lsp)
   (package! lsp-haskell))
-;; DEPRECATED
-(when (featurep! +intero)
-  (package! intero))

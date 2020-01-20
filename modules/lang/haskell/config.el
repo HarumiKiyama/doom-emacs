@@ -3,9 +3,7 @@
 (after! projectile
   (add-to-list 'projectile-project-root-files "stack.yaml"))
 
-;; TODO ghcide?
-(cond ((featurep! +intero) (load! "+intero")) ; DEPRECATED
-      ((featurep! +dante)  (load! "+dante"))
+(cond ((featurep! +dante)  (load! "+dante"))
       ((featurep! +lsp)    (load! "+lsp")))
 
 
