@@ -86,8 +86,9 @@
         org-journal-time-prefix "")
   (setq org-startup-folded 'showall)
   (add-to-list 'org-src-lang-modes '("rust" . rustic))
+  (setq org-version "9.3.0")
   )
 
-(defun push-org-mode ()
+(defun org-push-private ()
   (interactive)
   (call-process-shell-command "cd ~/org-mode && git add .&&git commit -m \"$(date +%Y/%m/%d)\"&&git push" nil 0 0))
