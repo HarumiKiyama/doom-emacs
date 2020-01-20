@@ -18,7 +18,7 @@
       (add-hook 'kill-buffer-hook #'+pdf-cleanup-windows-h nil t)))
 
   :config
-  (map! :map pdf-view-mode-map :gn "q" #'kill-current-buffer)
+  (map! :map pdf-view-mode-map :g "q" #'kill-current-buffer)
 
   (setq-default pdf-view-display-size 'fit-page
                 pdf-view-use-scaling t
