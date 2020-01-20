@@ -11,4 +11,4 @@
 (package! wgrep)
 (package! flx)
 (package! all-the-icons-ivy)
-(package! snails :recipe (:host github :repo "/manateelazycat/snails" ))
+(package! snails :recipe (:host github :repo "manateelazycat/snails" ))
