@@ -64,43 +64,6 @@ only variant that supports --group-directories-first."
   (diff-hl-margin-mode))
 
 
-(use-package! ranger
-  :when (featurep! +ranger)
-  :after dired
-  :init (setq ranger-override-dired t)
-  :config
-  (unless (file-directory-p image-dired-dir)
-    (make-directory image-dired-dir))
-
-  (set-popup-rule! "^\\*ranger" :ignore t)
-
-  (defadvice! +dired--cleanup-header-line-a ()
-    "Ranger fails to clean up `header-line-format' when it is closed, so..."
-    :before #'ranger-revert
-    (dolist (buffer (buffer-list))
-      (when (buffer-live-p buffer)
-        (with-current-buffer buffer
-          (when (equal header-line-format '(:eval (ranger-header-line)))
-            (setq header-line-format nil))))))
-
-  (defadvice! +dired--cleanup-mouse1-bind-a ()
-    "Ranger binds an anonymous function to mouse-1 after previewing a buffer
-that prevents the user from escaping the window with the mouse. This command is
-never cleaned up if the buffer already existed before ranger was initialized, so
-we have to clean it up ourselves."
-    :after #'ranger-setup-preview
-    (when (window-live-p ranger-preview-window)
-      (with-current-buffer (window-buffer ranger-preview-window)
-        (local-unset-key [mouse-1]))))
-
-  (setq ranger-cleanup-on-disable t
-        ranger-excluded-extensions '("mkv" "iso" "mp4")
-        ranger-deer-show-details t
-        ranger-max-preview-size 10
-        ranger-show-literal nil
-        ranger-hide-cursor nil))
-
-
 (use-package! all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode)
   :config

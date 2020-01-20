@@ -41,7 +41,7 @@
       :n "gR" #'vc-revert
       :n "gs" #'git-gutter:stage-hunk
       :n "gS" #'magit-stage
-      :n "gt" #'git-timemachine
+      :n "gt" #'git-timemachine-toggle
       :n "gb" #'magit-blame-addition
       :n "gj" #'git-gutter:next-hunk
       :n "gk" #'git-gutter:previous-hunk

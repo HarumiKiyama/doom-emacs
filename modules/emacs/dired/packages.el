@@ -6,5 +6,4 @@
 (package! diff-hl)
 (package! dired-rsync)
 (package! fd-dired)
-(package! ranger)
 (package! all-the-icons-dired)
