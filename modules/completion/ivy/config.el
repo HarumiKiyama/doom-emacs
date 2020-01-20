@@ -21,15 +21,8 @@ results buffer.")
 (use-package! ivy
   :after-call pre-command-hook
   :init
-  (let ((standard-search-fn
-         (if (featurep! +prescient)
-             #'+ivy-prescient-non-fuzzy
-           #'ivy--regex-plus))
-        (alt-search-fn
-         (if (featurep! +fuzzy)
-             #'ivy--regex-fuzzy
-           ;; Ignore order for non-fuzzy searches by default
-           #'ivy--regex-ignore-order)))
+  (let ((standard-search-fn #'ivy--regex-plus)
+        (alt-search-fn #'ivy--regex-ignore-order))
     (setq ivy-re-builders-alist
           `((counsel-rg     . ,standard-search-fn)
             (swiper         . ,standard-search-fn)
@@ -118,11 +111,9 @@ evil-ex-specific constructs, so we disable it solely in evil-ex."
   :after ivy
   :config
   (setq ivy-rich-parse-remote-buffer nil)
-
-  (when (featurep! +icons)
-    (cl-pushnew '(+ivy-rich-buffer-icon)
+  (cl-pushnew '(+ivy-rich-buffer-icon)
                 (cadr (plist-get ivy-rich-display-transformers-list
-                                 'ivy-switch-buffer))))
+                                 'ivy-switch-buffer)))
 
   ;; Include variable value in `counsel-describe-variable'
   (plist-put! ivy-rich-display-transformers-list
@@ -152,7 +143,6 @@ evil-ex-specific constructs, so we disable it solely in evil-ex."
 
 
 (use-package! all-the-icons-ivy
-  :when (featurep! +icons)
   :after ivy
   :config
   ;; `all-the-icons-ivy' is incompatible with ivy-rich's switch-buffer
@@ -307,54 +297,9 @@ evil-ex-specific constructs, so we disable it solely in evil-ex."
   :config (setq wgrep-auto-save-buffer t))
 
 
-(use-package! ivy-posframe
-  :when (featurep! +childframe)
-  :hook (ivy-mode . ivy-posframe-mode)
-  :config
-  (setq ivy-fixed-height-minibuffer nil
-        ivy-posframe-border-width 10
-        ivy-posframe-parameters
-        `((min-width . 90)
-          (min-height . ,ivy-height)))
-
-  ;; default to posframe display function
-  (setf (alist-get t ivy-posframe-display-functions-alist)
-        #'+ivy-display-at-frame-center-near-bottom-fn)
-
-  ;; posframe doesn't work well with async sources (the posframe will
-  ;; occasionally stop responding/redrawing), and causes violent resizing of the
-  ;; posframe.
-  (dolist (fn '(swiper counsel-rg counsel-grep counsel-git-grep))
-    (setf (alist-get fn ivy-posframe-display-functions-alist)
-          #'ivy-display-function-fallback)))
-
-
 (use-package! flx
-  :when (featurep! +fuzzy)
-  :unless (featurep! +prescient)
   :defer t  ; is loaded by ivy
   :init (setq ivy-flx-limit 10000))
-
-
-(use-package! ivy-prescient
-  :hook (ivy-mode . ivy-prescient-mode)
-  :when (featurep! +prescient)
-  :init
-  (setq prescient-filter-method
-        (if (featurep! +fuzzy)
-            '(literal regexp initialism fuzzy)
-          '(literal regexp initialism))
-        ivy-prescient-retain-classic-highlighting t)
-
-  :config
-  (defun +ivy-prescient-non-fuzzy (str)
-    (let ((prescient-filter-method '(literal regexp)))
-      (ivy-prescient-re-builder str)))
-
-  ;; NOTE prescient config duplicated with `company'
-  (setq prescient-save-file (concat doom-cache-dir "prescient-save.el"))
-  (prescient-persist-mode +1))
-
 
 ;;;###package swiper
 (setq swiper-action-recenter t)

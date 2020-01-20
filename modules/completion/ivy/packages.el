@@ -10,13 +10,7 @@
 (package! ivy-rich)
 (package! wgrep)
 
-(if (featurep! +prescient)
-    (package! ivy-prescient)
-  (when (featurep! +fuzzy)
-    (package! flx)))
+(package! flx)
+(package! all-the-icons-ivy)
 
-(when (featurep! +childframe)
-  (package! ivy-posframe))
-
-(when (featurep! +icons)
-  (package! all-the-icons-ivy))
+(package! snails)
