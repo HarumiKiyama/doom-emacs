@@ -48,6 +48,8 @@
       :n "gc" #'magit-commit-create
       ;; comment function
       :nv "gn"  #'comment-line
+      ;; emacs window
+      :e "C-w" evil-window-map
 
       (:after help :map help-mode-map
         :n "o"       #'link-hint-open-link)
