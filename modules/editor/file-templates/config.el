@@ -19,9 +19,6 @@ don't have a :trigger property in `+file-templates-alist'.")
     ("/packages\\.el$" :when +file-templates-in-emacs-dirs-p
      :trigger "__doom-packages"
      :mode emacs-lisp-mode)
-    ("/doctor\\.el$" :when +file-templates-in-emacs-dirs-p
-     :trigger "__doom-doctor"
-     :mode emacs-lisp-mode)
     ("/test/.+\\.el$" :when +file-templates-in-emacs-dirs-p
      :trigger "__doom-test"
      :mode emacs-lisp-mode)
@@ -74,9 +71,6 @@ don't have a :trigger property in `+file-templates-alist'.")
      :trigger "__doom-readme"
      :mode org-mode)
     ("\\.org$" :trigger "__" :mode org-mode)
-    ;; PHP
-    ("\\.class\\.php$" :trigger "__.class.php" :mode php-mode)
-    (php-mode)
     ;; Python
     ;; TODO ("tests?/test_.+\\.py$" :trigger "__" :mode nose-mode)
     ;; TODO ("/setup\\.py$" :trigger "__setup.py" :mode python-mode)

@@ -60,18 +60,12 @@
   (setq org-babel-eval-verbose t
         org-directory "~/org-mode/"
         org-id-locations-file (concat org-directory ".orgids")
-        org-agenda-span 'day
-        org-agenda-start-day nil
+        org-version "9.3.0"
         org-tag-alist '(("routine" . ?r)
                         ("Algorithms" . ?a)
                         ("Reading" . ?R))
         org-capture-templates '(("w" "Words" entry (file+headline "~/org-mode/Esperanto.org" "Words")
-                                 "** word :drill:\n%^{Esperanto}[%^{English}]")
-                                )
-        org-agenda-files '("~/org-mode/task.org"
-                           "~/org-mode/notation.org"
-                           "~/org-mode/routine.org"
-                           "~/org-mode/blog.org")
+                                 "** word :drill:\n%^{Esperanto}[%^{English}]"))
         org-archive-location "~/org-mode/archive.org::"
         org-startup-truncated nil)
   ;; org-journal setting
@@ -79,8 +73,8 @@
         org-journal-time-format ""
         org-journal-time-prefix "")
   (setq org-startup-folded 'showall)
-  (add-to-list 'org-src-lang-modes '("rust" . rustic))
-  (setq org-version "9.3.0"))
+  (add-to-list 'org-src-lang-modes '("rust" . rustic)))
+
 (after! magit
   (setq magit-version "2.90.1.1"))
 

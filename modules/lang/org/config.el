@@ -62,33 +62,28 @@ path too.")
 (defvar +org-habit-graph-padding 2
   "The padding added to the end of the consistency graph")
 
-(defvar +org-habit-min-width 30
+(defvar +org-habit-min-width 10
   "Hides the consistency graph if the `org-habit-graph-column' is less than this value")
 
 (defvar +org-habit-graph-window-ratio 0.3
   "The ratio of the consistency graphs relative to the window width")
 
-
 ;;
 ;;; `org-load' hooks
 
 (defun +org-init-agenda-h ()
-  (unless org-agenda-files
-    (setq org-agenda-files (list org-directory)))
-  (setq-default
-   ;; Don't monopolize the whole frame just for the agenda
+  (setq
    org-agenda-window-setup 'current-window
    ;; Hide blocked tasks in the agenda view.
    org-agenda-dim-blocked-tasks 'invisible
    org-agenda-inhibit-startup t
-   org-agenda-skip-unavailable-files t
-   ;; Move the agenda to show the previous 3 days and the next 7 days for a bit
-   ;; better context instead of just the current week which is a bit confusing
-   ;; on, for example, a sunday
-   org-agenda-span 10
+   org-agenda-span 'day
    org-agenda-start-on-weekday nil
-   org-agenda-start-day "-3d"))
-
+   org-agenda-start-day nil
+   org-agenda-files '("~/org-mode/task.org"
+                      "~/org-mode/notation.org"
+                      "~/org-mode/routine.org"
+                      "~/org-mode/blog.org")))
 
 (defun +org-init-appearance-h ()
   "Configures the UI for `org-mode'."
