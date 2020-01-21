@@ -53,8 +53,3 @@
 
 ;; install packages
 (package! zenburn-theme)
-(package! annalist)
-
-;; disable packages
-(package! evil-snipe :disable t)
-(package! doom-themes :disable t)

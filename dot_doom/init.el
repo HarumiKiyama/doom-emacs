@@ -70,6 +70,8 @@
         +hugo                           ; use Emacs for hugo blogging
         +brain
         +journal
+        +dragndrop
+        +gnuplot
         ;; +jupyter        ; ipython/jupyter support for babel
         +pandoc                     ; export-with-pandoc support
         +pomodoro                   ; be fruitful with the tomato technique
