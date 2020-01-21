@@ -401,9 +401,6 @@
       ;;; <leader> q --- quit/session
       (:prefix-map ("q" . "quit/session")
         :desc "Restart emacs server"         "d" #'+default/restart-server
-        :desc "Delete frame"                 "f" #'delete-frame
-        :desc "Clear current frame"          "F" #'doom/kill-all-buffers
-        :desc "Kill Emacs (and daemon)"      "K" #'save-buffers-kill-emacs
         :desc "Quit Emacs"                   "q" #'save-buffers-kill-terminal
         :desc "Quit Emacs without saving"    "Q" #'evil-quit-all-with-error-code
         :desc "Quick save current session"   "s" #'doom/quicksave-session

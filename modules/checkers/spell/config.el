@@ -64,13 +64,14 @@ e.g. proselint and langtool."
 
   ;; Ensure mode-local predicates declared with `set-flyspell-predicate!' are
   ;; used in their respective major modes.
-  (add-hook 'flyspell-mode-hook #'+spell-init-flyspell-predicate-h)
+  (add-hook 'flyspell-mode-hook #'+spell-init-flyspell-predicate-h))
 
-  (map! :map flyspell-mouse-map
-        "RET"     #'flyspell-correct-at-point
-        [return]  #'flyspell-correct-at-point
-        [mouse-1] #'flyspell-correct-at-point))
-
+(defun flyspell-save-word ()
+    (interactive)
+    (let ((current-location (point))
+         (word (flyspell-get-word)))
+      (when (consp word)
+        (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
 
 (use-package! flyspell-correct
   :commands flyspell-correct-at-point flyspell-correct-previous
