@@ -107,22 +107,20 @@ path too.")
         org-image-actual-width nil
         org-list-description-max-indent 4
         org-priority-faces
-        '((?A . error)
-          (?B . warning)
-          (?C . success))
+        '((?A . (:foreground "red" :weight 'bold))
+          (?B . (:foreground "yellow"))
+          (?C . (:foreground "gray")))
         org-startup-indented t
         org-tags-column 0
         org-use-sub-superscripts '{})
 
-  (setq org-refile-targets
-        '((nil :maxlevel . 3)
-          (org-agenda-files :maxlevel . 3))
-        ;; Without this, completers like ivy/helm are only given the first level of
-        ;; each outline candidates. i.e. all the candidates under the "Tasks" heading
-        ;; are just "Tasks/". This is unhelpful. We want the full path to each refile
-        ;; target! e.g. FILE/Tasks/heading/subheading
+  (setq org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
+                             ("~/org-mode/notes.org" :maxlevel . 1)
+                             ("~/org-mode/someday.org" :maxlevel . 1)
+                             ("~/org-mode/blog.org" :maxlevel . 1)
+                             (nil . (:maxlevel . 2)))
         org-refile-use-outline-path 'file
-        org-outline-path-complete-in-steps nil)
+        org-outline-path-complete-in-steps nil) 
 
   ;; Fontify latex blocks and entities natively
   (setq org-highlight-latex-and-related '(native script entities))
@@ -131,34 +129,9 @@ path too.")
               :foreground 'auto  ; match the theme foreground
               :background 'auto) ; ... and its background
 
-  ;; HACK Face specs fed directly to `org-todo-keyword-faces' don't respect
-  ;;      underlying faces like the `org-todo' face does, so we define our own
-  ;;      intermediary faces that extend from org-todo.
-  (with-no-warnings
-    (custom-declare-face '+org-todo-active '((t (:inherit (bold font-lock-constant-face org-todo)))) "")
-    (custom-declare-face '+org-todo-project '((t (:inherit (bold font-lock-doc-face org-todo)))) "")
-    (custom-declare-face '+org-todo-onhold '((t (:inherit (bold warning org-todo)))) ""))
   (setq org-todo-keywords
-        '((sequence
-           "TODO(t)"  ; A task that needs doing & is ready to do
-           "PROJ(p)"  ; An ongoing project that cannot be completed in one step
-           "STRT(s)"  ; A task that is in progress
-           "WAIT(w)"  ; Something is holding up this task; or it is paused
-           "|"
-           "DONE(d)"  ; Task successfully completed
-           "KILL(k)") ; Task was cancelled, aborted or is no longer applicable
-          (sequence
-           "[ ](T)"   ; A task that needs doing
-           "[-](S)"   ; Task is in progress
-           "[?](W)"   ; Task is being held up or paused
-           "|"
-           "[X](D)")) ; Task was completed
-        org-todo-keyword-faces
-        '(("[-]"  . +org-todo-active)
-          ("STRT" . +org-todo-active)
-          ("[?]"  . +org-todo-onhold)
-          ("WAIT" . +org-todo-onhold)
-          ("PROJ" . +org-todo-project)))
+        '((sequence "TODO(t)" "START(s)" "SUSPEND(p)"
+                    "|" "DONE(d!)" "ABORT(a)")))
 
   (defadvice! +org-display-link-in-eldoc-a (orig-fn &rest args)
     "Display full link in minibuffer when cursor/mouse is over it."
@@ -801,8 +774,7 @@ compelling reason, so..."
 
 
 (use-package! org-fancy-priorities ; priority icons
-  :hook (org-mode . org-fancy-priorities-mode)
-  :config (setq org-fancy-priorities-list '("■" "■" "■")))
+  :hook (org-mode . org-fancy-priorities-mode))
 
 
 (use-package! org-crypt ; built-in
@@ -835,7 +807,6 @@ compelling reason, so..."
 
 
 (use-package! org-pdfview
-  :when (featurep! :tools pdf)
   :commands org-pdfview-open
   :init
   (after! org
@@ -847,7 +818,6 @@ compelling reason, so..."
 
 
 (use-package! evil-org
-  :when (featurep! :editor evil +everywhere)
   :hook (org-mode . evil-org-mode)
   :init
   (defvar evil-org-retain-visual-state-on-shift t)

@@ -58,11 +58,10 @@
 ;; org configs
 (after! org
   (setq org-babel-eval-verbose t
-        org-directory "~/org-mode"
+        org-directory "~/org-mode/"
+        org-id-locations-file (concat org-directory ".orgids")
         org-agenda-span 'day
         org-agenda-start-day nil
-        org-todo-keywords '((sequence "TODO(t)" "TESTING(t)" "SUSPEND(p)" "|"
-                                      "DONE(d!)" "ABORT(a)"))
         org-tag-alist '(("routine" . ?r)
                         ("Algorithms" . ?a)
                         ("Reading" . ?R))
@@ -73,11 +72,6 @@
                            "~/org-mode/notation.org"
                            "~/org-mode/routine.org"
                            "~/org-mode/blog.org")
-        org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
-                             ("~/org-mode/notes.org" :maxlevel . 1)
-                             ("~/org-mode/someday.org" :maxlevel . 1)
-                             ("~/org-mode/blog.org" :maxlevel . 1)
-                             (nil . (:maxlevel . 2)))
         org-archive-location "~/org-mode/archive.org::"
         org-startup-truncated nil)
   ;; org-journal setting

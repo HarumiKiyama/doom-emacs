@@ -1,5 +1,4 @@
 ;;; lang/org/contrib/brain.el -*- lexical-binding: t; -*-
-;;;###if (featurep! +brain)
 
 (use-package! org-brain
   :defer t
