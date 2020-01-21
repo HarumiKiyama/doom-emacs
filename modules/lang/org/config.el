@@ -772,11 +772,6 @@ compelling reason, so..."
 (use-package! org-bullets ; "prettier" bullets
   :hook (org-mode . org-bullets-mode))
 
-
-(use-package! org-fancy-priorities ; priority icons
-  :hook (org-mode . org-fancy-priorities-mode))
-
-
 (use-package! org-crypt ; built-in
   :commands org-encrypt-entries
   :hook (org-reveal-start . org-decrypt-entry)
