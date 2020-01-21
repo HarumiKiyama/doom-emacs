@@ -5,19 +5,11 @@
 
 (defvar +doom-dashboard-functions
   '(doom-dashboard-widget-banner
-    doom-dashboard-widget-shortmenu
     doom-dashboard-widget-loaded
-    doom-dashboard-widget-footer)
+    doom-dashboard-widget-shortmenu)
   "List of widget functions to run in the dashboard buffer to construct the
 dashboard. These functions take no arguments and the dashboard buffer is current
 while they run.")
-
-(defvar +doom-dashboard-banner-file "default.png"
-  "The path to the image file to be used in on the dashboard. The path is
-relative to `+doom-dashboard-banner-dir'. If nil, always use the ASCII banner.")
-
-(defvar +doom-dashboard-banner-dir (concat (dir!) "/banners/")
-  "Where to look for `+doom-dashboard-banner-file'.")
 
 (defvar +doom-dashboard-banner-padding '(0 . 4)
   "Number of newlines to pad the banner with, above and below, respectively.")
@@ -29,7 +21,7 @@ relative to `+doom-dashboard-banner-dir'. If nil, always use the ASCII banner.")
   "A list of functions which take no arguments. If any of them return non-nil,
 dashboard reloading is inhibited.")
 
-(defvar +doom-dashboard-pwd-policy 'last-project
+(defvar +doom-dashboard-pwd-policy (getenv "HOME")
   "The policy to use when setting the `default-directory' in the dashboard.
 
 Possible values:
@@ -44,16 +36,12 @@ Possible values:
 (defvar +doom-dashboard-menu-sections
   '(("Reload last session"
      :icon (all-the-icons-octicon "history" :face 'doom-dashboard-menu-title)
-     :when (cond ((require 'persp-mode nil t)
-                  (file-exists-p (expand-file-name persp-auto-save-fname persp-save-dir)))
-                 ((require 'desktop nil t)
-                  (file-exists-p (desktop-full-file-name))))
+     :when (file-exists-p (expand-file-name persp-auto-save-fname persp-save-dir))
      :face (:inherit (doom-dashboard-menu-title bold))
      :action doom/quickload-session)
     ("Open org-agenda"
      :icon (all-the-icons-octicon "calendar" :face 'doom-dashboard-menu-title)
-     :when (fboundp 'org-agenda)
-     :action org-agenda)
+     :action org-agenda-list)
     ("Recently opened files"
      :icon (all-the-icons-octicon "file-text" :face 'doom-dashboard-menu-title)
      :action recentf-open-files)
@@ -63,13 +51,7 @@ Possible values:
     ("Jump to bookmark"
      :icon (all-the-icons-octicon "bookmark" :face 'doom-dashboard-menu-title)
      :action bookmark-jump)
-    ("Open private configuration"
-     :icon (all-the-icons-octicon "tools" :face 'doom-dashboard-menu-title)
-     :when (file-directory-p doom-private-dir)
-     :action doom/open-private-config)
-    ("Open documentation"
-     :icon (all-the-icons-octicon "book" :face 'doom-dashboard-menu-title)
-     :action doom/help))
+    )
   "An alist of menu buttons used by `doom-dashboard-widget-shortmenu'. Each
 element is a cons cell (LABEL . PLIST). LABEL is a string to display after the
 icon and before the key string.
@@ -108,10 +90,6 @@ PLIST can have the following properties:
     ;; else to show.
     (setq doom-fallback-buffer-name +doom-dashboard-name
           initial-buffer-choice #'doom-fallback-buffer)
-    (unless fancy-splash-image
-      (setq fancy-splash-image
-            (expand-file-name +doom-dashboard-banner-file
-                              +doom-dashboard-banner-dir)))
     (when (equal (buffer-name) "*scratch*")
       (set-window-buffer nil (doom-fallback-buffer))
       (if (daemonp)
@@ -125,8 +103,6 @@ PLIST can have the following properties:
     ;; `persp-mode' integration: update `default-directory' when switching perspectives
     (add-hook 'persp-created-functions #'+doom-dashboard--persp-record-project-h)
     (add-hook 'persp-activated-functions #'+doom-dashboard--persp-detect-project-h)
-    ;; HACK Fix #2219 where, in GUI daemon frames, the dashboard loses center
-    ;;      alignment after switching (or killing) workspaces.
     (when (daemonp)
       (add-hook 'persp-activated-functions #'+doom-dashboard-reload-maybe-h))
     (add-hook 'persp-before-switch-functions #'+doom-dashboard--persp-record-project-h)))
@@ -189,12 +165,6 @@ PLIST can have the following properties:
 
 (define-key! +doom-dashboard-mode-map
   [left-margin mouse-1]   #'ignore
-  [remap forward-button]  #'+doom-dashboard/forward-button
-  [remap backward-button] #'+doom-dashboard/backward-button
-  "n"       #'forward-button
-  "p"       #'backward-button
-  "C-n"     #'forward-button
-  "C-p"     #'backward-button
   [down]    #'forward-button
   [up]      #'backward-button
   [tab]     #'forward-button
@@ -379,46 +349,29 @@ controlled by `+doom-dashboard-pwd-policy'."
 ;;; Widgets
 
 (defun doom-dashboard-widget-banner ()
-  (let ((point (point)))
-    (mapc (lambda (line)
-            (insert (propertize (+doom-dashboard--center +doom-dashboard--width line)
-                                'face 'doom-dashboard-banner) " ")
-            (insert "\n"))
-          '("=================     ===============     ===============   ========  ========"
-            "\\\\ . . . . . . .\\\\   //. . . . . . .\\\\   //. . . . . . .\\\\  \\\\. . .\\\\// . . //"
-            "||. . ._____. . .|| ||. . ._____. . .|| ||. . ._____. . .|| || . . .\\/ . . .||"
-            "|| . .||   ||. . || || . .||   ||. . || || . .||   ||. . || ||. . . . . . . ||"
-            "||. . ||   || . .|| ||. . ||   || . .|| ||. . ||   || . .|| || . | . . . . .||"
-            "|| . .||   ||. _-|| ||-_ .||   ||. . || || . .||   ||. _-|| ||-_.|\\ . . . . ||"
-            "||. . ||   ||-'  || ||  `-||   || . .|| ||. . ||   ||-'  || ||  `|\\_ . .|. .||"
-            "|| . _||   ||    || ||    ||   ||_ . || || . _||   ||    || ||   |\\ `-_/| . ||"
-            "||_-' ||  .|/    || ||    \\|.  || `-_|| ||_-' ||  .|/    || ||   | \\  / |-_.||"
-            "||    ||_-'      || ||      `-_||    || ||    ||_-'      || ||   | \\  / |  `||"
-            "||    `'         || ||         `'    || ||    `'         || ||   | \\  / |   ||"
-            "||            .===' `===.         .==='.`===.         .===' /==. |  \\/  |   ||"
-            "||         .=='   \\_|-_ `===. .==='   _|_   `===. .===' _-|/   `==  \\/  |   ||"
-            "||      .=='    _-'    `-_  `='    _-'   `-_    `='  _-'   `-_  /|  \\/  |   ||"
-            "||   .=='    _-'          '-__\\._-'         '-_./__-'         `' |. /|  |   ||"
-            "||.=='    _-'                                                     `' |  /==.||"
-            "=='    _-'                         E M A C S                          \\/   `=="
-            "\\   _-'                                                                `-_   /"
-            " `''                                                                      ``'"))
-    (when (and (display-graphic-p)
-               (stringp fancy-splash-image)
-               (file-readable-p fancy-splash-image))
-      (let ((image (create-image (fancy-splash-image-file))))
-        (add-text-properties
-         point (point) `(display ,image rear-nonsticky (display)))
-        (save-excursion
-          (goto-char point)
-          (insert (make-string
-                   (truncate
-                    (max 0 (+ 1 (/ (- +doom-dashboard--width
-                                      (car (image-size image nil)))
-                                   2))))
-                   ? ))))
-      (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0)
-                           ?\n)))))
+  (mapc (lambda (line)
+        (insert (propertize (+doom-dashboard--center +doom-dashboard--width line)
+                            'face 'doom-dashboard-banner) " ")
+        (insert "\n"))
+      '("=================     ===============     ===============   ========  ========"
+        "\\\\ . . . . . . .\\\\   //. . . . . . .\\\\   //. . . . . . .\\\\  \\\\. . .\\\\// . . //"
+        "||. . ._____. . .|| ||. . ._____. . .|| ||. . ._____. . .|| || . . .\\/ . . .||"
+        "|| . .||   ||. . || || . .||   ||. . || || . .||   ||. . || ||. . . . . . . ||"
+        "||. . ||   || . .|| ||. . ||   || . .|| ||. . ||   || . .|| || . | . . . . .||"
+        "|| . .||   ||. _-|| ||-_ .||   ||. . || || . .||   ||. _-|| ||-_.|\\ . . . . ||"
+        "||. . ||   ||-'  || ||  `-||   || . .|| ||. . ||   ||-'  || ||  `|\\_ . .|. .||"
+        "|| . _||   ||    || ||    ||   ||_ . || || . _||   ||    || ||   |\\ `-_/| . ||"
+        "||_-' ||  .|/    || ||    \\|.  || `-_|| ||_-' ||  .|/    || ||   | \\  / |-_.||"
+        "||    ||_-'      || ||      `-_||    || ||    ||_-'      || ||   | \\  / |  `||"
+        "||    `'         || ||         `'    || ||    `'         || ||   | \\  / |   ||"
+        "||            .===' `===.         .==='.`===.         .===' /==. |  \\/  |   ||"
+        "||         .=='   \\_|-_ `===. .==='   _|_   `===. .===' _-|/   `==  \\/  |   ||"
+        "||      .=='    _-'    `-_  `='    _-'   `-_    `='  _-'   `-_  /|  \\/  |   ||"
+        "||   .=='    _-'          '-__\\._-'         '-_./__-'         `' |. /|  |   ||"
+        "||.=='    _-'                                                     `' |  /==.||"
+        "=='    _-'                         E M A C S                          \\/   `=="
+        "\\   _-'                                                                `-_   /"
+        " `''                                                                      ``'")))
 
 (defun doom-dashboard-widget-loaded ()
   (insert
@@ -470,20 +423,4 @@ controlled by `+doom-dashboard-pwd-policy'."
                                              (substring str 0 3))))))
                               (propertize (buffer-string) 'face 'doom-dashboard-menu-desc)))
                           ""))))
-           (if (display-graphic-p)
-               "\n\n"
-             "\n")))))))
-
-(defun doom-dashboard-widget-footer ()
-  (insert
-   "\n"
-   (+doom-dashboard--center
-    (- +doom-dashboard--width 2)
-    (with-temp-buffer
-      (insert-text-button (or (all-the-icons-octicon "octoface" :face 'doom-dashboard-footer-icon :height 1.3 :v-adjust -0.15)
-                              (propertize "github" 'face 'doom-dashboard-footer))
-                          'action (lambda (_) (browse-url "https://github.com/hlissner/doom-emacs"))
-                          'follow-link t
-                          'help-echo "Open Doom Emacs github page")
-      (buffer-string)))
-   "\n"))
+             "\n"))))))

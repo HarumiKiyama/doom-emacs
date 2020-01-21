@@ -12,17 +12,3 @@
   (with-selected-frame frame
     (switch-to-buffer (doom-fallback-buffer))
     (+doom-dashboard-reload t)))
-
-;;;###autoload
-(defun +doom-dashboard/forward-button (n)
-  "Like `forward-button', but don't wrap."
-  (interactive "p")
-  (forward-button n nil)
-  (+doom-dashboard--help-echo))
-
-;;;###autoload
-(defun +doom-dashboard/backward-button (n)
-  "Like `backward-button', but don't wrap."
-  (interactive "p")
-  (backward-button n nil)
-  (+doom-dashboard--help-echo))
