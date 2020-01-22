@@ -34,7 +34,8 @@
   ;; Remove GUI dropdown prompt (prefer ivy/helm)
   (delq! 'yas-dropdown-prompt yas-prompt-functions)
   ;; Prioritize private snippets in `yas-snippets-dir' over built-in ones if there
-  ;; are multiple choices.   
+  ;; are multiple choices.
+  (add-to-list 'yas-snippet-dirs '+snippets-dir)
   (add-to-list 'yas-prompt-functions #'+snippets-prompt-private nil #'eq)
 
   ;; Register `def-project-mode!' modes with yasnippet. This enables project
