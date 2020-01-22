@@ -194,7 +194,7 @@ buggy behavior when <delete> is pressed in an empty field."
       (erase-buffer)
       (yas-expand-snippet (concat "# -*- mode: snippet -*-\n"
                                   "# name: $1\n"
-                                  "# uuid: $2\n"
+                                  "# uuid: `(shell-command-to-string \"printf %s \\\"$(uuidgen)\\\"\")`\n"
                                   "# key: ${3:trigger-key}${4:\n"
                                   "# condition: t}\n"
                                   "# --\n"
