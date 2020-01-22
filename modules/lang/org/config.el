@@ -313,9 +313,7 @@ underlying, modified buffer. This fixes that."
 
 (defun +org-init-capture-frame-h ()
   (add-hook 'org-capture-after-finalize-hook #'+org-capture-cleanup-frame-h)
-
-  (when (featurep! :ui doom-dashboard)
-    (add-hook '+doom-dashboard-inhibit-functions #'+org-capture-frame-p)))
+  (add-hook '+doom-dashboard-inhibit-functions #'+org-capture-frame-p))
 
 
 (defun +org-init-attachments-h ()
