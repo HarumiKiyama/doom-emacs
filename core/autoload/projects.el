@@ -108,28 +108,15 @@ If DIR is not a project, it will be indexed (but not cached)."
              ;; non-projects easily has the potential to inflate the projectile
              ;; cache beyond reason.
              (setq projectile-enable-caching nil))
-           (call-interactively
-            ;; Intentionally avoid `helm-projectile-find-file', because it runs
-            ;; asynchronously, and thus doesn't see the lexical
-            ;; `default-directory'
-            (if (doom-module-p :completion 'ivy)
-                #'counsel-projectile-find-file
-              #'projectile-find-file)))
+           (call-interactively #'counsel-projectile-find-file))
           ((fboundp 'counsel-file-jump) ; ivy only
            (call-interactively #'counsel-file-jump))
           ((project-current)
            (project-find-file-in nil (list default-directory) nil))
-          ((fboundp 'helm-find-files)
-           (call-interactively #'helm-find-files))
           ((call-interactively #'find-file)))))
 
 ;;;###autoload
 (defun doom-project-browse (dir)
   "Traverse a file structure starting linearly from DIR."
   (let ((default-directory (file-truename (expand-file-name dir))))
-    (call-interactively
-     (cond ((doom-module-p :completion 'ivy)
-            #'counsel-find-file)
-           ((doom-module-p :completion 'helm)
-            #'helm-find-files)
-           (#'find-file)))))
+    (call-interactively #'counsel-find-file)))
