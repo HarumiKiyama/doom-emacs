@@ -208,8 +208,8 @@
 (map! :leader
       :desc "Eval expression"       ";"    #'pp-eval-expression
       :desc "M-x"                   ":"    #'execute-extended-command
-      :desc "Pop up scratch buffer" "x"    #'doom/open-scratch-buffer
-      :desc "Org Capture"           "X"    #'org-capture
+      :desc "Pop up scratch buffer" "X"    #'doom/open-scratch-buffer
+      :desc "Org Capture"           "x"    #'org-capture
 
       ;; C-u is used by evil
       :desc "Universal argument"    "u"    #'universal-argument
