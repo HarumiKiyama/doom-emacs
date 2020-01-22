@@ -288,30 +288,6 @@ directives. By default, this only recognizes C directives.")
 (use-package! evil-quick-diff
   :commands (evil-quick-diff evil-quick-diff-cancel))
 
-
-(use-package! evil-nerd-commenter
-  :commands (evilnc-comment-operator
-             evilnc-inner-comment
-             evilnc-outer-commenter))
-
-
-(use-package! evil-snipe
-  :commands (evil-snipe-mode
-             evil-snipe-override-mode
-             evil-snipe-local-mode
-             evil-snipe-override-local-mode)
-  :after-call pre-command-hook
-  :init
-  (setq evil-snipe-smart-case t
-        evil-snipe-scope 'line
-        evil-snipe-repeat-scope 'visible
-        evil-snipe-char-fold t)
-  :config
-  (pushnew! evil-snipe-disabled-modes 'Info-mode 'calc-mode)
-  (evil-snipe-mode +1)
-  (evil-snipe-override-mode +1))
-
-
 (use-package! evil-surround
   :commands (global-evil-surround-mode
              evil-surround-edit
@@ -396,10 +372,11 @@ directives. By default, this only recognizes C directives.")
         :n "gR" #'elfeed-search-fetch)
 
       :nv "z="    #'flyspell-correct-at-point
+      :nv "z-"    #'flyspell-save-word
+
       ;; custom evil keybinds
       :nv "zn"    #'+evil:narrow-buffer
       :n  "zN"    #'doom/widen-indirectly-narrowed-buffer
-      :n  "zx"    #'kill-current-buffer
 
       ;; don't leave visual mode after shifting
       :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
