@@ -64,8 +64,9 @@
         org-tag-alist '(("routine" . ?r)
                         ("Algorithms" . ?a)
                         ("Reading" . ?R))
-        org-capture-templates '(("w" "Words" entry (file+headline "~/org-mode/Esperanto.org" "Words")
-                                 "** word :drill:\n%^{Esperanto}[%^{English}]"))
+        org-capture-templates '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
+                                 "** word :drill:\n%^{Esperanto}[%^{English}]")
+                                ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "*** TODO %?"))
         org-archive-location "~/org-mode/archive.org::"
         org-startup-truncated nil)
   ;; org-journal setting
