@@ -95,7 +95,8 @@ only variant that supports --group-directories-first."
 (map! :after dired
       :map dired-mode-map
       :n "gt" #'dired-git-info-mode
-      :n "C-s" #'swiper-isearch)
+      :n "C-s" #'swiper-isearch
+      :n "s" #'avy-goto-line)
 
 (after! wdired
   ;; Temporarily disable `dired-git-info-mode' when entering wdired, due to
