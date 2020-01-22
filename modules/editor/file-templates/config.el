@@ -10,7 +10,6 @@ don't have a :trigger property in `+file-templates-alist'.")
 
 (defvar +file-templates-alist
   '(;; General
-    (gitignore-mode)
     (dockerfile-mode)
     ("/docker-compose\\.yml$" :mode yaml-mode)
     ("/Makefile$"             :mode makefile-gmake-mode)
@@ -27,7 +26,6 @@ don't have a :trigger property in `+file-templates-alist'.")
      :mode emacs-lisp-mode)
     ("-test\\.el$" :mode emacs-ert-mode)
     (emacs-lisp-mode :trigger "__initfile")
-    (snippet-mode)
     ;; C/C++
     ("/main\\.c\\(?:c\\|pp\\)$"   :trigger "__main.cpp"    :mode c++-mode)
     ("/win32_\\.c\\(?:c\\|pp\\)$" :trigger "__winmain.cpp" :mode c++-mode)
