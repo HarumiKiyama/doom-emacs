@@ -144,8 +144,8 @@ PLIST can have the following properties:
 ;;; Major mode
 
 (define-derived-mode +doom-dashboard-mode special-mode
-  (format "DOOM v%s" doom-version)
-  "Major mode for the DOOM dashboard buffer."
+  "EMACS"
+  "Major mode for dashboard buffer."
   :syntax-table nil
   :abbrev-table nil
   (buffer-disable-undo)
@@ -344,34 +344,25 @@ controlled by `+doom-dashboard-pwd-policy'."
           ((warn "`+doom-dashboard-pwd-policy' has an invalid value of '%s'"
                  policy)))))
 
-
 ;;
 ;;; Widgets
-
 (defun doom-dashboard-widget-banner ()
-  (mapc (lambda (line)
-        (insert (propertize (+doom-dashboard--center +doom-dashboard--width line)
-                            'face 'doom-dashboard-banner) " ")
-        (insert "\n"))
-      '("=================     ===============     ===============   ========  ========"
-        "\\\\ . . . . . . .\\\\   //. . . . . . .\\\\   //. . . . . . .\\\\  \\\\. . .\\\\// . . //"
-        "||. . ._____. . .|| ||. . ._____. . .|| ||. . ._____. . .|| || . . .\\/ . . .||"
-        "|| . .||   ||. . || || . .||   ||. . || || . .||   ||. . || ||. . . . . . . ||"
-        "||. . ||   || . .|| ||. . ||   || . .|| ||. . ||   || . .|| || . | . . . . .||"
-        "|| . .||   ||. _-|| ||-_ .||   ||. . || || . .||   ||. _-|| ||-_.|\\ . . . . ||"
-        "||. . ||   ||-'  || ||  `-||   || . .|| ||. . ||   ||-'  || ||  `|\\_ . .|. .||"
-        "|| . _||   ||    || ||    ||   ||_ . || || . _||   ||    || ||   |\\ `-_/| . ||"
-        "||_-' ||  .|/    || ||    \\|.  || `-_|| ||_-' ||  .|/    || ||   | \\  / |-_.||"
-        "||    ||_-'      || ||      `-_||    || ||    ||_-'      || ||   | \\  / |  `||"
-        "||    `'         || ||         `'    || ||    `'         || ||   | \\  / |   ||"
-        "||            .===' `===.         .==='.`===.         .===' /==. |  \\/  |   ||"
-        "||         .=='   \\_|-_ `===. .==='   _|_   `===. .===' _-|/   `==  \\/  |   ||"
-        "||      .=='    _-'    `-_  `='    _-'   `-_    `='  _-'   `-_  /|  \\/  |   ||"
-        "||   .=='    _-'          '-__\\._-'         '-_./__-'         `' |. /|  |   ||"
-        "||.=='    _-'                                                     `' |  /==.||"
-        "=='    _-'                         E M A C S                          \\/   `=="
-        "\\   _-'                                                                `-_   /"
-        " `''                                                                      ``'")))
+  (let ((image (create-image (fancy-splash-image-file)))
+        (point (point)))
+    (add-text-properties
+         point (point) `(display ,image rear-nonsticky (display)))
+        (save-excursion
+          (goto-char point)
+          (insert (make-string
+                   (truncate
+                    (max 0 (+ 1 (/ (- +doom-dashboard--width
+                                      (car (image-size image nil)))
+                                   2))))
+                   ? ))
+          (insert-image image)
+          ))
+      (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0)
+                           ?\n)))
 
 (defun doom-dashboard-widget-loaded ()
   (insert
