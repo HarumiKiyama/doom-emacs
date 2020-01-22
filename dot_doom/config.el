@@ -80,5 +80,6 @@
   (setq magit-version "2.90.1.1"))
 
 (defun org-push-private ()
+  "git commit and push to private remote repo"
   (interactive)
   (call-process-shell-command "cd ~/org-mode && git add .&&git commit -m \"$(date +%Y/%m/%d)\"&&git push" nil 0 0))
