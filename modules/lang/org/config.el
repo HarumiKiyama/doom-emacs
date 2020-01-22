@@ -573,7 +573,7 @@ between the two."
         (:when (featurep! :completion helm)
           "." #'helm-org-in-buffer-headings
           "/" #'helm-org-agenda-files-headings)
-        "A" #'org-archive-subtree
+        "a" #'org-archive-subtree-default
         "d" #'org-deadline
         "e" #'org-export-dispatch
         "f" #'org-footnote-new
@@ -581,13 +581,12 @@ between the two."
         "i" #'org-toggle-item
         "I" #'org-toggle-inline-images
         "n" #'org-store-link
-        "o" #'org-set-property
-        "p" #'org-priority
+        "p" #'org-set-property
         "q" #'org-set-tags-command
         "s" #'org-schedule
         "t" #'org-todo
         "T" #'org-todo-list
-        (:prefix ("a" . "attachments")
+        (:prefix ("A" . "attachments")
           "a" #'org-attach
           "d" #'org-attach-delete-one
           "D" #'org-attach-delete-all
@@ -609,8 +608,7 @@ between the two."
           "c" #'org-table-create-or-convert-from-region
           "e" #'org-table-edit-field
           "h" #'org-table-field-info
-          (:when (featurep! +gnuplot)
-            "p" #'org-plot/gnuplot))
+          "p" #'org-plot/gnuplot)
         (:prefix ("c" . "clock")
           "c" #'org-clock-in
           "C" #'org-clock-out
@@ -625,13 +623,8 @@ between the two."
           "=" #'org-clock-timestamps-up
           "-" #'org-clock-timestamps-down)
         (:prefix ("g" . "goto")
-          "g" #'org-goto
-          (:when (featurep! :completion ivy)
-            "g" #'counsel-org-goto
-            "G" #'counsel-org-goto-all)
-          (:when (featurep! :completion helm)
-            "g" #'helm-org-in-buffer-headings
-            "G" #'helm-org-agenda-files-headings)
+          "g" #'counsel-org-goto
+          "G" #'counsel-org-goto-all
           "c" #'org-clock-goto
           "C" (λ! (org-clock-goto 'select))
           "i" #'org-id-goto
