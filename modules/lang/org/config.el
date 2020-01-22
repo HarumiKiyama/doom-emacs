@@ -120,13 +120,16 @@ path too.")
   ;; Fontify latex blocks and entities natively
   (setq org-highlight-latex-and-related '(native script entities))
   (plist-put! org-format-latex-options
-              :scale 1.5         ; larger previews
-              :foreground 'auto  ; match the theme foreground
-              :background 'auto) ; ... and its background
+              :scale 1.5                ; larger previews
+              :foreground 'auto         ; match the theme foreground
+              :background 'auto)        ; ... and its background
 
   (setq org-todo-keywords
         '((sequence "TODO(t)" "START(s)" "SUSPEND(p)"
-                    "|" "DONE(d!)" "ABORT(a)")))
+                    "|" "DONE(d!)" "ABORT(a)"))
+        org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
+                                 ("SUSPEND" . (:inherit (bold error)))
+                                 ("ABORT" . (:inherit (bold warning)))))
 
   (defadvice! +org-display-link-in-eldoc-a (orig-fn &rest args)
     "Display full link in minibuffer when cursor/mouse is over it."
@@ -139,9 +142,9 @@ path too.")
   (cl-pushnew 'org-mode doom-detect-indentation-excluded-modes :test #'eq)
 
   (set-pretty-symbols! 'org-mode
-    :name "#+NAME:"
-    :src_block "#+BEGIN_SRC"
-    :src_block_end "#+END_SRC"))
+                       :name "#+NAME:"
+                       :src_block "#+BEGIN_SRC"
+                       :src_block_end "#+END_SRC"))
 
 
 (defun +org-init-babel-h ()
@@ -247,13 +250,13 @@ I like:
           ;; Uses the basename from `+org-capture-todo-file',
           ;; `+org-capture-changelog-file' and `+org-capture-notes-file'.
           ("p" "Templates for projects")
-          ("pt" "Project-local todo" entry  ; {project-root}/todo.org
+          ("pt" "Project-local todo" entry ; {project-root}/todo.org
            (file+headline +org-capture-project-todo-file "Inbox")
            "* TODO %?\n%i\n%a" :prepend t)
-          ("pn" "Project-local notes" entry  ; {project-root}/notes.org
+          ("pn" "Project-local notes" entry ; {project-root}/notes.org
            (file+headline +org-capture-project-notes-file "Inbox")
            "* %U %?\n%i\n%a" :prepend t)
-          ("pc" "Project-local changelog" entry  ; {project-root}/changelog.org
+          ("pc" "Project-local changelog" entry ; {project-root}/changelog.org
            (file+headline +org-capture-project-changelog-file "Unreleased")
            "* %U %?\n%i\n%a" :prepend t)
 
@@ -306,9 +309,7 @@ underlying, modified buffer. This fixes that."
                                 'face 'font-lock-string-face)
                     org-eldoc-breadcrumb-separator
                     header-line-format))))
-
-  (when (featurep! :editor evil)
-    (add-hook 'org-capture-mode-hook #'evil-insert-state)))
+  (add-hook 'org-capture-mode-hook #'evil-insert-state))
 
 
 (defun +org-init-capture-frame-h ()
