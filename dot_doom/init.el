@@ -30,6 +30,7 @@
        snippets
 
        :emacs
+       lispy
        (dired
         +icons)                   ; making dired pretty [functional]
        electric                   ; smarter, keyword-based electric-indent

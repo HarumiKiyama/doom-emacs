@@ -2,4 +2,3 @@
 ;;; editor/lispyville/packages.el
 
 (package! lispy)
-(package! lispyville)
