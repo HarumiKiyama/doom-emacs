@@ -333,11 +333,11 @@
         ;;; <leader> n --- notes and yas-snippet
         ;; TODO search notes in notes directory
         (:prefix-map ("n" . "notes")
-          :desc "Search notes for symbol"      "*" #'+default/search-notes-for-symbol-at-point
           :desc "Find file in notes"           "f" #'+default/find-in-notes
+          :desc "Search notes for symbol"      "F" #'+default/search-notes-for-symbol-at-point
           :desc "Search notes"                 "s" #'+default/org-notes-search
           :desc "create snippet"               "c" #'+snippets/new
-          :desc "create snippet"               "e" #'+snippets/edit
+          :desc "edit snippet"                 "e" #'+snippets/edit
           :desc "view snippets"                "v" #'+snippets/find
           )
 
@@ -415,7 +415,7 @@
         :desc "Search current directory"     "d" #'+default/search-cwd
         :desc "Search other directory"       "D" #'+default/search-other-cwd
         :desc "Locate file"                  "F" #'locate
-        :desc "Jump to symbol"               "i" #'imenu
+        :desc "Imenu"                        "i" #'imenu
         :desc "Find file in project"         "f" #'projectile-find-file
         :desc "Jump to visible link"         "l" #'link-hint-open-link
         :desc "Jump to link"                 "L" #'ffap-menu
