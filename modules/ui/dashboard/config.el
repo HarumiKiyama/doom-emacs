@@ -1,6 +1,6 @@
 ;;; ui/doom-dashboard/config.el -*- lexical-binding: t; -*-
 
-(defvar +doom-dashboard-name "*doom*"
+(defvar dashboard-name "*emacs*"
   "The name to use for the dashboard buffer.")
 
 (defvar +doom-dashboard-functions
@@ -88,7 +88,7 @@ PLIST can have the following properties:
   (unless noninteractive
     ;; Ensure the dashboard becomes Emacs' go-to buffer when there's nothing
     ;; else to show.
-    (setq doom-fallback-buffer-name +doom-dashboard-name
+    (setq doom-fallback-buffer-name dashboard-name
           initial-buffer-choice #'doom-fallback-buffer)
     (when (equal (buffer-name) "*scratch*")
       (set-window-buffer nil (doom-fallback-buffer))
@@ -282,7 +282,7 @@ project (which may be different across perspective)."
 
 (defun +doom-dashboard-p (buffer)
   "Returns t if BUFFER is the dashboard buffer."
-  (eq buffer (get-buffer +doom-dashboard-name)))
+  (eq buffer (get-buffer dashboard-name)))
 
 (defun +doom-dashboard-update-pwd (&optional pwd)
   "Update `default-directory' in the Doom dashboard buffer. What it is set to is

@@ -11,7 +11,7 @@
        ivy                               ; a search engine for love and life
 
        :ui
-       doom-dashboard         ; a nifty splash screen for Emacs
+       dashboard              ; a nifty splash screen for Emacs
        modeline               ; snazzy, Atom-inspired modeline, plus API
        hl-todo                ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        (popup                 ; tame sudden yet inevitable temporary windows
