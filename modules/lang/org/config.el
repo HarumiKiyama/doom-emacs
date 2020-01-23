@@ -398,9 +398,8 @@ file isn't in `org-directory'."
   (org-link-set-parameters "http"  :image-data-fun #'+org-image-link)
   (org-link-set-parameters "https" :image-data-fun #'+org-image-link)
   (org-link-set-parameters "img"   :image-data-fun #'+org-inline-data-image)
-
   ;; Add support for youtube links + previews
-  (require 'org-yt nil t))
+  )
 
 
 (defun +org-init-export-h ()
@@ -746,10 +745,6 @@ compelling reason, so..."
 
 ;;
 ;;; Packages
-
-(use-package! toc-org ; auto-table of contents
-  :hook (org-mode . toc-org-enable)
-  :config (setq toc-org-hrefify-default "gh"))
 
 (use-package! org-bullets ; "prettier" bullets
   :hook (org-mode . org-bullets-mode))

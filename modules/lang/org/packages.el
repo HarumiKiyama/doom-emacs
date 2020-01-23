@@ -30,9 +30,7 @@
 (package! avy)
 (package! htmlize)
 (package! org-bullets :recipe (:host github :repo "Kaligule/org-bullets"))
-(package! org-yt :recipe (:host github :repo "TobiasZawada/org-yt"))
 (package! ox-clip)
-(package! toc-org)
 (package! org-cliplink)
 
 (package! evil-org :recipe (:host github :repo "hlissner/evil-org-mode"))
