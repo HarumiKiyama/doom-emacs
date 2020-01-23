@@ -66,7 +66,7 @@
   (setq org-babel-eval-verbose t
         org-directory "~/org-mode/"
         org-id-locations-file (concat org-directory ".orgids")
-        org-version "9.3.0"
+        ;; org-version "9.3.0"
         org-tag-alist '(("routine" . ?r)
                         ("Algorithms" . ?a)
                         ("Reading" . ?R))
