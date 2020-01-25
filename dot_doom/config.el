@@ -66,14 +66,14 @@
   (setq org-babel-eval-verbose t
         org-directory "~/org-mode/"
         org-id-locations-file (concat org-directory ".orgids")
-        ;; org-version "9.3.0"
+        org-version "9.3.0"
         org-tag-alist '(("routine" . ?r)
                         ("Algorithms" . ?a)
                         ("Reading" . ?R))
         org-capture-templates '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
                                  "** word :drill:\n%^{Esperanto}[%^{English}]")
                                 ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "*** TODO %?")
-                                ("a" "Algorithm" entry (file private/create-algorithm-org-file) "* Description\n\n%?* Solution"))
+                                ("a" "Algorithm" entry (file private/create-algorithm-org-file) "* Description\n\n%?* Solution" :immediate-finish nil))
         org-archive-location "~/org-mode/archive.org::"
         org-startup-truncated nil)
   ;; org-journal setting
