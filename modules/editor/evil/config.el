@@ -274,17 +274,6 @@ directives. By default, this only recognizes C directives.")
   ;; so that evil-escape-mode-hook runs, and can be toggled by evil-mc
   (evil-escape-mode +1))
 
-
-(use-package! evil-exchange
-  :commands evil-exchange
-  :config
-  (add-hook! 'doom-escape-hook
-    (defun +evil--escape-exchange-h ()
-      (when evil-exchange--overlays
-        (evil-exchange-cancel)
-        t))))
-
-
 (use-package! evil-quick-diff
   :commands (evil-quick-diff evil-quick-diff-cancel))
 
@@ -358,13 +347,8 @@ directives. By default, this only recognizes C directives.")
 (map! :v  "@"     #'+evil:apply-macro
 
       ;; ported from vim-unimpaired
-      :n  "]b"    #'next-buffer
+      :n  "[f"    #'next-buffer
       :n  "[b"    #'previous-buffer
-      :n  "]f"    #'+evil/next-file
-      :n  "[f"    #'+evil/previous-file
-      (:when (featurep! :ui vc-gutter)
-        :n "]d"   #'git-gutter:next-hunk
-        :n "[d"   #'git-gutter:previous-hunk)
 
       (:after elfeed
         :map elfeed-search-update--force
@@ -379,9 +363,11 @@ directives. By default, this only recognizes C directives.")
       :n  "zN"    #'doom/widen-indirectly-narrowed-buffer
 
       ;; don't leave visual mode after shifting
-      :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
-      :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
+      :v  "<"     #'+evil/visual-dedent ; vnoremap < <gv
+      :v  ">"     #'+evil/visual-indent ; vnoremap > >gv
 
+      :n "w"      #'avy-goto-word-1
+      :n "W"      #'avy-goto-word-0
       ;; window management (prefix "C-w")
       (:map evil-window-map
         ;; Navigation
@@ -432,5 +418,5 @@ directives. By default, this only recognizes C directives.")
         :i "C-n"    #'+company/dabbrev
         :i "C-p"    #'+company/dabbrev-code-previous))
 
-;; ban motion state mode globally
+;; disable motion state mode globally
 (setq evil-motion-state-modes nil)
