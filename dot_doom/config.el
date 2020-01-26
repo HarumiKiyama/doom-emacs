@@ -86,6 +86,29 @@
 (after! magit
   (setq magit-version "2.90.1.1"))
 
+;; keyfreq config
+(use-package! keyfreq
+  :init
+  (set-popup-rules!
+        '(("^\\*frequencies"   :size 8)))
+  :config
+  (setq keyfreq-excluded-commands
+        '(self-insert-command
+          evil-force-normal-state
+          abort-recursive-edit
+          ivy-next-line
+          ivy-previous-line
+          evil-next-line
+          evil-previous-line
+          forward-char
+          backward-char
+          previous-line
+          next-line))
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1)
+
+  )
+
 (defun org-push-private ()
   "git commit and push to private remote repo"
   (interactive)
