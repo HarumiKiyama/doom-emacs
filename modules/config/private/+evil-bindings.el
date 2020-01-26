@@ -32,8 +32,8 @@
       :i "C-j"           #'+default/newline    ; default behavior
                                         
       ;; workspace based buffer list
-      :ni "C-x b" #'+ivy/switch-workspace-buffer
-      :ni "C-x B" #'switch-to-buffer
+      :ni "C-x b" #'switch-to-buffer
+      :ni "C-x B" #'+ivy/switch-workspace-buffer
 
       ;; some binding to magit
       :n "/"  #'magit-status
