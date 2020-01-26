@@ -366,8 +366,7 @@ directives. By default, this only recognizes C directives.")
       :v  "<"     #'+evil/visual-dedent ; vnoremap < <gv
       :v  ">"     #'+evil/visual-indent ; vnoremap > >gv
 
-      :n "w"      #'avy-goto-word-1
-      :n "W"      #'avy-goto-word-0
+      :n "W"      #'avy-goto-word-1
       ;; window management (prefix "C-w")
       (:map evil-window-map
         ;; Navigation
