@@ -99,8 +99,8 @@
 (define-key! evil-normal-state-map
   "s" #'evil-substitute
   "f" #'evil-avy-goto-char-in-line
-  "F" #'evil-avy-goto-char
-  "t" #'evil-avy-goto-line)
+  "F" #'evil-avy-goto-line
+  "t" #'evil-avy-goto-char)
 
 ;; Minibuffer
 (define-key! evil-ex-completion-map
