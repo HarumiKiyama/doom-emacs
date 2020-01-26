@@ -372,7 +372,8 @@ controlled by `+doom-dashboard-pwd-policy'."
             "\\   _-'                                                                `-_   /"
             " `''                                                                      ``'"))
     (when (display-graphic-p)
-      (let ((image (create-image (fancy-splash-image-file))))
+      (let ((image (create-image (expand-file-name "large.svg" (concat doom-emacs-dir "banners/"))
+                    'svg nil :scale 2)))
         (add-text-properties
          point (point) `(display ,image rear-nonsticky (display)))
         (save-excursion
@@ -385,7 +386,6 @@ controlled by `+doom-dashboard-pwd-policy'."
                    ? ))))
       (insert (make-string (or (cdr +doom-dashboard-banner-padding) 0)
                            ?\n)))))
-
 (defun doom-dashboard-widget-loaded ()
   (insert
    "\n\n"
