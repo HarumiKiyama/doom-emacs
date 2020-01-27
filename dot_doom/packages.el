@@ -54,3 +54,4 @@
 ;; install packages
 (package! zenburn-theme)
 (package! keyfreq)
+(package! sicp)
