@@ -290,12 +290,14 @@ workspace to delete."
     (kill-emacs)))
 
 ;;;###autoload
-(defun +workspace/new (&optional name clone-p)
+(defun +workspace/new (name &optional clone-p)
   "Create a new workspace named NAME. If CLONE-P is non-nil, clone the current
 workspace, otherwise the new workspace is blank."
-  (interactive "iP")
-  (unless name
-    (setq name (format "#%s" (+workspace--generate-id))))
+  (interactive (let* ((auto-name (format "#%s" (+workspace--generate-id)))
+                      (name (read-from-minibuffer (format "Workspace name(default\"%s\"): " auto-name))))
+                 (list (if (string-empty-p name)
+                     auto-name
+                     name))))
   (condition-case e
       (cond ((+workspace-exists-p name)
              (error "%s already exists" name))
