@@ -213,10 +213,9 @@
 
       ;; C-u is used by evil
       :desc "Universal argument"    "u"    #'universal-argument
-      :desc "window"                "w"    evil-window-map
       :desc "Toggle last popup"     "~"    #'+popup/toggle
 
-      :desc "Switch to last buffer" "CTRL"    #'evil-switch-to-windows-last-buffer
+      :desc "Switch to last buffer" "TAB"    #'evil-switch-to-windows-last-buffer
       :desc "Resume last search"    "'"      #'ivy-resume
 
       :desc "Search for symbol in project" "*" #'+default/search-project-for-symbol-at-point
@@ -224,7 +223,7 @@
       :desc "Jump to bookmark"      "RET"  #'bookmark-jump
 
       ;;; <leader> TAB --- workspace
-      (:prefix-map ("TAB" . "workspace")
+      (:prefix-map ("w" . "workspace")
         :desc "Switch workspace"          "."   #'+workspace/switch-to
         :desc "Switch to last workspace"  "`"   #'+workspace/other
         :desc "New workspace"             "n"   #'+workspace/new
@@ -274,7 +273,6 @@
           :desc "Find file from here"         "F"   #'+default/find-file-under-here
           :desc "Recent files"                "r"   #'recentf-open-files
           :desc "Rename/move file"            "R"   #'doom/move-this-file
-          :desc "Save file as..."             "S"   #'write-file
           :desc "Sudo this file"              "u"   #'doom/sudo-this-file
           :desc "Yank filename"               "y"   #'+default/yank-buffer-filename)
 
