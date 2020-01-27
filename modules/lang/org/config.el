@@ -82,7 +82,6 @@ path too.")
    org-agenda-start-day nil
    org-agenda-files '("~/org-mode/task.org"
                       "~/org-mode/notation.org"
-                      "~/org-mode/routine.org"
                       "~/org-mode/blog.org")))
 
 (defun +org-init-appearance-h ()
@@ -126,10 +125,10 @@ path too.")
 
   (setq org-todo-keywords
         '((sequence "TODO(t)" "START(s)" "SUSPEND(p)"
-                    "|" "DONE(d!)" "ABORT(a)"))
+                    "|" "DONE(d!)" "ABORT(a!)"))
         org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
-                                 ("SUSPEND" . (:inherit (bold error)))
-                                 ("ABORT" . (:inherit (bold warning)))))
+                                 ("SUSPEND" . (:inherit (bold warning)))
+                                 ("ABORT" . (:inherit (bold error)))))
 
   (defadvice! +org-display-link-in-eldoc-a (orig-fn &rest args)
     "Display full link in minibuffer when cursor/mouse is over it."

@@ -68,7 +68,7 @@
         org-directory "~/org-mode/"
         org-id-locations-file (concat org-directory ".orgids")
         org-version "9.3.0"
-        org-tag-alist '(("routine" . ?r)
+        org-tag-alist '(("Routine" . ?r)
                         ("Algorithms" . ?a)
                         ("Reading" . ?R))
         org-capture-templates '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
@@ -76,12 +76,13 @@
                                 ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "*** TODO %?")
                                 ("a" "Algorithm" entry (file private/create-algorithm-org-file) "* Description\n%?\n* Solution"))
         org-archive-location "~/org-mode/archive.org::"
-        org-startup-truncated nil)
-  ;; org-journal setting
-  (setq org-journal-date-format "%Y-%m-%d %A"
+        org-startup-truncated nil
+        ;; org-journal setting
+        org-journal-date-format "%Y-%m-%d %A"
         org-journal-time-format ""
-        org-journal-time-prefix "")
-  (setq org-startup-folded 'showall)
+        org-journal-time-prefix ""
+        org-startup-folded 'showall
+        org-log-into-drawer t)
   (add-to-list 'org-src-lang-modes '("rust" . rustic)))
 
 (after! magit
