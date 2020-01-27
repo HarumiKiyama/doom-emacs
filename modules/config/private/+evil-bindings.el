@@ -216,7 +216,7 @@
       :desc "window"                "w"    evil-window-map
       :desc "Toggle last popup"     "~"    #'+popup/toggle
 
-      :desc "Switch to last buffer" "ESC"    #'evil-switch-to-windows-last-buffer
+      :desc "Switch to last buffer" "CTRL"    #'evil-switch-to-windows-last-buffer
       :desc "Resume last search"    "'"      #'ivy-resume
 
       :desc "Search for symbol in project" "*" #'+default/search-project-for-symbol-at-point
@@ -235,18 +235,14 @@
         :desc "Rename workspace"          "r"   #'+workspace/rename
         :desc "Restore last session"      "R"   #'+workspace/restore-last-session)
 
-        ;;; <leader> b --- buffer
-        (:prefix-map ("b" . "buffer")
-          :desc "Toggle narrowing"            "-"   #'doom/toggle-narrow-buffer
-          :desc "Switch workspace buffer"     "b" #'persp-switch-to-buffer
-          :desc "Switch buffer"               "B" #'switch-to-buffer
-          :desc "Kill buffer"                 "d"   #'kill-current-buffer
-          :desc "ibuffer"                     "i"   #'ibuffer
-          :desc "Kill all buffers"            "k"   #'doom/kill-all-buffers
-          :desc "Kill other buffers"          "K"   #'doom/kill-other-buffers
-          :desc "Set bookmark"                "m"   #'bookmark-set
-          :desc "Delete bookmark"             "M"   #'bookmark-delete
-          :desc "Save buffer as root"         "u"   #'doom/sudo-save-buffer)
+      ;;; <leader> b --- buffer & bookmark
+      ;; TODO: add more keybinding
+      (:prefix-map ("b" . "buffer")
+        :desc "Toggle narrowing"            "-"   #'doom/toggle-narrow-buffer
+        :desc "Kill buffer"                 "d"   #'kill-current-buffer
+        :desc "ibuffer"                     "i"   #'ibuffer
+        :desc "Set bookmark"                "m"   #'bookmark-set
+        :desc "Delete bookmark"             "M"   #'bookmark-delete)
 
         ;;; <leader> c --- code
         (:prefix-map ("c" . "code")
