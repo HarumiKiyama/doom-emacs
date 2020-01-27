@@ -33,7 +33,8 @@
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
 
-(setq display-line-numbers-type `relative)
+(setq display-line-numbers-type `relative
+      scroll-margin 5)
 
 (setq +evil-want-o/O-to-continue-comments nil)
 
@@ -90,7 +91,7 @@
 (use-package! keyfreq
   :init
   (set-popup-rules!
-        '(("^\\*frequencies"   :size 8)))
+        '(("^\\*frequencies" :size 8 :select t)))
   :config
   (setq keyfreq-excluded-commands
         '(self-insert-command
