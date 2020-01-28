@@ -421,7 +421,6 @@
         :desc "Search project"               "p" #'+default/search-project
         :desc "Search other project"         "P" #'+default/search-other-project
         :desc "Jump to mark"                 "r" #'evil-show-marks
-        :desc "Dictionary"                   "t" #'+lookup/offline-definition
         :desc "find in emcasd"               "e" #'+default/find-in-emacsd
         )
 

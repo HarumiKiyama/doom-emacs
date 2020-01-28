@@ -281,6 +281,7 @@
   "E"    #'doom/sandbox
   "M"    #'doom/describe-active-minor-mode
   "O"    #'+lookup/online
+  "t"    #'+lookup/offline-definition
   "T"    #'doom/toggle-profiler
   "V"    #'set-variable
   "W"    #'+default/man-or-woman
@@ -296,7 +297,6 @@
   ;; replaces `info-emacs-manual' b/c it's on C-m now
   "r"    nil
   "rr"   #'doom/reload
-  "rt"   #'doom/reload-theme
   "rp"   #'doom/reload-packages
   "rf"   #'doom/reload-font
   "re"   #'doom/reload-env
@@ -313,16 +313,11 @@
 
   ;; replaces `apropos-documentation' b/c `apropos' covers this
   "d"    nil
-  "db"   #'doom/report-bug
   "dc"   #'doom/goto-private-config-file
   "dC"   #'doom/goto-private-init-file
   "dd"   #'doom/toggle-debug-mode
-  "df"   #'doom/help-faq
-  "dh"   #'doom/help
   "dl"   #'doom/help-search-load-path
   "dL"   #'doom/help-search-loaded-files
-  "dm"   #'doom/help-modules
-  "dn"   #'doom/help-news
   "dN"   #'doom/help-news-search
   "dpc"  #'doom/help-package-config
   "dpd"  #'doom/goto-private-packages-file
@@ -332,7 +327,6 @@
   "dS"   #'doom/help-search
   "dt"   #'doom/toggle-profiler
   "du"   #'doom/help-autodefs
-  "dv"   #'doom/version
   "dx"   #'doom/sandbox
 
   ;; replaces `apropos-command'
@@ -342,8 +336,6 @@
   "C-c"  #'describe-coding-system
   ;; replaces `Info-got-emacs-command-node' b/c redundant w/ `Info-goto-node'
   "F"    #'describe-face
-  ;; replaces `view-hello-file' b/c annoying
-  "h"    #'+lookup/offline-definition
   ;; replaces `finder-by-keyword' b/c not useful
   "p"    #'doom/help-packages
   ;; replaces `describe-package' b/c redundant w/ `doom/help-packages'
