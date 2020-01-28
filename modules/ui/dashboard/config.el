@@ -39,12 +39,6 @@ Possible values:
      :when (file-exists-p (expand-file-name persp-auto-save-fname persp-save-dir))
      :face (:inherit (doom-dashboard-menu-title bold))
      :action doom/quickload-session)
-    ("Open org-agenda"
-     :icon (all-the-icons-octicon "calendar" :face 'doom-dashboard-menu-title)
-     :action org-agenda-list)
-    ("Recently opened files"
-     :icon (all-the-icons-octicon "file-text" :face 'doom-dashboard-menu-title)
-     :action recentf-open-files)
     ("Open project"
      :icon (all-the-icons-octicon "briefcase" :face 'doom-dashboard-menu-title)
      :action projectile-switch-project)
