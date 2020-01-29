@@ -380,13 +380,7 @@ file isn't in `org-directory'."
   ;; Add custom link types
   (pushnew! org-link-abbrev-alist
             '("github"      . "https://github.com/%s")
-            '("youtube"     . "https://youtube.com/watch?v=%s")
-            '("google"      . "https://google.com/search?q=")
-            '("gimages"     . "https://google.com/images?q=%s")
-            '("gmap"        . "https://maps.google.com/maps?q=%s")
-            '("duckduckgo"  . "https://duckduckgo.com/?q=%s")
-            '("wolfram"     . "https://wolframalpha.com/input/?i=%s")
-            '("doom-repo"   . "https://github.com/hlissner/doom-emacs/%s"))
+            '("wolfram"     . "https://wolframalpha.com/input/?i=%s"))
 
   (+org-def-link "org" org-directory)
   (+org-def-link "doom" doom-emacs-dir)
