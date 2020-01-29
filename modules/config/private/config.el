@@ -355,8 +355,7 @@
 
 ;; Make M-x harder to miss
 (define-key! 'override
-  "M-x" #'execute-extended-command
-  "A-x" #'execute-extended-command)
+  "M-x" #'execute-extended-command)
 
 ;; A Doom convention where C-s on popups and interactive searches will invoke
 ;; ivy/helm for their superior filtering.
