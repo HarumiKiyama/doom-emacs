@@ -315,16 +315,14 @@ Otherwise, falls back on `find-file-at-point'."
 ;;
 ;;; Dictionary
 ;;;###autoload
-(defun +lookup/offline-definition (word &optional arg)
+(defun +lookup/offline-definition (word)
   (interactive
    (list (or (doom-thing-at-point-or-region 'word)
-             (read-string "Look up in dictionary: "))
-         current-prefix-arg))
+             (read-string "Look up in dictionary: "))))
 
   (let* ((buf (get-buffer-create "*dict*"))
          (command (concat "dict " word))
          (buf-content (shell-command-to-string command)))
-
     (with-current-buffer buf
       (erase-buffer)
       (insert buf-content)

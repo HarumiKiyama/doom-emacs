@@ -84,17 +84,6 @@ If the argument is interactive (satisfies `commandp'), it is called with
 argument: the identifier at point. See `set-lookup-handlers!' about adding to
 this list.")
 
-(defvar +lookup-dictionary-enable-online t
-  "If non-nil, look up dictionaries online.
-
-Setting this to nil will force it to use offline backends, which may be less
-than perfect, but available without an internet connection.
-
-Used by `+lookup/word-definition' and `+lookup/word-synonyms'.
-
-For `+lookup/word-definition', this is ignored on Mac, where Emacs users
-Dictionary.app behind the scenes to get definitions.")
-
 
 ;;
 ;;; dumb-jump
