@@ -73,8 +73,9 @@
                         ("Reading" . ?R))
         org-capture-templates '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
                                  "** word :drill:\n%^{Esperanto}[%^{English}]")
-                                ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "*** TODO %?")
-                                ("a" "Algorithm" entry (file private/create-algorithm-org-file) "* Description\n%?\n* Solution"))
+                                ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
+                                ("a" "Algorithm" entry (file private/create-algorithm-org-file) "* Description\n%?\n* Solution")
+                                ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?"))
         org-archive-location "~/org-mode/archive.org::"
         org-startup-truncated nil
         ;; org-journal setting
