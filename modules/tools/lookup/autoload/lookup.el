@@ -326,8 +326,5 @@ Otherwise, falls back on `find-file-at-point'."
     (with-current-buffer buf
       (erase-buffer)
       (insert buf-content)
-      (goto-char (point-min))
-      )
-    (display-buffer buf)
-    )
-  )
+      (goto-char (point-min)))
+    (display-buffer buf)))
