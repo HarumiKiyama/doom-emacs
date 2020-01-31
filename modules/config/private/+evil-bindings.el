@@ -273,7 +273,8 @@
           :desc "Recent files"                "r"   #'recentf-open-files
           :desc "Rename/move file"            "R"   #'doom/move-this-file
           :desc "Sudo this file"              "u"   #'doom/sudo-this-file
-          :desc "Yank filename"               "y"   #'+default/yank-buffer-filename)
+          :desc "Yank filename"               "y"   #'+default/yank-buffer-filename
+          :desc "Browse projects"             "p"   #'+default/browse-projects)
 
         ;;; <leader> g --- git
         (:prefix-map ("g" . "git")

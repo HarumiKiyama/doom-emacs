@@ -55,3 +55,4 @@ If ARG (universal argument), runs `compile' from the current directory."
   (while (server-running-p)
     (sit-for 1))
   (server-start))
+

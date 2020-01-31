@@ -16,18 +16,10 @@
   (interactive) (doom-project-find-file +file-templates-dir))
 
 ;;;###autoload
-(defun +default/browse-emacsd ()
-  "Browse files from `doom-emacs-dir'."
-  (interactive) (doom-project-browse doom-emacs-dir))
-;;;###autoload
 (defun +default/find-in-emacsd ()
   "Find a file under `doom-emacs-dir', recursively."
   (interactive) (doom-project-find-file doom-emacs-dir))
 
-;;;###autoload
-(defun +default/browse-notes ()
-  "Browse files from `org-directory'."
-  (interactive) (doom-project-browse org-directory))
 ;;;###autoload
 (defun +default/find-in-notes ()
   "Find a file under `org-directory', recursively."
@@ -40,3 +32,8 @@
   (if (featurep! :completion ivy)
       (call-interactively #'counsel-file-jump)
     (λ! (doom-project-find-file default-directory))))
+
+;;;###autoload
+(defun +default/browse-projects ()
+  (interactive)
+  (doom-project-browse "~/projects"))
