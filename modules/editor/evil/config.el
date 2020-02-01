@@ -34,7 +34,7 @@ directives. By default, this only recognizes C directives.")
         evil-indent-convert-tabs t
         evil-ex-search-vim-style-regexp t
         evil-ex-substitute-global t
-        evil-ex-visual-char-range t  ; column range for ex commands
+        evil-ex-visual-char-range t     ; column range for ex commands
         evil-insert-skip-empty-lines t
         evil-mode-line-format 'nil
         ;; more vim-like behavior
@@ -57,8 +57,10 @@ directives. By default, this only recognizes C directives.")
   ;; like magit while incrementally highlighting matches.
   (setq-hook! 'magit-mode-hook evil-ex-hl-update-delay 0.2)
   (setq-hook! 'so-long-minor-mode-hook evil-ex-hl-update-delay 0.25)
-
   :config
+  ;; ;TODO: repalce insert mode to emacs mode
+  ;; (defadvice evil-insert-state (around emacs-state-instead-of-insert-state activate)
+  ;;   (evil-emacs-state))
   (evil-select-search-module 'evil-search-module 'evil-search)
 
   (put 'evil-define-key* 'lisp-indent-function 'defun)
