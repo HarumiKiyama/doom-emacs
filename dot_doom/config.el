@@ -111,6 +111,7 @@
   (keyfreq-autosave-mode 1)
 
   )
+(use-package! sicp)
 
 (defun org-push-private ()
   "git commit and push to private remote repo"
