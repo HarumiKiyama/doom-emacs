@@ -167,7 +167,7 @@ localleader prefix."
                    (set-keymap-parent doom-leader-map ctl-x-map)))
             (define-key map (kbd doom-leader-alt-key) 'doom/leader))
         (evil-define-key* '(normal visual motion) map (kbd doom-leader-key) 'doom/leader)
-        (evil-define-key* '(emacs insert) map (kbd doom-leader-alt-key) 'doom/leader))
+        (evil-define-key* '(insert) map (kbd doom-leader-alt-key) 'doom/leader))
       (general-override-mode +1))))
 
 
