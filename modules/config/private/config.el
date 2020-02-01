@@ -24,7 +24,7 @@
 (setq avy-all-windows nil
       avy-all-windows-alt t
       avy-background t
-      avy-single-candidate-jump nil)
+      avy-single-candidate-jump t)
 
 
 (after! epa

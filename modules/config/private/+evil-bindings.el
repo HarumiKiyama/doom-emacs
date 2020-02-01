@@ -25,12 +25,16 @@
                  (fboundp 'evil-jump-item)
                  #'evil-jump-item)
 
-      :ni "C-s" #'swiper-isearch-thing-at-point
+      :nie "C-s" #'swiper-isearch-thing-at-point
 
       ;; Smarter newlines
-      :i [remap newline] #'newline-and-indent  ; auto-indent on newline
-      :i "C-j"           #'+default/newline    ; default behavior
-                                        
+      :i [remap newline] #'newline-and-indent ; auto-indent on newline
+      :i "C-j"           #'+default/newline   ; default behavior
+
+      ;; TODO: add escap functions
+      ;; emace state binding
+      ;; :e [remap esc]            #'evil-normal-state
+
       ;; workspace based buffer list
       :ni "C-x b" #'switch-to-buffer
       :ni "C-x B" #'+ivy/switch-workspace-buffer
@@ -75,7 +79,6 @@
       ;; Frame-local font resizing
       :n "M-C-="  #'doom/increase-font-size
       :n "M-C--"  #'doom/decrease-font-size)
-
 
 ;;
 ;;; Module keybinds
@@ -206,13 +209,12 @@
 
 (map! :leader
       :desc "Eval expression"       ";"    #'pp-eval-expression
-      :desc "M-x"                   ":"    #'execute-extended-command
       :desc "Pop up scratch buffer" "X"    #'doom/open-scratch-buffer
       :desc "Org Capture"           "x"    #'org-capture
 
       ;; C-u is used by evil
       :desc "Universal argument"    "u"    #'universal-argument
-      :desc "Toggle last popup"     "~"    #'+popup/toggle
+      :desc "Toggle last popup"     "/"    #'+popup/toggle
 
       :desc "Switch to last buffer" "TAB"    #'evil-switch-to-windows-last-buffer
       :desc "Resume last search"    "'"      #'ivy-resume
