@@ -49,8 +49,7 @@ You should use `set-eshell-alias!' to change this.")
 
 ;;
 ;; Packages
-
-(after! eshell ; built-in
+(after! eshell                          ; built-in
   (setq eshell-banner-message
         '(format "%s %s\n"
                  (propertize (format " %s " (string-trim (buffer-name)))
@@ -65,6 +64,7 @@ You should use `set-eshell-alias!' to change this.")
         ;; don't record command in history if prefixed with whitespace
         ;; TODO Use `eshell-input-filter-initial-space' when Emacs 25 support is dropped
         eshell-input-filter (lambda (input) (not (string-match-p "\\`\\s-+" input)))
+
         ;; em-prompt
         eshell-prompt-regexp "^.* λ "
         eshell-prompt-function #'+eshell-default-prompt-fn
@@ -83,9 +83,8 @@ You should use `set-eshell-alias!' to change this.")
   (add-hook 'eshell-mode-hook #'smartparens-mode)
 
   ;; Persp-mode/workspaces integration
-  (when (featurep! :ui workspaces)
-    (add-hook 'persp-activated-functions #'+eshell-switch-workspace-fn)
-    (add-hook 'persp-before-switch-functions #'+eshell-save-workspace-fn))
+  (add-hook 'persp-activated-functions #'+eshell-switch-workspace-fn)
+  (add-hook 'persp-before-switch-functions #'+eshell-save-workspace-fn)
 
   ;; UI enhancements
   (add-hook! 'eshell-mode-hook
@@ -95,7 +94,7 @@ You should use `set-eshell-alias!' to change this.")
 
   (add-hook! 'eshell-mode-hook
     (defun +eshell-enable-text-wrapping-h ()
-      (visual-line-mode +1)
+      (visual-line-mode 1)
       (set-display-table-slot standard-display-table 0 ?\ )))
 
   (add-hook 'eshell-mode-hook #'hide-mode-line-mode)
@@ -107,7 +106,7 @@ You should use `set-eshell-alias!' to change this.")
   ;; Visual commands require a proper terminal. Eshell can't handle that, so
   ;; it delegates these commands to a term buffer.
   (after! em-term
-    (pushnew! eshell-visual-commands "tmux" "htop" "vim" "nvim" "ncmpcpp"))
+    (pushnew! eshell-visual-commands "tmux" "htop" "vim" "nvim" "ncmpcpp" "yay"))
 
   (add-hook! 'eshell-alias-load-hook
     (defun +eshell-init-aliases-h ()
@@ -139,7 +138,7 @@ You should use `set-eshell-alias!' to change this.")
             [tab]   #'+eshell/pcomplete
             "C-s"   #'+eshell/search-history
             ;; Emacs bindings
-            "C-e"   #'end-of-line
+            "C-e" #'end-of-line
             ;; Tmux-esque prefix keybinds
             "C-c s" #'+eshell/split-below
             "C-c v" #'+eshell/split-right
@@ -148,25 +147,22 @@ You should use `set-eshell-alias!' to change this.")
             "C-c j" #'windmove-down
             "C-c k" #'windmove-up
             "C-c l" #'windmove-right
-            [remap split-window-below]  #'+eshell/split-below
-            [remap split-window-right]  #'+eshell/split-right
+            [remap split-window-below] #'+eshell/split-below
+            [remap split-window-right] #'+eshell/split-right
             [remap doom/backward-to-bol-or-indent] #'eshell-bol
             [remap doom/backward-kill-to-bol-and-indent] #'eshell-kill-input
             [remap evil-delete-back-to-indentation] #'eshell-kill-input
-            [remap evil-window-split]   #'+eshell/split-below
-            [remap evil-window-vsplit]  #'+eshell/split-right)))
+            [remap evil-window-split] #'+eshell/split-below
+            [remap evil-window-vsplit] #'+eshell/split-right)))
+
   (add-hook! 'eshell-mode-hook
     (defun +eshell-init-company-h ()
-      (when (featurep! :completion company)
-        (company-mode +1)
-        (setq-local company-backends '(company-pcomplete))
-        (setq-local company-frontends (cons 'company-tng-frontend company-frontends))
-        (when (bound-and-true-p evil-local-mode)
-          (evil-normalize-keymaps))))))
+      (company-mode 1)
+      (setq-local company-backends '(company-pcomplete))
+      (setq-local company-frontends (cons 'company-tng-frontend company-frontends))
+      (when (bound-and-true-p evil-local-mode)
+        (evil-normalize-keymaps)))))
 
-
-(use-package! eshell-up
-  :commands eshell-up eshell-up-peek)
 
 
 (use-package! eshell-z
@@ -181,3 +177,4 @@ You should use `set-eshell-alias!' to change this.")
 (use-package! esh-help
   :after eshell
   :config (setup-esh-help-eldoc))
+
