@@ -1,12 +1,12 @@
 ;;; ui/vc-gutter/config.el -*- lexical-binding: t; -*-
 
-(defvar +vc-gutter-in-margin nil
+(defvar +vc-gutter-in-margin t
   "If non-nil, use the margin for diffs instead of the fringe.")
 
 (defvar +vc-gutter-in-remote-files nil
   "If non-nil, enable the vc gutter in remote files (e.g. open through TRAMP).")
 
-(defvar +vc-gutter-diff-unsaved-buffer nil
+(defvar +vc-gutter-diff-unsaved-buffer t
   "If non-nil, `diff-hl-flydiff-mode' will be activated. This allows on-the-fly
 diffing, even for unsaved buffers.")
 
