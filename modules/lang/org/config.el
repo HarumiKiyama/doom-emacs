@@ -870,7 +870,7 @@ compelling reason, so..."
   org-capture
   :preface
   ;; Change org defaults (should be set before org loads)
-  (setq org-directory "~/org/"
+  (setq org-directory "~/org-mode/"
         org-attach-id-dir ".attach/"
         org-publish-timestamp-directory (concat doom-cache-dir "org-timestamps/")
         org-preview-latex-image-directory (concat doom-cache-dir "org-latex/"))
