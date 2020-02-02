@@ -15,12 +15,6 @@
 (evil-ex-define-cmd "rev[erse]"    #'+evil:reverse-lines)
 (evil-ex-define-cmd "l[ine]diff"   #'evil-quick-diff)
 
-;;; External resources
-(evil-ex-define-cmd "repl"        #'+eval:repl)             ; invoke or send to repl
-
-(evil-ex-define-cmd "sh[ell]"     #'+eshell:run)
-(evil-ex-define-cmd "pad"         #'+evil:open-scratch-buffer)
-
 ;;; Dealing with buffers
 (evil-ex-define-cmd "k[ill]all"   #'+evil:kill-all-buffers)
 (evil-ex-define-cmd "k[ill]m"     #'+evil:kill-matching-buffers)
@@ -31,17 +25,5 @@
 ;;; Project navigation
 (evil-ex-define-cmd "a"           #'projectile-find-other-file)
 
-(evil-define-command +evil:swiper (&optional search)
-  "Invoke `swiper' with SEARCH, otherwise with the symbol at point."
-  (interactive "<a>")
-  (swiper-isearch search))
-(evil-ex-define-cmd "sw[iper]" #'+evil:swiper)
-
-(cond ((featurep! :completion ivy)
-       (evil-ex-define-cmd "pg[rep]"   #'+ivy:project-search)
-       (evil-ex-define-cmd "pg[grep]d" #'+ivy:project-search-from-cwd))
-
-      ((featurep! :completion helm)
-       (evil-ex-define-cmd "pg[rep]"   #'+helm:project-search)
-       (evil-ex-define-cmd "pg[grep]d" #'+helm:project-search-from-cwd)))
-
+(evil-ex-define-cmd "pg[rep]" #'+ivy:project-search)
+(evil-ex-define-cmd "pg[grep]d" #'+ivy:project-search-from-cwd)
