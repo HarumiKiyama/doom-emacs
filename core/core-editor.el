@@ -121,7 +121,8 @@ possible."
 ;; Eliminate duplicates in the kill ring. That is, if you kill the same thing
 ;; twice, you won't have to use M-y twice to get past it to older entries in the
 ;; kill ring.
-(setq kill-do-not-save-duplicates t)
+(setq kill-do-not-save-duplicates t
+      kill-ring-max 20)
 
 ;;
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
