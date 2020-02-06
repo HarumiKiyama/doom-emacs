@@ -131,10 +131,9 @@
   "C-k" #'previous-line-or-history-element)
 
 ;;; :completion
-(map!   :i "M-/"    #'+company/dabbrev
-        (:after company
+(map! (:after company
           (:map company-active-map
-            "C-w"     nil     ; don't interfere with `evil-delete-backward-word'
+            "C-w"     nil    
             "C-n"     #'company-select-next
             "C-p"     #'company-select-previous
             "C-h"     #'company-show-doc-buffer
@@ -327,33 +326,28 @@
           :desc "From clipboard"                "y"   #'+default/yank-pop)
 
         ;;; <leader> n --- notes and yas-snippet
-        ;; TODO search notes in notes directory
         (:prefix-map ("n" . "notes")
-          :desc "Find file in notes"           "f" #'+default/find-in-notes
-          :desc "Search notes for symbol"      "F" #'+default/search-notes-for-symbol-at-point
-          :desc "Search notes"                 "s" #'+default/org-notes-search
-          :desc "create snippet"               "c" #'+snippets/new
-          :desc "edit snippet"                 "e" #'+snippets/edit
-          :desc "view snippets"                "v" #'+snippets/find
-          )
+          :desc "Find file in notes"            "f" #'+default/find-in-notes
+          :desc "Search notes for symbol"       "F" #'+default/search-notes-for-symbol-at-point
+          :desc "Search notes"                  "s" #'+default/org-notes-search
+          :desc "create snippet"                "c" #'+snippets/new
+          :desc "edit snippet"                  "e" #'+snippets/edit
+          :desc "view snippets"                 "v" #'+snippets/find)
 
         ;;; <leader> o --- orgmode
-        ;; TODO add org file search
         (:prefix-map ("o" . "open")
-          :desc "Org agenda"       "a"  #'org-agenda-list
-          (:prefix ("A" . "org agenda")
-            :desc "Agenda"         "a"  #'org-agenda
-            :desc "Todo list"      "t"  #'org-todo-list
-            :desc "Tags search"    "m"  #'org-tags-view
-            :desc "View search"    "v"  #'org-search-view)
+          :desc "Org agenda"                    "a" #'org-agenda-list
+          :desc "Agenda"                        "A" #'org-agenda
           (:prefix ("j" . "journal")
-            :desc "New Entry"      "j" #'org-journal-new-entry
-            :desc "Search Forever" "s" #'org-journal-search-forever)
-          :desc "Pomodoro timer"             "t" #'org-pomodoro
-          :desc "Org capture"                "c" #'org-capture
-          :desc "Goto org-clock"             "o" #'org-clock-goto
-          :desc "Out org-clock"             "x" #'org-clock-out
-          :desc "org-tree-slide mode"        "p" #'+org-present/start)
+            :desc "New Entry"                   "j" #'org-journal-new-entry
+            :desc "Search Forever"              "s" #'org-journal-search-forever)
+          :desc "Pomodoro timer"                "t" #'org-pomodoro
+          :desc "Todo list"                     "T" #'org-todo-list
+          :desc "Goto org-clock"                "o" #'org-clock-goto
+          :desc "Out org-clock"                 "x" #'org-clock-out
+          :desc "org-tree-slide mode"           "p" #'+org-present/start
+          :desc "Tags search"                   "m" #'org-tags-view
+          :desc "View search"                   "v" #'org-search-view)
 
         ;;; <leader> a -- application
         (:prefix-map ("a" . "app")
@@ -361,8 +355,8 @@
             :desc "Docker" "D" #'docker)
           :desc "Toggle eshell popup"   "e" #'+eshell/toggle
           :desc "Open eshell here"      "E" #'+eshell/here
-          :desc "Project sidebar" "p" #'+treemacs/toggle
-          :desc "Find file in project sidebar" "P" #'+treemacs/find-file
+          :desc "Project sidebar"                     "p" #'+treemacs/toggle
+          :desc "Find file in project sidebar"        "P" #'+treemacs/find-file
           :desc "REPL"               "r"  #'+eval/open-repl-other-window
           :desc "Leetcode"           "l"  #'+leetcode/start
           :desc "eww"                "w"  #'eww
