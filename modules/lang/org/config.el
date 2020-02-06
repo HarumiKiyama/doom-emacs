@@ -542,43 +542,35 @@ between the two."
             #'+org-delete-backward-char-and-realign-table-maybe-h)
 
   (map! :map org-mode-map
-        "C-c C-S-l"  #'+org/remove-link
-        "C-c C-i"    #'org-toggle-inline-images
         ;; textmate-esque newline insertion
-        [C-return]   #'+org/insert-item-below
+        [C-return] #'+org/insert-item-below
         [C-S-return] #'+org/insert-item-above
         [C-M-return] #'org-insert-subheading
         (:when IS-MAC
-          [s-return]   #'+org/insert-item-below
+          [s-return] #'+org/insert-item-below
           [s-S-return] #'+org/insert-item-above
           [s-M-return] #'org-insert-subheading)
         ;; Org-aware C-a/C-e
-        [remap doom/backward-to-bol-or-indent]          #'org-beginning-of-line
+        [remap doom/backward-to-bol-or-indent] #'org-beginning-of-line
         [remap doom/forward-to-last-non-comment-or-eol] #'org-end-of-line
 
         :localleader
         "'" #'org-edit-special
         "," #'org-switchb
-        "." #'org-goto
-        (:when (featurep! :completion ivy)
-          "." #'counsel-org-goto
-          "/" #'counsel-org-goto-all)
-        (:when (featurep! :completion helm)
-          "." #'helm-org-in-buffer-headings
-          "/" #'helm-org-agenda-files-headings)
+
+        "." #'counsel-org-goto
+        "/" #'counsel-org-goto-all
         "a" #'org-archive-subtree-default
-        "d" #'org-deadline
+
         "e" #'org-export-dispatch
         "f" #'org-footnote-new
-        "h" #'org-toggle-heading
-        "i" #'org-toggle-item
-        "I" #'org-toggle-inline-images
+        "s" #'org-latex-preview
+        "i" #'org-toggle-inline-images
         "n" #'org-store-link
         "p" #'org-set-property
         "q" #'org-set-tags-command
-        "s" #'org-schedule
-        "t" #'org-todo
-        "T" #'org-todo-list
+        "t" #'org-todo-list
+        "r" #'org-refile                ; to all `org-refile-targets'
         (:prefix ("A" . "attachments")
           "a" #'org-attach
           "d" #'org-attach-delete-one
@@ -595,6 +587,7 @@ between the two."
           "S" #'org-attach-sync
           (:when (featurep! +dragndrop)
             "y" #'org-download-yank))
+
         (:prefix ("b" . "tables")
           "-" #'org-table-insert-hline
           "a" #'org-table-align
@@ -632,32 +625,28 @@ between the two."
           "S" #'org-insert-last-stored-link
           "i" #'org-id-store-link
           "d" #'+org/remove-link)
-        (:prefix ("r" . "refile")
+        (:prefix ("R" . "refile")
           "." #'+org/refile-to-current-file
           "c" #'+org/refile-to-running-clock
           "l" #'+org/refile-to-last-location
           "f" #'+org/refile-to-file
           "o" #'+org/refile-to-other-window
           "O" #'+org/refile-to-other-buffer
-          "v" #'+org/refile-to-visible
-          "r" #'org-refile)) ; to all `org-refile-targets'
+          "v" #'+org/refile-to-visible))
+
 
   (map! :after org-agenda
         :map org-agenda-mode-map
-        :m "C-SPC" #'org-agenda-show-and-scroll-up
         :localleader
         "d" #'org-agenda-deadline
         (:prefix ("c" . "clock")
-          "c" #'org-agenda-clock-in
-          "C" #'org-agenda-clock-out
           "g" #'org-agenda-clock-goto
           "r" #'org-agenda-clockreport-mode
           "s" #'org-agenda-show-clocking-issues
           "x" #'org-agenda-clock-cancel)
         "q" #'org-agenda-set-tags
         "r" #'org-agenda-refile
-        "s" #'org-agenda-schedule
-        "t" #'org-agenda-todo))
+        "s" #'org-agenda-schedule))
 
 
 (defun +org-init-popup-rules-h ()
