@@ -14,7 +14,6 @@
 
 
 (use-package! doom-modeline
-  :unless (featurep! +light)
   :hook (after-init . doom-modeline-mode)
   :init
   (unless after-init-time
@@ -26,10 +25,10 @@
   (setq doom-modeline-bar-width 3
         doom-modeline-github nil
         doom-modeline-mu4e nil
-        doom-modeline-persp-name nil
+        doom-modeline-persp-name t
         doom-modeline-minor-modes nil
         doom-modeline-major-mode-icon nil
-        doom-modeline-buffer-file-name-style 'relative-from-project)
+        doom-modeline-buffer-file-name-style 'truncate-with-project)
 
   ;; Fix modeline icons in daemon-spawned graphical frames. We have our own
   ;; mechanism for disabling all-the-icons, so we don't need doom-modeline to do
