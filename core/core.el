@@ -1,10 +1,5 @@
 ;;; core.el --- the heart of the beast -*- lexical-binding: t; -*-
-
-(when (version< emacs-version "26.1")
-  (error "Detected Emacs %s. Doom only supports Emacs 26.1 and higher"
-         emacs-version))
-
-(defconst doom-version "2.0.9"
+(defconst doom-version "1.0.0"
   "Current version of Doom Emacs.")
 
 (defconst EMACS27+   (> emacs-major-version 26))
