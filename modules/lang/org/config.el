@@ -713,7 +713,7 @@ compelling reason, so..."
   (setq org-crypt-key user-mail-address))
 
 
-(use-package! org-clock ; built-in
+(use-package! org-clock                 ; built-in
   :commands org-clock-save
   :init
   (setq org-clock-persist-file (concat doom-etc-dir "org-clock-save.el"))
@@ -726,10 +726,16 @@ compelling reason, so..."
               org-clock-cancel)
     (org-clock-load))
   :config
-  (setq org-clock-persist 'history
-        ;; Resume when clocking into task with open clock
-        org-clock-in-resume t)
-  (add-hook 'kill-emacs-hook #'org-clock-save))
+  (setq org-clock-in-switch-to-state "START"
+        org-clock-out-switch-to-state "TODO")
+  (defun +org-clock-out-when-killed ()
+    (when (org-clocking-p)
+      (org-clock-goto)
+      (org-clock-out nil t)
+      (save-buffer)))
+  (add-hook 'kill-emacs-hook #'+org-clock-out-when-killed t))
+
+
 
 
 (use-package! org-pdfview

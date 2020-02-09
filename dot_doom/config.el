@@ -80,12 +80,12 @@
           previous-line
           next-line))
   (keyfreq-mode 1)
-  (keyfreq-autosave-mode 1)
+  (keyfreq-autosave-mode 1))
 
-  )
 (use-package! sicp)
 
 (defun org-push-private ()
   "git commit and push to private remote repo"
   (interactive)
   (call-process-shell-command "cd ~/org-mode && git add .&&git commit -m \"$(date +%Y/%m/%d)\"&&git push" nil 0 0))
+(add-hook 'kill-emacs-hook #'org-push-private)
