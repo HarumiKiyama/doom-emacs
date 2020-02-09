@@ -27,7 +27,7 @@
         doom-modeline-mu4e nil
         doom-modeline-persp-name t
         doom-modeline-minor-modes nil
-        doom-modeline-major-mode-icon nil
+        doom-modeline-major-mode-icon t
         doom-modeline-buffer-file-name-style 'truncate-with-project)
 
   ;; Fix modeline icons in daemon-spawned graphical frames. We have our own
@@ -74,14 +74,4 @@
   ;; modified state, so force them to behave.
   (defadvice! +modeline--inhibit-modification-hooks-a (orig-fn &rest args)
     :around #'ws-butler-after-save
-    (with-silent-modifications (apply orig-fn args)))
-
-
-  ;;
-  ;;; Extensions
-  (use-package! anzu
-    :after-call isearch-mode)
-
-  (use-package! evil-anzu
-    :when (featurep! :editor evil)
-    :after-call evil-ex-start-search evil-ex-start-word-search evil-ex-search-activate-highlight))
+    (with-silent-modifications (apply orig-fn args))))

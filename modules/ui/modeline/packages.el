@@ -2,5 +2,3 @@
 ;;; ui/modeline/packages.el
 
 (package! doom-modeline)
-(package! anzu)
-(package! evil-anzu)
