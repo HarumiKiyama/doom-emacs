@@ -30,21 +30,6 @@ Is relative to `org-directory', unless it is absolute. Is used in Doom's default
 Is relative to `org-directory' unless it is absolute. Is used in Doom's default
 `org-capture-templates'.")
 
-(defvar +org-capture-notes-file "notes.org"
-  "Default target for storing notes.
-
-Used as a fall back file for org-capture.el, for templates that do not specify a
-target file.
-
-Is relative to `org-directory', unless it is absolute. Is used in Doom's default
-`org-capture-templates'.")
-
-(defvar +org-capture-journal-file "journal.org"
-  "Default target for storing timestamped journal entries.
-
-Is relative to `org-directory', unless it is absolute. Is used in Doom's default
-`org-capture-templates'.")
-
 (defvar +org-capture-projects-file "projects.org"
   "Default, centralized target for org-capture templates.")
 
@@ -119,8 +104,7 @@ path too.")
                              (nil . (:maxlevel . 2)))
         org-refile-use-outline-path 'file
         org-outline-path-complete-in-steps nil
-        org-archive-location "~/org-mode/archive.org::"
-        )
+        org-archive-location "~/org-mode/archive.org::")
 
   ;; Fontify latex blocks and entities natively
   (setq org-highlight-latex-and-related '(native script entities))
@@ -135,15 +119,12 @@ path too.")
         org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
                                  ("SUSPEND" . (:inherit (bold warning)))
                                  ("ABORT" . (:inherit (bold error)))))
-  (setq org-id-locations-file (concat org-directory ".orgids")
-        org-version "9.3.0"
+  (setq org-version "9.3.0"
         org-startup-truncated nil
         ;; org-journal setting
-        org-journal-date-format "%Y-%m-%d %A"
-        org-journal-time-format ""
-        org-journal-time-prefix ""
         org-startup-folded 'showall
         org-log-into-drawer t)
+
   (defadvice! +org-display-link-in-eldoc-a (orig-fn &rest args)
     "Display full link in minibuffer when cursor/mouse is over it."
     :around #'org-eldoc-documentation-function
@@ -236,6 +217,12 @@ path too.")
              (require 'ob-ammonite nil t))))))
 
 
+(defun +create-algorithm-org-file ()
+  (interactive)
+  (let ((name (read-string "leetcode title:")))
+    (expand-file-name (format "%s.org" name)
+                      "~/projects/AlgorithmPractice/Leetcode/")))
+
 (defun +org-init-capture-defaults-h ()
   "Sets up some reasonable defaults, as well as two `org-capture' workflows that
 I like:
@@ -245,26 +232,13 @@ I like:
 2. Through a org-capture popup frame that is invoked from outside Emacs (the
    ~/.emacs.d/bin/org-capture script). This can be invoked from qutebrowser,
    vimperator, dmenu or a global keybinding."
-  (setq org-default-notes-file
-        (expand-file-name +org-capture-notes-file org-directory)
+  (setq org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-capture-templates
-        '(
-          ("w" "Words" entry (file+headline "Esperanto.org" "Words")
+        '(("w" "Words" entry (file+headline "Esperanto.org" "Words")
            "** word :drill:\n%^{Esperanto}[%^{English}]")
           ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
-          ("a" "Algorithm" entry (file private/create-algorithm-org-file) "* Description\n%?\n* Solution")
+          ("a" "Algorithm" entry (file +create-algorithm-org-file) "* Description\n%?\n* Solution")
           ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
-
-          ("p" "Templates for projects")
-          ("pt" "Project-local todo" entry ; {project-root}/todo.org
-           (file+headline +org-capture-project-todo-file "Inbox")
-           "* TODO %?\n%i\n%a" :prepend t)
-          ("pn" "Project-local notes" entry ; {project-root}/notes.org
-           (file+headline +org-capture-project-notes-file "Inbox")
-           "* %U %?\n%i\n%a" :prepend t)
-          ("pc" "Project-local changelog" entry ; {project-root}/changelog.org
-           (file+headline +org-capture-project-changelog-file "Unreleased")
-           "* %U %?\n%i\n%a" :prepend t)
           ;; Will use {org-directory}/{+org-capture-projects-file} and store
           ;; these under {ProjectName}/{Tasks,Notes,Changelog} headings. They
           ;; support `:parents' to specify what headings to put them under, e.g.
@@ -576,6 +550,7 @@ between the two."
         "q" #'org-set-tags-command
         "t" #'org-todo-list
         "r" #'org-refile                ; to all `org-refile-targets'
+
         (:prefix ("A" . "attachments")
           "a" #'org-attach
           "d" #'org-attach-delete-one
@@ -590,9 +565,7 @@ between the two."
           "u" #'org-attach-url
           "s" #'org-attach-set-directory
           "S" #'org-attach-sync
-          (:when (featurep! +dragndrop)
-            "y" #'org-download-yank))
-
+          "y" #'org-download-yank)
         (:prefix ("b" . "tables")
           "-" #'org-table-insert-hline
           "a" #'org-table-align
@@ -602,7 +575,7 @@ between the two."
           "p" #'org-plot/gnuplot)
         (:prefix ("c" . "clock")
           "c" #'org-clock-in
-          "C" #'org-clock-out
+          "o" #'org-clock-out
           "d" #'org-clock-mark-default-task
           "e" #'org-clock-modify-effort-estimate
           "E" #'org-set-effort
@@ -644,14 +617,8 @@ between the two."
         :map org-agenda-mode-map
         :localleader
         "d" #'org-agenda-deadline
-        (:prefix ("c" . "clock")
-          "g" #'org-agenda-clock-goto
-          "r" #'org-agenda-clockreport-mode
-          "s" #'org-agenda-show-clocking-issues
-          "x" #'org-agenda-clock-cancel)
         "q" #'org-agenda-set-tags
-        "r" #'org-agenda-refile
-        "s" #'org-agenda-schedule))
+        "r" #'org-agenda-refile))
 
 
 (defun +org-init-popup-rules-h ()
@@ -917,10 +884,11 @@ compelling reason, so..."
   (if (featurep! +brain)     (load! "contrib/brain"))
   (if (featurep! +dragndrop) (load! "contrib/dragndrop"))
   (if (featurep! +ipython)   (load! "contrib/ipython"))
-  (if (featurep! +journal)   (load! "contrib/journal"))
   (if (featurep! +jupyter)   (load! "contrib/jupyter"))
-  (if (featurep! +pomodoro)  (load! "contrib/pomodoro"))
   (if (featurep! +present)   (load! "contrib/present"))
+
+  (load! "contrib/pomodoro")
+  (load! "contrib/journal")
 
   ;; In case the user has eagerly loaded org from their configs
   (when (and (featurep 'org)
@@ -935,5 +903,4 @@ compelling reason, so..."
   (setq org-id-track-globally t
         org-id-locations-file (concat org-directory ".orgids")
         org-id-locations-file-relative t)
-
   (add-hook 'org-open-at-point-functions #'doom-set-jump-h))
