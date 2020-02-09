@@ -90,13 +90,14 @@ path too.")
         org-eldoc-breadcrumb-separator " → "
         org-enforce-todo-dependencies t
         org-entities-user
-        '(("flat"  "\\flat" nil "" "" "266D" "♭")
+        '(("flat" "\\flat" nil "" "" "266D" "♭")
           ("sharp" "\\sharp" nil "" "" "266F" "♯"))
         org-fontify-done-headline t
         org-fontify-quote-and-verse-blocks t
         org-fontify-whole-heading-line t
         org-footnote-auto-label 'plain
         org-hide-leading-stars t
+
         org-hide-leading-stars-before-indent-mode t
         org-image-actual-width nil
         org-list-description-max-indent 4
@@ -106,7 +107,10 @@ path too.")
           (?C . (:foreground "gray")))
         org-startup-indented t
         org-tags-column 0
-        org-use-sub-superscripts '{})
+        org-use-sub-superscripts '{}
+        org-tag-alist '(("Routine" . ?r)
+                        ("Algorithms" . ?a)
+                        ("Reading" . ?R)))
 
   (setq org-refile-targets '(("~/org-mode/task.org" :maxlevel . 1)
                              ("~/org-mode/notes.org" :maxlevel . 1)
@@ -114,7 +118,9 @@ path too.")
                              ("~/org-mode/blog.org" :maxlevel . 1)
                              (nil . (:maxlevel . 2)))
         org-refile-use-outline-path 'file
-        org-outline-path-complete-in-steps nil) 
+        org-outline-path-complete-in-steps nil
+        org-archive-location "~/org-mode/archive.org::"
+        )
 
   ;; Fontify latex blocks and entities natively
   (setq org-highlight-latex-and-related '(native script entities))
@@ -129,7 +135,15 @@ path too.")
         org-todo-keyword-faces '(("START" . (:inherit (bold org-scheduled-today)))
                                  ("SUSPEND" . (:inherit (bold warning)))
                                  ("ABORT" . (:inherit (bold error)))))
-
+  (setq org-id-locations-file (concat org-directory ".orgids")
+        org-version "9.3.0"
+        org-startup-truncated nil
+        ;; org-journal setting
+        org-journal-date-format "%Y-%m-%d %A"
+        org-journal-time-format ""
+        org-journal-time-prefix ""
+        org-startup-folded 'showall
+        org-log-into-drawer t)
   (defadvice! +org-display-link-in-eldoc-a (orig-fn &rest args)
     "Display full link in minibuffer when cursor/mouse is over it."
     :around #'org-eldoc-documentation-function
@@ -156,7 +170,7 @@ path too.")
         org-src-window-setup 'other-window
         ;; Our :lang common-lisp module uses sly, so...
         org-babel-lisp-eval-fn #'sly-eval)
-
+  (add-to-list 'org-src-lang-modes '("rust" . rustic))
   ;; I prefer C-c C-c over C-c ' (more consistent)
   (define-key org-src-mode-map (kbd "C-c C-c") #'org-edit-src-exit)
 
@@ -234,20 +248,13 @@ I like:
   (setq org-default-notes-file
         (expand-file-name +org-capture-notes-file org-directory)
         org-capture-templates
-        '(("t" "Personal todo" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* [ ] %?\n%i\n%a" :prepend t)
-          ("n" "Personal notes" entry
-           (file+headline +org-capture-notes-file "Inbox")
-           "* %u %?\n%i\n%a" :prepend t)
-          ("j" "Journal" entry
-           (file+olp+datetree +org-capture-journal-file "Inbox")
-           "* %U %?\n%i\n%a" :prepend t)
+        '(
+          ("w" "Words" entry (file+headline "Esperanto.org" "Words")
+           "** word :drill:\n%^{Esperanto}[%^{English}]")
+          ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
+          ("a" "Algorithm" entry (file private/create-algorithm-org-file) "* Description\n%?\n* Solution")
+          ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
 
-          ;; Will use {project-root}/{todo,notes,changelog}.org, unless a
-          ;; {todo,notes,changelog}.org file is found in a parent directory.
-          ;; Uses the basename from `+org-capture-todo-file',
-          ;; `+org-capture-changelog-file' and `+org-capture-notes-file'.
           ("p" "Templates for projects")
           ("pt" "Project-local todo" entry ; {project-root}/todo.org
            (file+headline +org-capture-project-todo-file "Inbox")
@@ -258,7 +265,6 @@ I like:
           ("pc" "Project-local changelog" entry ; {project-root}/changelog.org
            (file+headline +org-capture-project-changelog-file "Unreleased")
            "* %U %?\n%i\n%a" :prepend t)
-
           ;; Will use {org-directory}/{+org-capture-projects-file} and store
           ;; these under {ProjectName}/{Tasks,Notes,Changelog} headings. They
           ;; support `:parents' to specify what headings to put them under, e.g.
@@ -404,7 +410,6 @@ file isn't in `org-directory'."
     (add-to-list 'org-export-backends 'md))
 
   (use-package! ox-hugo
-    :when (featurep! +hugo)
     :after ox)
 
   (use-package! ox-pandoc
