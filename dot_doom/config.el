@@ -56,11 +56,7 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-(defun private/create-algorithm-org-file ()
-  (interactive)
-  (let ((name (read-string "leetcode title:")))
-    (expand-file-name (format "%s.org" name)
-                      "~/projects/AlgorithmPractice/Leetcode/")))
+
 
 (after! magit
   (setq magit-version "2.90.1.1"))
