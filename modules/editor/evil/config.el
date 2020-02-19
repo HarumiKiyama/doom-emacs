@@ -42,7 +42,7 @@ directives. By default, this only recognizes C directives.")
         ;; cursor appearance
         evil-default-cursor '+evil-default-cursor-fn
         evil-normal-state-cursor 'box
-        evil-emacs-state-cursor  '(bar +evil-emacs-cursor-fn)
+        evil-emacs-state-cursor  '(box +evil-emacs-cursor-fn)
         evil-insert-state-cursor 'bar
         evil-visual-state-cursor '(box "grey")
         ;; must be set before evil/evil-collection is loaded
