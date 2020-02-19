@@ -239,6 +239,7 @@ I like:
           ("e" "Emacs" entry (file+headline "task.org" "Emacs Hacking") "** TODO %?")
           ("a" "Algorithm" entry (file +create-algorithm-org-file) "* Description\n%?\n* Solution")
           ("t" "Trivial" entry (file+headline "task.org" "Trivial") "** TODO %?")
+          ("b" "Blog" entry (file "blog.org") "* SUSPEND %?")
           ;; Will use {org-directory}/{+org-capture-projects-file} and store
           ;; these under {ProjectName}/{Tasks,Notes,Changelog} headings. They
           ;; support `:parents' to specify what headings to put them under, e.g.
@@ -384,7 +385,9 @@ file isn't in `org-directory'."
     (add-to-list 'org-export-backends 'md))
 
   (use-package! ox-hugo
-    :after ox)
+    :after ox
+    :config
+    (setq org-hugo-export-with-toc t))
 
   (use-package! ox-pandoc
     :when (featurep! +pandoc)
