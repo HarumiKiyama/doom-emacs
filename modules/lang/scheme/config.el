@@ -7,9 +7,9 @@
 (use-package! geiser
   :defer t
   :init
-  (setq geiser-active-implementations '(guile chicken mit chibi chez))
-  (unless (featurep! :lang racket)
-    (push 'racket geiser-active-implementations))
+  (setq geiser-active-implementations '(guile mit chez)
+        geiser-default-implementation 'guile
+        scheme-program-name "guile")
   (after! scheme  ; built-in
     (set-repl-handler! 'scheme-mode '+scheme/open-repl)
     (set-eval-handler! 'scheme-mode #'geiser-eval-region)
