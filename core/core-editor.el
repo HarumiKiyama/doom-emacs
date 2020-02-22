@@ -116,6 +116,8 @@ possible."
       require-final-newline t
       tabify-regexp "^\t* [ \t]+")  ; for :retab
 
+(add-hook 'text-mode-hook #'auto-fill-mode)
+
 ;;; Clipboard / kill-ring
 
 ;; Eliminate duplicates in the kill ring. That is, if you kill the same thing
