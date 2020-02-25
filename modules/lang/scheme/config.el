@@ -7,7 +7,7 @@
 (use-package! geiser
   :defer t
   :init
-  (setq geiser-active-implementations '(guile mit chez)
+  (setq geiser-active-implementations '(guile chez)
         geiser-default-implementation 'guile
         scheme-program-name "guile")
   (after! scheme  ; built-in
