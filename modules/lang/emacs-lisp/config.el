@@ -117,7 +117,6 @@ This marks a foldable marker for `outline-minor-mode' in elisp buffers.")
 (autoload 'overseer-test "overseer" nil t)
 (remove-hook 'emacs-lisp-mode-hook 'overseer-enable-mode)
 
-
 (use-package! flycheck-cask
   :when (featurep! :tools flycheck)
   :defer t

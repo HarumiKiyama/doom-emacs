@@ -55,7 +55,7 @@
        :lang
        cc               ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
-       ;;coq               ; proofs-as-programs
+       coq               ; proofs-as-programs
        data             ; config/data formats
        emacs-lisp       ; drown in parentheses
        ;;go                ; the hipster dialect

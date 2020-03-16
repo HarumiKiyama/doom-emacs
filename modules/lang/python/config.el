@@ -26,31 +26,30 @@ called.")
   (set-repl-handler! 'python-mode #'+python/open-repl :persist t)
   (set-docsets! 'python-mode "Python 3" "NumPy" "SciPy")
   (set-pretty-symbols! 'python-mode
-    ;; Functional
-    :def "def"
-    :lambda "lambda"
-    ;; Types
-    :null "None"
-    :true "True" :false "False"
-    :int "int" :str "str"
-    :float "float"
-    :bool "bool"
-    :tuple "tuple"
-    ;; Flow
-    :not "not"
-    :in "in" :not-in "not in"
-    :and "and" :or "or"
-    :for "for"
-    :return "return" :yield "yield")
+                       ;; Functional
+                       :def "def"
+                       :lambda "lambda"
+                       ;; Types
+                       :null "None"
+                       :true "True" :false "False"
+                       :int "int" :str "str"
+                       :float "float"
+                       :bool "bool"
+                       :tuple "tuple"
+                       ;; Flow
+                       :not "not"
+                       :in "in" :not-in "not in"
+                       :and "and" :or "or"
+                       :for "for"
+                       :return "return" :yield "yield")
 
   ;; Stop the spam!
   (setq python-indent-guess-indent-offset-verbose nil)
 
   ;; Default to Python 3. Prefer the versioned Python binaries since some
   ;; systems stupidly make the unversioned one point at Python 2.
-  (when (and (executable-find "python3")
-             (string= python-shell-interpreter "python"))
-    (setq python-shell-interpreter "python3"))
+  (setq python-shell-interpreter "ipython")
+  (setq python-shell-completion-native-enable nil)
 
   (add-hook! 'python-mode-hook
     (defun +python-use-correct-flycheck-executables-h ()
